@@ -1,8 +1,10 @@
 package nerea.protrainer.Views;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import nerea.protrainer.ProTrainer;
 import nerea.protrainer.dto.Exercicis;
@@ -18,17 +20,17 @@ public class PanelMenu extends javax.swing.JPanel {
     private ProTrainer frameMain;
     private List<Usuari> userList = new ArrayList<>();
     private List<Integer> workoutList = new ArrayList<>();
+    private List<Integer> exercises = new ArrayList<>();
 
-    
     public PanelMenu(ProTrainer frameMain) {
         initComponents();
-        setSize(950,620);
-        
+        setSize(950, 620);
+
         this.frameMain = frameMain;
-        
+
         listaUsuarios();
     }
-    
+
     private void listaUsuarios() {
 
         userList = Usuari.usuariosAsignadosInstructor();
@@ -43,49 +45,70 @@ public class PanelMenu extends javax.swing.JPanel {
         jLstUsuario.revalidate();
         jLstUsuario.repaint();
     }
-    
-    private void tablaEntrenamientosUsuario(int userId) {
-        try{
-            ArrayList<Workouts> workouts = Workouts.getWorkoutsUser(userId);    //Array de los usuarios
 
-            // Crear un modelo para la lista
-            DefaultTableModel model= (DefaultTableModel) jTblEntrenamientos.getModel();
-            model.setRowCount(0);
-            
-            for (Workouts workout : workouts) { //Datos de las columnas de la tabla
+    private void tblEntrenamientosUsuario(int userId) {
+
+        try {
+            ArrayList<Workouts> workouts = Workouts.getWorkoutsUser(userId);
+
+            DefaultTableModel tblmodel = (DefaultTableModel) jTblEntrenamientos.getModel();
+            tblmodel.setRowCount(0);
+
+            for (Workouts workout : workouts) {
                 workoutList.add(workout.getId());
-                model.addRow(new Object[]{
-                   //workout.getId(),
-                   workout.getForDate(),
-                  // workout.getUserId(),
-                   workout.getComments()
+                tblmodel.addRow(new Object[]{
+                    workout.getForDate(),
+                    workout.getComments()
                 });
             }
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }  
-    }
-    
-    
-    private void tablaEjerciciosUsuario(int workoutId) {
 
-        ArrayList<Exercicis> exercises = Exercicis.getExercisesInWorkout(workoutId);    //Obtiene la lista de ejercicios asociados al workoutId
-
-        DefaultTableModel tabelModel= (DefaultTableModel) jTblEntrenamientos.getModel();//Modelo de lista para actualizar el jListExercises
-
-        if (exercises.isEmpty()) {
-            tabelModel.addColumn("No exercises available");
-        } else {
-            for (Exercicis exercise : exercises) {
-                tabelModel.addColumn(exercise.getNomExercici() + " - " + exercise.getDescripcio());
+            int filasMinimas = 8;
+            while (tblmodel.getRowCount() < filasMinimas) {
+                tblmodel.addRow(new Object[]{"", ""});
             }
+
+            jTblEntrenamientos.setRowHeight(25);
+
+            JScrollPane scrollPane = (JScrollPane) jTblEntrenamientos.getParent().getParent();
+            scrollPane.setPreferredSize(new Dimension(225, 160));
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        jTblEjercicios.setModel(tabelModel);
     }
     
     
+    private void tblEjerciciosUsuario(int workoutId) {
 
+        try {
+            ArrayList<Exercicis> exercicis = Exercicis.getExercisesInWorkout(workoutId);
+
+            DefaultTableModel tblmodel = (DefaultTableModel) jTblEjercicios.getModel();
+            tblmodel.setRowCount(0);
+
+            for (Exercicis exercici : exercicis) {
+                exercises.add(exercici.getId());
+                tblmodel.addRow(new Object[]{
+                    exercici.getNomExercici(),
+                    exercici.getDescripcio(),
+                    exercici.getDemoFoto()
+                });
+            }
+
+            int filasMinimas = 8;
+            while (tblmodel.getRowCount() < filasMinimas) {
+                tblmodel.addRow(new Object[]{"", ""});
+            }
+
+            jTblEjercicios.setRowHeight(25);
+
+            JScrollPane scrollPane = (JScrollPane) jTblEjercicios.getParent().getParent();
+            scrollPane.setPreferredSize(new Dimension(225, 160));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -97,7 +120,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jLstUsuario = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTblEjercicios = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrllPnEntrenamientos = new javax.swing.JScrollPane();
         jTblEntrenamientos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jBttnAñadirEntrenamiento = new javax.swing.JButton();
@@ -114,7 +137,7 @@ public class PanelMenu extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(950, 620));
         setLayout(null);
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario.png"))); // NOI18N
@@ -125,7 +148,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jScrollPane3.setForeground(new java.awt.Color(0, 0, 0));
 
         jLstUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jLstUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLstUsuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLstUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jLstUsuario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jLstUsuario.setSelectionBackground(new java.awt.Color(0, 153, 153));
@@ -143,9 +166,14 @@ public class PanelMenu extends javax.swing.JPanel {
         add(jPanel3);
         jPanel3.setBounds(0, 0, 440, 620);
 
-        jTblEjercicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153), 3));
+        jTblEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
         jTblEjercicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -163,12 +191,20 @@ public class PanelMenu extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTblEjercicios);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(470, 330, 420, 160);
+        jScrollPane2.setBounds(470, 330, 420, 190);
 
-        jTblEntrenamientos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153), 3));
-        jTblEntrenamientos.setForeground(new java.awt.Color(255, 255, 255));
+        jTblEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTblEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
         jTblEntrenamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -178,13 +214,21 @@ public class PanelMenu extends javax.swing.JPanel {
                 "Fecha", "Comentario"
             }
         ));
+        jTblEntrenamientos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTblEntrenamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTblEntrenamientos.setDropMode(javax.swing.DropMode.ON);
         jTblEntrenamientos.setGridColor(new java.awt.Color(0, 153, 153));
         jTblEntrenamientos.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jTblEntrenamientos.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane5.setViewportView(jTblEntrenamientos);
+        jTblEntrenamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblEntrenamientosMouseClicked(evt);
+            }
+        });
+        jScrllPnEntrenamientos.setViewportView(jTblEntrenamientos);
 
-        add(jScrollPane5);
-        jScrollPane5.setBounds(470, 90, 420, 150);
+        add(jScrllPnEntrenamientos);
+        jScrllPnEntrenamientos.setBounds(470, 90, 420, 190);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -260,16 +304,27 @@ public class PanelMenu extends javax.swing.JPanel {
 
     private void jLstUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLstUsuarioMouseClicked
         int selectedIndex = jLstUsuario.getSelectedIndex();
-    
-        // Verificar que el índice seleccionado sea válido
+
         if (selectedIndex >= 0 && selectedIndex < userList.size()) {
             Usuari selectedUser = userList.get(selectedIndex);
-        
-            // Llama al método para cargar los entrenamientos del usuario seleccionado en la tabla
-            tablaEntrenamientosUsuario(selectedUser.getId());
-        
-        } 
+
+            tblEntrenamientosUsuario(selectedUser.getId());
+
+        }
     }//GEN-LAST:event_jLstUsuarioMouseClicked
+
+    private void jTblEntrenamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblEntrenamientosMouseClicked
+        int selectedRow = jTblEntrenamientos.getSelectedRow();
+
+        if (selectedRow >= 0 && selectedRow < workoutList.size()) {
+
+            int workoutId = workoutList.get(selectedRow);
+
+            tblEjerciciosUsuario(workoutId);
+        } else {
+            System.out.println("Fila no válida");
+        }
+    }//GEN-LAST:event_jTblEntrenamientosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -284,9 +339,9 @@ public class PanelMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jLstUsuario;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrllPnEntrenamientos;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTblEjercicios;
     private javax.swing.JTable jTblEntrenamientos;
     // End of variables declaration//GEN-END:variables
