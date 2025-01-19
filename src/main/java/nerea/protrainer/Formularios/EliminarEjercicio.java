@@ -108,11 +108,10 @@ public class EliminarEjercicio extends javax.swing.JDialog {
                         "Confirm Deletion",
                         javax.swing.JOptionPane.YES_NO_OPTION
                 );
-               
 
                 if (confirm == javax.swing.JOptionPane.YES_OPTION) {
 
-                    boolean success = Exercicis.eliminaExercicis(ejercicios.getId());  // Aquí debes adaptar según tu modelo
+                    boolean success = Exercicis.eliminaExercicis(ejercicios.getId());
 
                     if (success) {
 

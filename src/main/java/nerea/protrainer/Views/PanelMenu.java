@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import nerea.protrainer.Formularios.AsignarEjercicio;
 import nerea.protrainer.Formularios.AñadirEjercicio;
 import nerea.protrainer.Formularios.AñadirEntrenamiento;
 import nerea.protrainer.Formularios.EliminarEjercicio;
@@ -21,7 +22,7 @@ import nerea.protrainer.dto.Workouts;
  * @author Nerea
  */
 public class PanelMenu extends javax.swing.JPanel {
-    
+
     private ProTrainer frameMain;
     private List<Usuari> userList = new ArrayList<>();
     private List<Integer> workoutList = new ArrayList<>();
@@ -32,7 +33,7 @@ public class PanelMenu extends javax.swing.JPanel {
         setSize(950, 620);
 
         this.frameMain = frameMain;
-        
+
         frameMain.showCalendarMenu();
         listaUsuarios();
     }
@@ -82,8 +83,7 @@ public class PanelMenu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
-    
+
     private void tblEjerciciosUsuario(int workoutId) {
 
         try {
@@ -115,12 +115,12 @@ public class PanelMenu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+
     public void actualizarTablas(int userId, int workoutId) {
         tblEntrenamientosUsuario(userId);
         tblEjerciciosUsuario(workoutId);
     }
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -151,7 +151,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconUsuario.png"))); // NOI18N
         jPanel3.add(jLabel1);
         jLabel1.setBounds(140, 30, 130, 130);
 
@@ -250,7 +250,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jLabel2.setBounds(470, 40, 220, 20);
 
         jBttnAñadirEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mas-simbolo-negro.png"))); // NOI18N
+        jBttnAñadirEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAñadir.png"))); // NOI18N
         jBttnAñadirEntrenamiento.setToolTipText("Nuevo entrenamiento");
         jBttnAñadirEntrenamiento.setBorder(null);
         jBttnAñadirEntrenamiento.setBorderPainted(false);
@@ -264,7 +264,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jBttnAñadirEntrenamiento.setBounds(820, 40, 30, 23);
 
         jBttnEliminarEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnEliminarEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton-de-eliminacion-de-linea-horizontal.png"))); // NOI18N
+        jBttnEliminarEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEliminar.png"))); // NOI18N
         jBttnEliminarEntrenamiento.setToolTipText("Eliminar entrenamiento");
         jBttnEliminarEntrenamiento.setBorder(null);
         jBttnEliminarEntrenamiento.setBorderPainted(false);
@@ -283,54 +283,54 @@ public class PanelMenu extends javax.swing.JPanel {
         add(jLabel3);
         jLabel3.setBounds(470, 280, 170, 20);
 
-        jBttnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton-subrayado.png"))); // NOI18N
+        jBttnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEditar.png"))); // NOI18N
         jBttnEditarEjercicio.setToolTipText("Editar ejercicio");
         jBttnEditarEjercicio.setBorder(null);
         jBttnEditarEjercicio.setBorderPainted(false);
         jBttnEditarEjercicio.setContentAreaFilled(false);
-        jBttnEditarEjercicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBttnEditarEjercicioMouseClicked(evt);
+        jBttnEditarEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnEditarEjercicioActionPerformed(evt);
             }
         });
         add(jBttnEditarEjercicio);
-        jBttnEditarEjercicio.setBounds(820, 280, 30, 0);
+        jBttnEditarEjercicio.setBounds(820, 280, 30, 24);
 
-        jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lista-de-tres-elementos-sobre-fondo-negro.png"))); // NOI18N
+        jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAsignar.png"))); // NOI18N
         jBttnAsignarEjercicio.setToolTipText("Asignar ejercicio");
         jBttnAsignarEjercicio.setContentAreaFilled(false);
-        jBttnAsignarEjercicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBttnAsignarEjercicioMouseClicked(evt);
+        jBttnAsignarEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnAsignarEjercicioActionPerformed(evt);
             }
         });
         add(jBttnAsignarEjercicio);
-        jBttnAsignarEjercicio.setBounds(860, 280, 72, 7);
+        jBttnAsignarEjercicio.setBounds(860, 280, 30, 30);
 
-        jBttnEliminaerEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton-de-eliminacion-de-linea-horizontal.png"))); // NOI18N
+        jBttnEliminaerEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEliminar.png"))); // NOI18N
         jBttnEliminaerEjercicio.setToolTipText("Eliminar ejercicio");
         jBttnEliminaerEjercicio.setContentAreaFilled(false);
-        jBttnEliminaerEjercicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBttnEliminaerEjercicioMouseClicked(evt);
+        jBttnEliminaerEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnEliminaerEjercicioActionPerformed(evt);
             }
         });
         add(jBttnEliminaerEjercicio);
-        jBttnEliminaerEjercicio.setBounds(780, 280, 72, 7);
+        jBttnEliminaerEjercicio.setBounds(780, 280, 30, 30);
 
         jBttnAñadirEjercicio.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mas-simbolo-negro.png"))); // NOI18N
+        jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAñadir.png"))); // NOI18N
         jBttnAñadirEjercicio.setToolTipText("Nuevo ejercicio");
         jBttnAñadirEjercicio.setBorder(null);
         jBttnAñadirEjercicio.setBorderPainted(false);
         jBttnAñadirEjercicio.setContentAreaFilled(false);
-        jBttnAñadirEjercicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBttnAñadirEjercicioMouseClicked(evt);
+        jBttnAñadirEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnAñadirEjercicioActionPerformed(evt);
             }
         });
         add(jBttnAñadirEjercicio);
-        jBttnAñadirEjercicio.setBounds(740, 280, 30, 0);
+        jBttnAñadirEjercicio.setBounds(740, 280, 30, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLstUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLstUsuarioMouseClicked
@@ -357,64 +357,9 @@ public class PanelMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTblEntrenamientosMouseClicked
 
-    private void jBttnAñadirEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnAñadirEjercicioMouseClicked
-        try {
-            AñadirEjercicio añadirEjercicio=  new AñadirEjercicio(frameMain, true);
-            añadirEjercicio.setVisible(true);
-
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
-
-                actualizarTablas(userId, -1);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jBttnAñadirEjercicioMouseClicked
-
-    private void jBttnEliminaerEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnEliminaerEjercicioMouseClicked
-       try {
-            EliminarEjercicio eliminarEjercicio=  new EliminarEjercicio(frameMain, true);
-            eliminarEjercicio.setVisible(true);
-
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
-
-                actualizarTablas(userId, -1);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jBttnEliminaerEjercicioMouseClicked
-
-    private void jBttnEditarEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnEditarEjercicioMouseClicked
-         try {
-            ModificarEjercicio modificarEjercicio=  new ModificarEjercicio(frameMain, true);
-            modificarEjercicio.setVisible(true);
-
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
-
-                actualizarTablas(userId, -1);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jBttnEditarEjercicioMouseClicked
-
-    private void jBttnAsignarEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnAsignarEjercicioMouseClicked
-        
-    }//GEN-LAST:event_jBttnAsignarEjercicioMouseClicked
-
     private void jBttnAñadirEntrenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAñadirEntrenamientoActionPerformed
         try {
-            AñadirEntrenamiento añadirEntrenamiento=  new AñadirEntrenamiento(frameMain, true);
+            AñadirEntrenamiento añadirEntrenamiento = new AñadirEntrenamiento(frameMain, true);
             añadirEntrenamiento.setVisible(true); // Muestra el JDialog
 
             int selectedIndex = jLstUsuario.getSelectedIndex();
@@ -445,6 +390,74 @@ public class PanelMenu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jBttnEliminarEntrenamientoActionPerformed
+
+    private void jBttnAñadirEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAñadirEjercicioActionPerformed
+        try {
+            AñadirEjercicio añadirEjercicio = new AñadirEjercicio(frameMain, true);
+            añadirEjercicio.setVisible(true);
+
+            int selectedIndex = jLstUsuario.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int userId = userList.get(selectedIndex).getId();
+
+                actualizarTablas(userId, -1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBttnAñadirEjercicioActionPerformed
+
+    private void jBttnEliminaerEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminaerEjercicioActionPerformed
+        try {
+            EliminarEjercicio eliminarEjercicio = new EliminarEjercicio(frameMain, true);
+            eliminarEjercicio.setVisible(true);
+
+            int selectedIndex = jLstUsuario.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int userId = userList.get(selectedIndex).getId();
+
+                actualizarTablas(userId, -1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBttnEliminaerEjercicioActionPerformed
+
+    private void jBttnEditarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEditarEjercicioActionPerformed
+        try {
+            ModificarEjercicio modificarEjercicio = new ModificarEjercicio(frameMain, true);
+            modificarEjercicio.setVisible(true);
+
+            int selectedIndex = jLstUsuario.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int userId = userList.get(selectedIndex).getId();
+
+                actualizarTablas(userId, -1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBttnEditarEjercicioActionPerformed
+
+    private void jBttnAsignarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAsignarEjercicioActionPerformed
+        try {
+            AsignarEjercicio asignarEjercicio = new AsignarEjercicio(frameMain, true);
+            asignarEjercicio.setVisible(true);
+
+            int selectedIndex = jLstUsuario.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int userId = userList.get(selectedIndex).getId();
+
+                actualizarTablas(userId, -1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBttnAsignarEjercicioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

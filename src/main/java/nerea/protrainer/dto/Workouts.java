@@ -11,11 +11,10 @@ import nerea.protrainer.dataAccess.DataAccess;
 import static nerea.protrainer.dataAccess.DataAccess.getConnection;
 
 /**
-* @author Nerea
-*/
-
+ * @author Nerea
+ */
 public class Workouts {
-    
+
     private int id;
     private String ForDate;
     private String Comments;
@@ -53,14 +52,13 @@ public class Workouts {
     public int getUserId() {
         return this.userId;
     }
-    
+
     public static ArrayList<Workouts> workoutUsuari(int userId) {
         ArrayList<Workouts> workoutsUser = new ArrayList<>();
         String sql = "SELECT * FROM Workouts WHERE UserId = ?";
 
-        try (Connection conn = getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
 
@@ -77,14 +75,13 @@ public class Workouts {
         }
         return workoutsUser;
     }
-    
+
     public static ArrayList<Workouts> workoutsBD() {
         ArrayList<Workouts> allWorkouts = new ArrayList<>();
         String sql = "SELECT * FROM Workouts";
 
-        try(Connection conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)){
-            
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -101,17 +98,16 @@ public class Workouts {
         }
         return allWorkouts;
     }
-    
+
     public static void guardarWorkout(int userId, String comments, String forDate) throws SQLException {
 
         String query = "INSERT INTO Workouts (ForDate, UserId, Comments) VALUES (?, ?, ?)";
 
         try (Connection conn = DataAccess.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Asignar valores a la declaración preparada
-            stmt.setString(1, forDate);  // Asigna ForDate como String en formato "yyyy-MM-dd HH:mm:ss"
-            stmt.setInt(2, userId);  // Asigna UserId
-            stmt.setString(3, comments);  // Asigna Comments
+            stmt.setString(1, forDate);
+            stmt.setInt(2, userId);
+            stmt.setString(3, comments);
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -119,17 +115,15 @@ public class Workouts {
             throw ex;
         }
     }
-    
 
     public static boolean eliminarWorkout(int workoutId) {
 
         String query = "DELETE FROM Workouts WHERE id = ?";
-        try (Connection conn = getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setInt(1, workoutId);
             int rowsAffected = ps.executeUpdate();
-            
+
             return rowsAffected > 0;
 
         } catch (SQLException e) {

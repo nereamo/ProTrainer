@@ -121,7 +121,7 @@ public class AñadirEjercicio extends javax.swing.JDialog {
         if (nombre.isEmpty() || descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre y una descripción.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            saveExerciseBD(nombre, descripcion); //Llamara al metodo que guarda el ejercicio en la BD
+            saveExerciseBD(nombre, descripcion); 
         }
     }//GEN-LAST:event_jBttnGuardarActionPerformed
 

@@ -25,11 +25,11 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         setSize(400, 300);
         setLocationRelativeTo(this);
         
-        allUsers();
+        usuariosInstructor();
         iniciarComboBox();
     }
     
-    private void allUsers() {
+    private void usuariosInstructor() {
 
         userList = Usuari.usuariosAsignadosInstructor(); 
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
@@ -44,7 +44,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
     private void iniciarComboBox() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
-        model.addElement("Usuario");
+        model.addElement("---Usuario---");
 
         for (Usuari usuario : userList) {
             model.addElement(usuario.getNom());

@@ -51,7 +51,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/usuario.png"/>
+              <Image iconType="3" name="/images/iconUsuario.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -234,7 +234,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/mas-simbolo-negro.png"/>
+          <Image iconType="3" name="/images/bttnA&#xf1;adir.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Nuevo entrenamiento"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -258,7 +258,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/boton-de-eliminacion-de-linea-horizontal.png"/>
+          <Image iconType="3" name="/images/bttnEliminar.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Eliminar entrenamiento"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -295,7 +295,7 @@
     <Component class="javax.swing.JButton" name="jBttnEditarEjercicio">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/boton-subrayado.png"/>
+          <Image iconType="3" name="/images/bttnEditar.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Editar ejercicio"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -305,7 +305,7 @@
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBttnEditarEjercicioMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBttnEditarEjercicioActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -316,34 +316,34 @@
     <Component class="javax.swing.JButton" name="jBttnAsignarEjercicio">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/lista-de-tres-elementos-sobre-fondo-negro.png"/>
+          <Image iconType="3" name="/images/bttnAsignar.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Asignar ejercicio"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBttnAsignarEjercicioMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBttnAsignarEjercicioActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="860" y="280" width="-1" height="-1"/>
+          <AbsoluteConstraints x="860" y="280" width="-1" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="jBttnEliminaerEjercicio">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/boton-de-eliminacion-de-linea-horizontal.png"/>
+          <Image iconType="3" name="/images/bttnEliminar.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Eliminar ejercicio"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBttnEliminaerEjercicioMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBttnEliminaerEjercicioActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="780" y="280" width="-1" height="-1"/>
+          <AbsoluteConstraints x="780" y="280" width="-1" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -353,7 +353,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/mas-simbolo-negro.png"/>
+          <Image iconType="3" name="/images/bttnA&#xf1;adir.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Nuevo ejercicio"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -363,11 +363,11 @@
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBttnA&#xf1;adirEjercicioMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBttnA&#xf1;adirEjercicioActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="740" y="280" width="30" height="-1"/>
+          <AbsoluteConstraints x="740" y="280" width="30" height="30"/>
         </Constraint>
       </Constraints>
     </Component>

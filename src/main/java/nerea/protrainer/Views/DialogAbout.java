@@ -19,7 +19,6 @@ public class DialogAbout extends javax.swing.JDialog {
         setSize(450,200);
         setLocationRelativeTo(this);
         
-        //Texto que se mostrará en el 'About'
         String aboutText = "<html><h2>Nerea Montoya</h2>" +
                            "<p>Curso: DAM</p>" +
                            "<p>Módulo: Desarrollo de Interfaces</p>" +

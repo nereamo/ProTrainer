@@ -57,11 +57,6 @@ public class DialogLogin extends javax.swing.JDialog {
         jTxtFldEmail.setForeground(new java.awt.Color(0, 0, 0));
         jTxtFldEmail.setText("a@b.c");
         jTxtFldEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jTxtFldEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtFldEmailActionPerformed(evt);
-            }
-        });
         jPanel1.add(jTxtFldEmail);
         jTxtFldEmail.setBounds(170, 60, 200, 30);
 
@@ -107,10 +102,6 @@ public class DialogLogin extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTxtFldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFldEmailActionPerformed
-
-    }//GEN-LAST:event_jTxtFldEmailActionPerformed
 
     private void jBttnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnLogInActionPerformed
 

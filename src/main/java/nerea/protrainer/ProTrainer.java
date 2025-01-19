@@ -6,46 +6,47 @@ import nerea.protrainer.Views.DialogCalendar;
 import nerea.protrainer.Views.DialogLogin;
 import nerea.protrainer.Views.PanelMenu;
 import nerea.protrainer.dto.Usuari;
+
 /**
  *
  * @author Nerea
  */
 public class ProTrainer extends javax.swing.JFrame {
-    
+
     private PanelMenu panelMenu;
     private static Usuari loggedInstructor;
-    
+
     public ProTrainer() {
         initComponents();
         setSize(950, 620);
         setLocationRelativeTo(this);
 
-        panelMenu = new PanelMenu(this); //Instancia del JPanelUSers
+        panelMenu = new PanelMenu(this);
         getContentPane().add(panelMenu);
-        panelMenu.setVisible(false); //Ocultar inicialmente  
-        
-        jMnuCalendar.setVisible(false);  
+        panelMenu.setVisible(false);
+
+        jMnuCalendar.setVisible(false);
     }
-    
+
     public void setLoggedInstructor(Usuari instructor) {
-        this.loggedInstructor = instructor; 
+        this.loggedInstructor = instructor;
     }
 
     public static Usuari getLoggedInstructor() {
-        return loggedInstructor; 
+        return loggedInstructor;
     }
-    
+
     public void showPanel() {
 
         PanelMenu pnlMenu = new PanelMenu(this);
         this.getContentPane().removeAll();
         this.getContentPane().add(pnlMenu);
         this.revalidate();
-        this.repaint(); 
+        this.repaint();
     }
-    
+
     public void showCalendarMenu() {
-        jMnuCalendar.setVisible(true); // Método para hacer visible el menú
+        jMnuCalendar.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,7 +94,7 @@ public class ProTrainer extends javax.swing.JFrame {
         jLblWeb.setBounds(882, 490, 40, 30);
 
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
-        jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario1.png"))); // NOI18N
+        jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loginUsuario.png"))); // NOI18N
         jBttnAccess.setToolTipText("Login");
         jBttnAccess.setBorder(null);
         jBttnAccess.setBorderPainted(false);
@@ -106,7 +107,7 @@ public class ProTrainer extends javax.swing.JFrame {
         jPnlMain.add(jBttnAccess);
         jBttnAccess.setBounds(400, 450, 140, 90);
 
-        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PRO.png"))); // NOI18N
+        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         jPnlMain.add(jLblIcon);
         jLblIcon.setBounds(210, 80, 510, 210);
 
@@ -191,15 +192,15 @@ public class ProTrainer extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     private void jBttnAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAccessActionPerformed
-        DialogLogin dl = new DialogLogin(this, true); 
+        DialogLogin dl = new DialogLogin(this, true);
         dl.setVisible(true);
     }//GEN-LAST:event_jBttnAccessActionPerformed
 
     private void jLblWebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblWebMouseClicked
-         try {
-           
-            String url = "http://www.ejemplo.com"; 
-            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url)); 
+        try {
+
+            String url = "http://www.ejemplo.com";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,14 +208,14 @@ public class ProTrainer extends javax.swing.JFrame {
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cerrar la aplicación?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
-        
+
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void jMnuCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMnuCalendarMouseClicked
-        DialogCalendar dc = new DialogCalendar(this,true);
+        DialogCalendar dc = new DialogCalendar(this, true);
         dc.setVisible(true);
     }//GEN-LAST:event_jMnuCalendarMouseClicked
 
@@ -223,7 +224,6 @@ public class ProTrainer extends javax.swing.JFrame {
         da.setVisible(true);
     }//GEN-LAST:event_jMnuAboutMouseClicked
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

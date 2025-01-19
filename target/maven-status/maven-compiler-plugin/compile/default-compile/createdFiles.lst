@@ -16,6 +16,7 @@ nerea\protrainer\Views\PanelMenu$8.class
 nerea\protrainer\Formularios\AñadirEjercicio$1.class
 nerea\protrainer\Formularios\ModificarEjercicio$2.class
 nerea\protrainer\dataAccess\DataAccess.class
+nerea\protrainer\Formularios\AsignarEjercicio$3.class
 nerea\protrainer\Formularios\AñadirEntrenamiento.class
 nerea\protrainer\Views\PanelMenu$5.class
 nerea\protrainer\ProTrainer$2.class
@@ -25,11 +26,13 @@ nerea\protrainer\ProTrainer$5.class
 nerea\protrainer\dto\ExercicisWorkouts.class
 nerea\protrainer\dto\Exercicis.class
 nerea\protrainer\Views\PanelMenu$2.class
+nerea\protrainer\Formularios\AsignarEjercicio$2.class
 nerea\protrainer\ProTrainer$6.class
 nerea\protrainer\Formularios\EliminarEntrenamiento$2.class
 nerea\protrainer\ProTrainer.class
 nerea\protrainer\Formularios\AñadirEjercicio$2.class
 nerea\protrainer\Views\PanelMenu$6.class
+nerea\protrainer\Formularios\ModificarEjercicio$4.class
 nerea\protrainer\dto\Workouts.class
 nerea\protrainer\Formularios\AñadirEntrenamiento$1.class
 nerea\protrainer\Views\DialogAbout.class
@@ -38,7 +41,6 @@ nerea\protrainer\Formularios\EliminarEjercicio$1.class
 nerea\protrainer\ProTrainer$7.class
 nerea\protrainer\Views\DialogAbout$1.class
 nerea\protrainer\ProTrainer$3.class
-nerea\protrainer\Views\DialogLogin$2.class
 nerea\protrainer\Formularios\AñadirEjercicio$3.class
 nerea\protrainer\Formularios\ModificarEjercicio$1.class
 nerea\protrainer\Formularios\EliminarEntrenamiento$1.class

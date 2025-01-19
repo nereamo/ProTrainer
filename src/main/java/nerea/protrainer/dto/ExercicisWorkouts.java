@@ -17,7 +17,6 @@ public class ExercicisWorkouts {
     private int idWorkout;
     private int idExercici;
 
-    // Getters y setters
     public int getId() {
         return id;
     }
@@ -44,12 +43,12 @@ public class ExercicisWorkouts {
 
     public List<Exercicis> exercicisDelWorkout(int workoutId) {
         List<Exercicis> exercises = new ArrayList<>();
-        
+
         String sql = "SELECT e.Id, e.NomExercici, e.Descripcio "
                 + "FROM Exercicis e "
                 + "JOIN ExercicisWorkouts ew ON e.Id = ew.IdExercici "
                 + "WHERE ew.IdWorkout = ?";
-        
+
         try (Connection conn = DataAccess.getConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -72,13 +71,12 @@ public class ExercicisWorkouts {
 
     public List<Workouts> WorkoutDelExercici(int exerciciId) {
         List<Workouts> workouts = new ArrayList<>();
-        
+
         String sql = "SELECT w.* FROM Workouts w "
                 + "JOIN EjercicisWorkouts ew ON w.Id = ew.IdWorkout "
                 + "WHERE ew.IdExercici = ?";
 
-        try (Connection conn = DataAccess.getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DataAccess.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, exerciciId);
             ResultSet rs = ps.executeQuery();
@@ -101,8 +99,7 @@ public class ExercicisWorkouts {
 
         String sql = "INSERT INTO ExercicisWorkouts (idWorkout, idExercici) VALUES (?, ?)";
 
-        try (Connection conn = DataAccess.getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DataAccess.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, workoutExercici.getIdWorkout());
             ps.setInt(2, workoutExercici.getIdExercici());

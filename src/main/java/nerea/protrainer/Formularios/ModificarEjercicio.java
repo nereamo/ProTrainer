@@ -1,5 +1,7 @@
 package nerea.protrainer.Formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,19 +26,14 @@ public class ModificarEjercicio extends javax.swing.JDialog {
         setSize(400, 300);
         setLocationRelativeTo(this);
 
-        listaEjercicios();
+        comboBoxEjercicios();
         iniciarComboBox();
-    }
-
-    private void listaEjercicios() {
-
-        ejerciciosList = Exercicis.exercicisBD();
     }
 
     private void iniciarComboBox() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
-        model.addElement("Ejercicio");
+        model.addElement("---Ejercicio---");
 
         for (Exercicis ejercicios : ejerciciosList) {
             model.addElement(ejercicios.getNomExercici() + " - " + ejercicios.getDescripcio());
@@ -45,19 +42,27 @@ public class ModificarEjercicio extends javax.swing.JDialog {
         jCmbBxEjercicios.setModel(model);
         jCmbBxEjercicios.setSelectedIndex(0);
 
-        jCmbBxEjercicios.addActionListener(evt -> {
-            int selectedIndex = jCmbBxEjercicios.getSelectedIndex();
-            if (selectedIndex > 0) { // Ignorar la opción "Ejercicio"
-                exercise = ejerciciosList.get(selectedIndex - 1);
-                // Actualizar los campos de texto con los datos del ejercicio seleccionado
-                jTxtFldNombreEjercicio.setText(exercise.getNomExercici());
-                jTxtFldDescripcion.setText(exercise.getDescripcio());
-            } else {
-                exercise = null; // Ningún ejercicio seleccionado
-                jTxtFldNombreEjercicio.setText("Nuevo nombre");
-                jTxtFldDescripcion.setText("Descripcion");
+        jCmbBxEjercicios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                int selectedIndex = jCmbBxEjercicios.getSelectedIndex();
+                if (selectedIndex > 0) {
+                    exercise = ejerciciosList.get(selectedIndex - 1);
+
+                    jTxtFldNombreEjercicio.setText(exercise.getNomExercici());
+                    jTxtFldDescripcion.setText(exercise.getDescripcio());
+                } else {
+                    exercise = null;
+                    jTxtFldNombreEjercicio.setText("Nuevo nombre");
+                    jTxtFldDescripcion.setText("Descripcion");
+                }
             }
         });
+    }
+    
+    private void comboBoxEjercicios() {
+
+        ejerciciosList = Exercicis.exercicisBD();
     }
 
     private boolean updateExerciseInDatabase(Exercicis exercise) {

@@ -59,7 +59,7 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
     private void iniciarComboBox() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
-        model.addElement("Usuario");
+        model.addElement("---Usuario---");
 
         for (Usuari usuario : userList) {
             model.addElement(usuario.getNom());
@@ -171,7 +171,6 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
                         "Confirm Deletion",
                         javax.swing.JOptionPane.YES_NO_OPTION
                 );
-                
 
                 if (confirm == javax.swing.JOptionPane.YES_OPTION) {
 
