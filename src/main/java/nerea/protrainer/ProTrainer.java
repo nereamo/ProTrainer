@@ -2,7 +2,8 @@ package nerea.protrainer;
 
 import javax.swing.JOptionPane;
 import nerea.protrainer.Views.DialogAbout;
-import nerea.protrainer.Views.LoginDialog;
+import nerea.protrainer.Views.DialogCalendar;
+import nerea.protrainer.Views.DialogLogin;
 import nerea.protrainer.Views.PanelMenu;
 import nerea.protrainer.dto.Usuari;
 /**
@@ -21,8 +22,9 @@ public class ProTrainer extends javax.swing.JFrame {
 
         panelMenu = new PanelMenu(this); //Instancia del JPanelUSers
         getContentPane().add(panelMenu);
-        panelMenu.setVisible(false); //Ocultar inicialmente   
+        panelMenu.setVisible(false); //Ocultar inicialmente  
         
+        jMnuCalendar.setVisible(false);  
     }
     
     public void setLoggedInstructor(Usuari instructor) {
@@ -35,14 +37,17 @@ public class ProTrainer extends javax.swing.JFrame {
     
     public void showPanel() {
 
-        PanelMenu pnlWorkouts = new PanelMenu(this);
+        PanelMenu pnlMenu = new PanelMenu(this);
         this.getContentPane().removeAll();
-        this.getContentPane().add(pnlWorkouts);
+        this.getContentPane().add(pnlMenu);
         this.revalidate();
-        this.repaint();
+        this.repaint(); 
     }
     
-    
+    public void showCalendarMenu() {
+        jMnuCalendar.setVisible(true); // Método para hacer visible el menú
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -58,7 +63,7 @@ public class ProTrainer extends javax.swing.JFrame {
         jMenuItemLogout = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMnuAbout = new javax.swing.JMenu();
-        jMenuItemAbout = new javax.swing.JMenuItem();
+        jMnuCalendar = new javax.swing.JMenu();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -77,17 +82,19 @@ public class ProTrainer extends javax.swing.JFrame {
         jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
         jLblWeb.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLblWeb.setForeground(new java.awt.Color(0, 0, 0));
-        jLblWeb.setText("Visita nuestro sitio Web");
+        jLblWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exterior.png"))); // NOI18N
+        jLblWeb.setToolTipText("Web");
         jLblWeb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLblWebMouseClicked(evt);
             }
         });
         jPnlMain.add(jLblWeb);
-        jLblWeb.setBounds(740, 500, 170, 20);
+        jLblWeb.setBounds(882, 490, 40, 30);
 
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
         jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario1.png"))); // NOI18N
+        jBttnAccess.setToolTipText("Login");
         jBttnAccess.setBorder(null);
         jBttnAccess.setBorderPainted(false);
         jBttnAccess.setContentAreaFilled(false);
@@ -115,7 +122,9 @@ public class ProTrainer extends javax.swing.JFrame {
         jMnuBar.setOpaque(true);
 
         jMnuMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/list.png"))); // NOI18N
+        jMnuMenu.setToolTipText("Salir");
         jMnuMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMnuMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMnuMenu.setMaximumSize(new java.awt.Dimension(60, 60));
         jMnuMenu.setPreferredSize(new java.awt.Dimension(38, 38));
 
@@ -142,20 +151,29 @@ public class ProTrainer extends javax.swing.JFrame {
         jMnuBar.add(jMnuMenu);
 
         jMnuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png"))); // NOI18N
+        jMnuAbout.setToolTipText("Informacion");
         jMnuAbout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMnuAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMnuAbout.setMinimumSize(new java.awt.Dimension(38, 38));
         jMnuAbout.setPreferredSize(new java.awt.Dimension(38, 38));
-
-        jMenuItemAbout.setText("About");
-        jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAboutActionPerformed(evt);
+        jMnuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMnuAboutMouseClicked(evt);
             }
         });
-        jMnuAbout.add(jMenuItemAbout);
-
         jMnuBar.add(jMnuAbout);
+
+        jMnuCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnPlaner.png"))); // NOI18N
+        jMnuCalendar.setToolTipText("Calendario");
+        jMnuCalendar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMnuCalendar.setMinimumSize(new java.awt.Dimension(38, 38));
+        jMnuCalendar.setPreferredSize(new java.awt.Dimension(38, 38));
+        jMnuCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMnuCalendarMouseClicked(evt);
+            }
+        });
+        jMnuBar.add(jMnuCalendar);
 
         setJMenuBar(jMnuBar);
 
@@ -173,8 +191,8 @@ public class ProTrainer extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     private void jBttnAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAccessActionPerformed
-        LoginDialog buttonAcces = new LoginDialog(this, true); 
-        buttonAcces.setVisible(true);
+        DialogLogin dl = new DialogLogin(this, true); 
+        dl.setVisible(true);
     }//GEN-LAST:event_jBttnAccessActionPerformed
 
     private void jLblWebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblWebMouseClicked
@@ -195,11 +213,15 @@ public class ProTrainer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void jMenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAboutActionPerformed
-        
-        DialogAbout aboutDialog = new DialogAbout(this, true);
-        aboutDialog.setVisible(true);
-    }//GEN-LAST:event_jMenuItemAboutActionPerformed
+    private void jMnuCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMnuCalendarMouseClicked
+        DialogCalendar dc = new DialogCalendar(this,true);
+        dc.setVisible(true);
+    }//GEN-LAST:event_jMnuCalendarMouseClicked
+
+    private void jMnuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMnuAboutMouseClicked
+        DialogAbout da = new DialogAbout(this, true);
+        da.setVisible(true);
+    }//GEN-LAST:event_jMnuAboutMouseClicked
 
     
     public static void main(String args[]) {
@@ -241,11 +263,11 @@ public class ProTrainer extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemLogout;
     private javax.swing.JMenu jMnuAbout;
     private javax.swing.JMenuBar jMnuBar;
+    private javax.swing.JMenu jMnuCalendar;
     private javax.swing.JMenu jMnuMenu;
     private javax.swing.JPanel jPnlMain;
     // End of variables declaration//GEN-END:variables

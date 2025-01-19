@@ -1,4 +1,3 @@
-
 package nerea.protrainer.dto;
 
 import java.sql.Connection;
@@ -55,61 +54,47 @@ public class Workouts {
         return this.userId;
     }
     
-    
-    //ArrayList que almacena los workouts asignados a un usuario
-    public static ArrayList<Workouts> getWorkoutsUser(int userId) {
+    public static ArrayList<Workouts> workoutUsuari(int userId) {
         ArrayList<Workouts> workoutsUser = new ArrayList<>();
         String sql = "SELECT * FROM Workouts WHERE UserId = ?";
 
-        Connection connection = getConnection();
+        try (Connection conn = getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
 
-        try {
-
-            PreparedStatement selectStatement = connection.prepareStatement(sql);
-            selectStatement.setInt(1, userId);
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            while (resultSet.next()) {
+            while (rs.next()) {
                 Workouts workout = new Workouts();
-                workout.setId(resultSet.getInt("Id"));
-                workout.setForDate(resultSet.getString("ForDate"));
-                workout.setComments(resultSet.getString("Comments"));
+                workout.setId(rs.getInt("Id"));
+                workout.setForDate(rs.getString("ForDate"));
+                workout.setComments(rs.getString("Comments"));
                 workoutsUser.add(workout);
             }
-
-            selectStatement.close();
-            connection.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
         return workoutsUser;
     }
-
     
-    //Array que devuelve todos los Workouts de la BD
-    public static ArrayList<Workouts> getAllWorkouts() {
+    public static ArrayList<Workouts> workoutsBD() {
         ArrayList<Workouts> allWorkouts = new ArrayList<>();
         String sql = "SELECT * FROM Workouts";
 
-        Connection connection = getConnection();
+        try(Connection conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            
+            ResultSet rs = ps.executeQuery();
 
-        try {
-
-            PreparedStatement selectStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            while (resultSet.next()) {
+            while (rs.next()) {
                 Workouts workout = new Workouts();
-                workout.setId(resultSet.getInt("Id"));
-                workout.setForDate(resultSet.getString("ForDate"));
-                workout.setUserId(resultSet.getInt("UserId"));
-                workout.setComments(resultSet.getString("Comments"));
+                workout.setId(rs.getInt("Id"));
+                workout.setForDate(rs.getString("ForDate"));
+                workout.setUserId(rs.getInt("UserId"));
+                workout.setComments(rs.getString("Comments"));
                 allWorkouts.add(workout);
             }
-
-            selectStatement.close();
-            connection.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,23 +102,39 @@ public class Workouts {
         return allWorkouts;
     }
     
-    //Consulta en la BD para poder eliminar un workout existente
-    public static boolean deleteWorkout(int workoutId) {
-        try {
-            
-            String query = "DELETE FROM Workouts WHERE id = ?";
-            Connection connection = getConnection();
+    public static void guardarWorkout(int userId, String comments, String forDate) throws SQLException {
 
-            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        String query = "INSERT INTO Workouts (ForDate, UserId, Comments) VALUES (?, ?, ?)";
 
-                stmt.setInt(1, workoutId);
-                int rowsAffected = stmt.executeUpdate();
-                return rowsAffected > 0;  // Si se eliminó al menos una fila, es exitoso
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;  // En caso de error, retornar false
+        try (Connection conn = DataAccess.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Asignar valores a la declaración preparada
+            stmt.setString(1, forDate);  // Asigna ForDate como String en formato "yyyy-MM-dd HH:mm:ss"
+            stmt.setInt(2, userId);  // Asigna UserId
+            stmt.setString(3, comments);  // Asigna Comments
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Workouts.class.getName()).log(Level.SEVERE, "Error al guardar el workout", ex);
+            throw ex;
         }
     }
+    
 
+    public static boolean eliminarWorkout(int workoutId) {
+
+        String query = "DELETE FROM Workouts WHERE id = ?";
+        try (Connection conn = getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, workoutId);
+            int rowsAffected = ps.executeUpdate();
+            
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

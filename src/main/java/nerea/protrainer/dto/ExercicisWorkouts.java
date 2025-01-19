@@ -1,4 +1,3 @@
-
 package nerea.protrainer.dto;
 
 import java.sql.Connection;
@@ -10,11 +9,10 @@ import java.util.List;
 import nerea.protrainer.dataAccess.DataAccess;
 
 /**
-* @author Nerea
-*/
-
+ * @author Nerea
+ */
 public class ExercicisWorkouts {
-    
+
     private int id;
     private int idWorkout;
     private int idExercici;
@@ -44,23 +42,25 @@ public class ExercicisWorkouts {
         this.idExercici = idExercici;
     }
 
-    //Arraylist que contiene los ejercicios de un workout
-    public List<Exercicis> getExercisesByWorkout(int workoutId) {
+    public List<Exercicis> exercicisDelWorkout(int workoutId) {
         List<Exercicis> exercises = new ArrayList<>();
-        String query = "SELECT e.Id, e.NomExercici, e.Descripcio "
+        
+        String sql = "SELECT e.Id, e.NomExercici, e.Descripcio "
                 + "FROM Exercicis e "
                 + "JOIN ExercicisWorkouts ew ON e.Id = ew.IdExercici "
                 + "WHERE ew.IdWorkout = ?";
-        try (Connection connection = DataAccess.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        
+        try (Connection conn = DataAccess.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, workoutId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ps.setInt(1, workoutId);
+            ResultSet rs = ps.executeQuery();
 
-            while (resultSet.next()) {
+            while (rs.next()) {
                 Exercicis exercici = new Exercicis(
-                        resultSet.getInt("Id"),
-                        resultSet.getString("NomExercici"),
-                        resultSet.getString("Descripcio")
+                        rs.getInt("Id"),
+                        rs.getString("NomExercici"),
+                        rs.getString("Descripcio")
                 );
                 exercises.add(exercici);
             }
@@ -70,24 +70,24 @@ public class ExercicisWorkouts {
         return exercises;
     }
 
-    //Arraylist que almacena los workouts asociados a un ejercicio
-    public List<Workouts> getWorkoutsByExercise(int exerciciId) {
+    public List<Workouts> WorkoutDelExercici(int exerciciId) {
         List<Workouts> workouts = new ArrayList<>();
-        String query = "SELECT w.* FROM Workouts w "
+        
+        String sql = "SELECT w.* FROM Workouts w "
                 + "JOIN EjercicisWorkouts ew ON w.Id = ew.IdWorkout "
                 + "WHERE ew.IdExercici = ?";
 
-        try (Connection connection = DataAccess.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection conn = DataAccess.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, exerciciId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ps.setInt(1, exerciciId);
+            ResultSet rs = ps.executeQuery();
 
-            while (resultSet.next()) {
+            while (rs.next()) {
                 Workouts workout = new Workouts();
-                workout.setId(resultSet.getInt("Id"));
-                workout.setForDate(resultSet.getString("ForDate"));  
-                workout.setComments(resultSet.getString("Comments")); 
+                workout.setId(rs.getInt("Id"));
+                workout.setForDate(rs.getString("ForDate"));
+                workout.setComments(rs.getString("Comments"));
                 workouts.add(workout);
             }
         } catch (SQLException e) {
@@ -96,26 +96,17 @@ public class ExercicisWorkouts {
 
         return workouts;
     }
-    
-    
-    //Metodo para insertar ejercicios en un Workout seleccionado
-    public void insertExerciseInWorkout(ExercicisWorkouts workoutExercici) throws SQLException {
-        // Establecer conexión a la base de datos
-        Connection conn = null;
-        PreparedStatement ps = null;
 
-        try {
-            conn = DataAccess.getConnection();
+    public void asignarExerciciWorkout(ExercicisWorkouts workoutExercici) throws SQLException {
 
-            // Crear la consulta SQL para insertar el ejercicio en el workout
-            String sql = "INSERT INTO ExercicisWorkouts (idWorkout, idExercici) VALUES (?, ?)";
-            ps = conn.prepareStatement(sql);
+        String sql = "INSERT INTO ExercicisWorkouts (idWorkout, idExercici) VALUES (?, ?)";
 
-            // Establecer los parámetros del PreparedStatement
+        try (Connection conn = DataAccess.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, workoutExercici.getIdWorkout());
             ps.setInt(2, workoutExercici.getIdExercici());
 
-            // Ejecutar la inserción
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -125,17 +116,8 @@ public class ExercicisWorkouts {
             }
 
         } catch (SQLException e) {
-            // Manejo de errores de base de datos
-            throw new SQLException("Error al insertar en la base de datos", e);
-        } finally {
-            // Cerrar los recursos
-            if (ps != null) {
-                ps.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+
+            e.printStackTrace();
         }
     }
-
 }

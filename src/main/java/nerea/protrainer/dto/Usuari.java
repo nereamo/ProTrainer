@@ -73,24 +73,24 @@ public class Usuari {
         this.Instructor = Instructor;
     }
 
-    //Metodo compara el email introducido con la BD
-    public static Usuari loggedUsuari(String emailInstructor) {
+
+    public static Usuari loginUsuari(String emailInstructor) {
         Usuari user = new Usuari();
         String sql = "SELECT * FROM Usuaris WHERE Email=?"; 
 
-        try(Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql)){
+        try(Connection conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
   
             ps.setString(1, emailInstructor); 
-            ResultSet resultSet = ps.executeQuery();   
+            ResultSet rs = ps.executeQuery();   
 
-            while (resultSet.next()) {
+            while (rs.next()) {
 
-                user.setId(resultSet.getInt("Id"));
-                user.setNom(resultSet.getString("Nom"));
-                user.setEmail(resultSet.getString("Email"));
-                user.setPasswordHash(resultSet.getString("PasswordHash"));
-                user.setInstructor(resultSet.getBoolean("Instructor"));
+                user.setId(rs.getInt("Id"));
+                user.setNom(rs.getString("Nom"));
+                user.setEmail(rs.getString("Email"));
+                user.setPasswordHash(rs.getString("PasswordHash"));
+                user.setInstructor(rs.getBoolean("Instructor"));
             }
 
         } catch (SQLException ex) {
@@ -107,24 +107,26 @@ public class Usuari {
         if (instructor == null) {
             return usuaris;
         }
+        
         int instructorId = instructor.getId();
 
         String sql = "SELECT * FROM Usuaris WHERE AssignedInstructor = ? AND Instructor != 1";
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {  // Cierre del paréntesis corregido
+        try (Connection conn = getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {  // Cierre del paréntesis corregido
 
-            stmt.setInt(1, instructorId);
+            ps.setInt(1, instructorId);
 
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            while (resultSet.next()) {
+            while (rs.next()) {
                 Usuari user = new Usuari();
-                user.setId(resultSet.getInt("Id"));
-                user.setNom(resultSet.getString("Nom"));
-                user.setEmail(resultSet.getString("Email"));
-                user.setPasswordHash(resultSet.getString("PasswordHash"));
-                user.setFoto(resultSet.getBytes("Foto"));
-                user.setInstructor(resultSet.getBoolean("Instructor"));
+                user.setId(rs.getInt("Id"));
+                user.setNom(rs.getString("Nom"));
+                user.setEmail(rs.getString("Email"));
+                user.setPasswordHash(rs.getString("PasswordHash"));
+                user.setFoto(rs.getBytes("Foto"));
+                user.setInstructor(rs.getBoolean("Instructor"));
                 usuaris.add(user);
             }
 
