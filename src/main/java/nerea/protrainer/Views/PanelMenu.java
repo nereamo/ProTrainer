@@ -269,9 +269,9 @@ public class PanelMenu extends javax.swing.JPanel {
         jBttnEliminarEntrenamiento.setBorder(null);
         jBttnEliminarEntrenamiento.setBorderPainted(false);
         jBttnEliminarEntrenamiento.setContentAreaFilled(false);
-        jBttnEliminarEntrenamiento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBttnEliminarEntrenamientoMouseClicked(evt);
+        jBttnEliminarEntrenamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnEliminarEntrenamientoActionPerformed(evt);
             }
         });
         add(jBttnEliminarEntrenamiento);
@@ -294,7 +294,7 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnEditarEjercicio);
-        jBttnEditarEjercicio.setBounds(820, 280, 30, 24);
+        jBttnEditarEjercicio.setBounds(820, 280, 30, 0);
 
         jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lista-de-tres-elementos-sobre-fondo-negro.png"))); // NOI18N
         jBttnAsignarEjercicio.setToolTipText("Asignar ejercicio");
@@ -305,7 +305,7 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnAsignarEjercicio);
-        jBttnAsignarEjercicio.setBounds(860, 280, 30, 31);
+        jBttnAsignarEjercicio.setBounds(860, 280, 72, 7);
 
         jBttnEliminaerEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton-de-eliminacion-de-linea-horizontal.png"))); // NOI18N
         jBttnEliminaerEjercicio.setToolTipText("Eliminar ejercicio");
@@ -316,7 +316,7 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnEliminaerEjercicio);
-        jBttnEliminaerEjercicio.setBounds(780, 280, 30, 31);
+        jBttnEliminaerEjercicio.setBounds(780, 280, 72, 7);
 
         jBttnAñadirEjercicio.setBackground(new java.awt.Color(255, 255, 255));
         jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mas-simbolo-negro.png"))); // NOI18N
@@ -330,7 +330,7 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnAñadirEjercicio);
-        jBttnAñadirEjercicio.setBounds(740, 280, 30, 24);
+        jBttnAñadirEjercicio.setBounds(740, 280, 30, 0);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLstUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLstUsuarioMouseClicked
@@ -356,23 +356,6 @@ public class PanelMenu extends javax.swing.JPanel {
             System.out.println("Fila no válida");
         }
     }//GEN-LAST:event_jTblEntrenamientosMouseClicked
-
-    private void jBttnEliminarEntrenamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnEliminarEntrenamientoMouseClicked
-        try {
-            EliminarEntrenamiento eliminarEntrenamiento = new EliminarEntrenamiento(frameMain, true);
-            eliminarEntrenamiento.setVisible(true);
-
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
-
-                actualizarTablas(userId, -1);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jBttnEliminarEntrenamientoMouseClicked
 
     private void jBttnAñadirEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnAñadirEjercicioMouseClicked
         try {
@@ -426,7 +409,7 @@ public class PanelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jBttnEditarEjercicioMouseClicked
 
     private void jBttnAsignarEjercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnAsignarEjercicioMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBttnAsignarEjercicioMouseClicked
 
     private void jBttnAñadirEntrenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAñadirEntrenamientoActionPerformed
@@ -445,6 +428,23 @@ public class PanelMenu extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jBttnAñadirEntrenamientoActionPerformed
+
+    private void jBttnEliminarEntrenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarEntrenamientoActionPerformed
+        try {
+            EliminarEntrenamiento eliminarEntrenamiento = new EliminarEntrenamiento(frameMain, true);
+            eliminarEntrenamiento.setVisible(true);
+
+            int selectedIndex = jLstUsuario.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                int userId = userList.get(selectedIndex).getId();
+
+                actualizarTablas(userId, -1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBttnEliminarEntrenamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
