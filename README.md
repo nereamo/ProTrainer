@@ -3,6 +3,7 @@
 Web de entrenamientos.
 
 Pagina de Login
+
 En el menú superior encontramos dos opciones:
 
     - Barras de menú: Contiene las opciones de LogOut(cerrar sesión usuario) y Exit(cerrar aplicación).
