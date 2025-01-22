@@ -16,29 +16,29 @@ public class DialogAbout extends javax.swing.JDialog {
     public DialogAbout(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setSize(450,200);
+        setSize(450, 220);
         setLocationRelativeTo(this);
-        
-        String aboutText = "<html><h2>Nerea Montoya</h2>" +
-                           "<p>Curso: DAM</p>" +
-                           "<p>Módulo: Desarrollo de Interfaces</p>" +
-                           "<p>TrainMaster, aplicación que permite gestionar entrenamientos y ejercicios.</p></html>";
-        
-       jLblAbout.setText(aboutText);
-       jLblAbout.setVerticalAlignment(JLabel.TOP);
-        
+
+        String aboutText = "<html><h2>Nerea Montoya</h2>"
+                + "<p>Curso: DAM</p>"
+                + "<p>Módulo: Desarrollo de Interfaces</p>"
+                + "<br>"
+                + "<p>ProTrainer: Aplicación que permite gestionar entrenamientos y ejercicios.</p></html>";
+
+        jLblAbout.setText(aboutText);
+        jLblAbout.setVerticalAlignment(JLabel.TOP);
 
         JButton closeButton = new JButton("Cerrar");
-        closeButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        closeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        
+
         JPanel panel = new JPanel();
         panel.add(closeButton);
         add(panel, BorderLayout.SOUTH);
-        
+
         setResizable(false);
     }
 
@@ -54,17 +54,19 @@ public class DialogAbout extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(450, 150));
         getContentPane().setLayout(null);
 
-        jPnlAbout.setBackground(new java.awt.Color(0, 204, 204));
-        jPnlAbout.setMinimumSize(new java.awt.Dimension(450, 200));
-        jPnlAbout.setPreferredSize(new java.awt.Dimension(450, 200));
+        jPnlAbout.setBackground(new java.awt.Color(0, 0, 0));
+        jPnlAbout.setMaximumSize(new java.awt.Dimension(450, 220));
+        jPnlAbout.setMinimumSize(new java.awt.Dimension(450, 220));
+        jPnlAbout.setPreferredSize(new java.awt.Dimension(450, 220));
         jPnlAbout.setLayout(null);
 
-        jLblAbout.setForeground(new java.awt.Color(51, 51, 51));
+        jLblAbout.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLblAbout.setForeground(new java.awt.Color(255, 255, 255));
         jPnlAbout.add(jLblAbout);
-        jLblAbout.setBounds(19, 21, 420, 160);
+        jLblAbout.setBounds(9, 21, 430, 160);
 
         getContentPane().add(jPnlAbout);
-        jPnlAbout.setBounds(0, 0, 450, 200);
+        jPnlAbout.setBounds(0, 0, 450, 220);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

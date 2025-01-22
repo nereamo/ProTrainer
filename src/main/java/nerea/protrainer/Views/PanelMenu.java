@@ -13,6 +13,7 @@ import nerea.protrainer.Formularios.EliminarEjercicio;
 import nerea.protrainer.Formularios.EliminarEntrenamiento;
 import nerea.protrainer.Formularios.ModificarEjercicio;
 import nerea.protrainer.ProTrainer;
+import nerea.protrainer.dataAccess.ConsultasBD;
 import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.Usuari;
 import nerea.protrainer.dto.Workouts;
@@ -38,9 +39,10 @@ public class PanelMenu extends javax.swing.JPanel {
         listaUsuarios();
     }
 
+    //----------Método que muestra los usuarios asignados al instructor en una lista----------
     private void listaUsuarios() {
 
-        userList = Usuari.usuariosAsignadosInstructor();
+        userList = ConsultasBD.usuariosAsignadosInstructor();
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
@@ -53,10 +55,11 @@ public class PanelMenu extends javax.swing.JPanel {
         jLstUsuario.repaint();
     }
 
+    //----------Método que muestra los entrenamientos asignados a un usuario----------
     private void tblEntrenamientosUsuario(int userId) {
 
         try {
-            ArrayList<Workouts> workouts = Workouts.workoutUsuari(userId);
+            ArrayList<Workouts> workouts = ConsultasBD.workoutUsuari(userId);
 
             DefaultTableModel tblmodel = (DefaultTableModel) jTblEntrenamientos.getModel();
             tblmodel.setRowCount(0);
@@ -84,10 +87,11 @@ public class PanelMenu extends javax.swing.JPanel {
         }
     }
 
+    //----------Método que muestra los ejercicios asignados a un entrenamiento----------
     private void tblEjerciciosUsuario(int workoutId) {
 
         try {
-            ArrayList<Exercicis> exercicis = Exercicis.exercicisDelWorkout(workoutId);
+            ArrayList<Exercicis> exercicis = ConsultasBD.exercicisDelWorkout(workoutId);
 
             DefaultTableModel tblmodel = (DefaultTableModel) jTblEjercicios.getModel();
             tblmodel.setRowCount(0);
@@ -116,6 +120,7 @@ public class PanelMenu extends javax.swing.JPanel {
         }
     }
 
+    //----------Método que actualiza las tablas----------
     public void actualizarTablas(int userId, int workoutId) {
         tblEntrenamientosUsuario(userId);
         tblEjerciciosUsuario(workoutId);
@@ -125,7 +130,7 @@ public class PanelMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
+        jPanelBlue = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jLstUsuario = new javax.swing.JList<>();
@@ -142,27 +147,26 @@ public class PanelMenu extends javax.swing.JPanel {
         jBttnEliminaerEjercicio = new javax.swing.JButton();
         jBttnAñadirEjercicio = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 0));
         setMaximumSize(new java.awt.Dimension(950, 620));
         setMinimumSize(new java.awt.Dimension(950, 620));
         setPreferredSize(new java.awt.Dimension(950, 620));
         setLayout(null);
 
-        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel3.setLayout(null);
+        jPanelBlue.setBackground(new java.awt.Color(0, 0, 0));
+        jPanelBlue.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconUsuario.png"))); // NOI18N
-        jPanel3.add(jLabel1);
-        jLabel1.setBounds(140, 30, 130, 130);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Usuario.png"))); // NOI18N
+        jPanelBlue.add(jLabel1);
+        jLabel1.setBounds(150, 80, 110, 100);
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLstUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jLstUsuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLstUsuario.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
         jLstUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jLstUsuario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jLstUsuario.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jLstUsuario.setSelectionBackground(new java.awt.Color(51, 51, 51));
         jLstUsuario.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jLstUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,11 +175,11 @@ public class PanelMenu extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jLstUsuario);
 
-        jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(120, 190, 170, 290);
+        jPanelBlue.add(jScrollPane3);
+        jScrollPane3.setBounds(110, 210, 190, 210);
 
-        add(jPanel3);
-        jPanel3.setBounds(0, 0, 410, 620);
+        add(jPanelBlue);
+        jPanelBlue.setBounds(0, 0, 410, 620);
 
         jTblEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
@@ -194,9 +198,9 @@ public class PanelMenu extends javax.swing.JPanel {
                 "Nombre", "Descripción", "Imagen"
             }
         ));
-        jTblEjercicios.setGridColor(new java.awt.Color(0, 153, 153));
+        jTblEjercicios.setGridColor(new java.awt.Color(0, 102, 153));
         jTblEjercicios.setRowHeight(25);
-        jTblEjercicios.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jTblEjercicios.setSelectionBackground(new java.awt.Color(102, 102, 102));
         jTblEjercicios.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTblEjercicios.getTableHeader().setResizingAllowed(false);
         jTblEjercicios.getTableHeader().setReorderingAllowed(false);
@@ -229,9 +233,8 @@ public class PanelMenu extends javax.swing.JPanel {
         jTblEntrenamientos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jTblEntrenamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTblEntrenamientos.setDropMode(javax.swing.DropMode.ON);
-        jTblEntrenamientos.setGridColor(new java.awt.Color(0, 153, 153));
         jTblEntrenamientos.setRowHeight(25);
-        jTblEntrenamientos.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jTblEntrenamientos.setSelectionBackground(new java.awt.Color(102, 102, 102));
         jTblEntrenamientos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTblEntrenamientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -243,14 +246,14 @@ public class PanelMenu extends javax.swing.JPanel {
         add(jScrllPnEntrenamientos);
         jScrllPnEntrenamientos.setBounds(470, 70, 420, 190);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Entrenamientos");
         add(jLabel2);
-        jLabel2.setBounds(470, 40, 220, 20);
+        jLabel2.setBounds(470, 40, 220, 40);
 
         jBttnAñadirEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAñadir.png"))); // NOI18N
+        jBttnAñadirEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Nuevo.png"))); // NOI18N
         jBttnAñadirEntrenamiento.setToolTipText("Nuevo entrenamiento");
         jBttnAñadirEntrenamiento.setBorder(null);
         jBttnAñadirEntrenamiento.setBorderPainted(false);
@@ -261,10 +264,10 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnAñadirEntrenamiento);
-        jBttnAñadirEntrenamiento.setBounds(820, 40, 30, 23);
+        jBttnAñadirEntrenamiento.setBounds(830, 40, 30, 30);
 
         jBttnEliminarEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnEliminarEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEliminar.png"))); // NOI18N
+        jBttnEliminarEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Eliminar.png"))); // NOI18N
         jBttnEliminarEntrenamiento.setToolTipText("Eliminar entrenamiento");
         jBttnEliminarEntrenamiento.setBorder(null);
         jBttnEliminarEntrenamiento.setBorderPainted(false);
@@ -275,15 +278,15 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnEliminarEntrenamiento);
-        jBttnEliminarEntrenamiento.setBounds(860, 40, 30, 23);
+        jBttnEliminarEntrenamiento.setBounds(860, 40, 30, 30);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Ejercicios");
         add(jLabel3);
-        jLabel3.setBounds(470, 280, 170, 20);
+        jLabel3.setBounds(470, 280, 170, 40);
 
-        jBttnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEditar.png"))); // NOI18N
+        jBttnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Edit.png"))); // NOI18N
         jBttnEditarEjercicio.setToolTipText("Editar ejercicio");
         jBttnEditarEjercicio.setBorder(null);
         jBttnEditarEjercicio.setBorderPainted(false);
@@ -294,9 +297,9 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnEditarEjercicio);
-        jBttnEditarEjercicio.setBounds(820, 280, 30, 24);
+        jBttnEditarEjercicio.setBounds(830, 280, 30, 30);
 
-        jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAsignar.png"))); // NOI18N
+        jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IconAssigned.png"))); // NOI18N
         jBttnAsignarEjercicio.setToolTipText("Asignar ejercicio");
         jBttnAsignarEjercicio.setContentAreaFilled(false);
         jBttnAsignarEjercicio.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +310,7 @@ public class PanelMenu extends javax.swing.JPanel {
         add(jBttnAsignarEjercicio);
         jBttnAsignarEjercicio.setBounds(860, 280, 30, 30);
 
-        jBttnEliminaerEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnEliminar.png"))); // NOI18N
+        jBttnEliminaerEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Eliminar.png"))); // NOI18N
         jBttnEliminaerEjercicio.setToolTipText("Eliminar ejercicio");
         jBttnEliminaerEjercicio.setContentAreaFilled(false);
         jBttnEliminaerEjercicio.addActionListener(new java.awt.event.ActionListener() {
@@ -316,10 +319,10 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnEliminaerEjercicio);
-        jBttnEliminaerEjercicio.setBounds(780, 280, 30, 30);
+        jBttnEliminaerEjercicio.setBounds(800, 280, 30, 30);
 
         jBttnAñadirEjercicio.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnAñadir.png"))); // NOI18N
+        jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Nuevo.png"))); // NOI18N
         jBttnAñadirEjercicio.setToolTipText("Nuevo ejercicio");
         jBttnAñadirEjercicio.setBorder(null);
         jBttnAñadirEjercicio.setBorderPainted(false);
@@ -330,7 +333,7 @@ public class PanelMenu extends javax.swing.JPanel {
             }
         });
         add(jBttnAñadirEjercicio);
-        jBttnAñadirEjercicio.setBounds(740, 280, 30, 30);
+        jBttnAñadirEjercicio.setBounds(770, 280, 30, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLstUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLstUsuarioMouseClicked
@@ -471,7 +474,7 @@ public class PanelMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jLstUsuario;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelBlue;
     private javax.swing.JScrollPane jScrllPnEntrenamientos;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

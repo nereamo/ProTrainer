@@ -1,16 +1,13 @@
 package nerea.protrainer.Formularios;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import nerea.protrainer.dataAccess.DataAccess;
+import nerea.protrainer.dataAccess.AccionesBD;
+import nerea.protrainer.dataAccess.ConsultasBD;
 import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.Workouts;
 
@@ -28,7 +25,7 @@ public class AsignarEjercicio extends javax.swing.JDialog {
     public AsignarEjercicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setSize(400, 300);
+        setSize(300, 300);
         setLocationRelativeTo(this);
 
         comboBoxEntrenamientos();
@@ -36,6 +33,7 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         listaEjercicios();
     }
 
+    //----------Método que inicia el comboBox----------
     private void iniciarComboBox() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
@@ -49,14 +47,16 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         jCmbBxEntrenamientos.setSelectedIndex(0);
     }
 
+    //----------Método que muestra los entrenamientos en el comboBox----------
     private void comboBoxEntrenamientos() {
 
-        workoutList = Workouts.workoutsBD();
+        workoutList = ConsultasBD.workoutsBD();
     }
 
+    //----------Método que muestra una lista de los ejercicios de la base de datos----------
     private void listaEjercicios() {
 
-        ArrayList<Exercicis> ejercicios = Exercicis.exercicisBD();
+        ArrayList<Exercicis> ejercicios = ConsultasBD.exercicisBD();
 
         ejerciciosList.clear();
 
@@ -68,38 +68,21 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         }
 
         jLstEjercicios.setModel(listModel);
-        
-        
+
         //Fragmento extraído de chatGPT
         jLstEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) { 
+                if (!e.getValueIsAdjusting()) {
                     int selectedIndex = jLstEjercicios.getSelectedIndex();
                     if (selectedIndex != -1) {
                         Exercicis selectedExercise = ejerciciosList.get(selectedIndex);
-                        selectedExerciseId = selectedExercise.getId(); 
+                        selectedExerciseId = selectedExercise.getId();
                     } else {
-                        selectedExerciseId = -1; 
+                        selectedExerciseId = -1;
                     }
                 }
             }
         });
-    }
-
-    public static void saveExerciseInWorkout(int workoutId, int exerciseId) throws SQLException {
-        String query = "INSERT INTO ExercicisWorkouts (IdWorkout, IdExercici) VALUES (?, ?)";
-
-        try (Connection conn = DataAccess.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setInt(1, workoutId);
-            stmt.setInt(2, exerciseId);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Workouts.class.getName()).log(Level.SEVERE, "Error al guardar el ejercicio en el workout", ex);
-            throw ex;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -116,16 +99,18 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setMinimumSize(new java.awt.Dimension(300, 300));
         jPanel1.setLayout(null);
 
-        jLblTitulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(0, 0, 0));
-        jLblTitulo.setText("Asignar Ejercicio");
+        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
+        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblTitulo.setText("ASIGNAR EJERCICIO");
         jPanel1.add(jLblTitulo);
-        jLblTitulo.setBounds(10, 10, 270, 28);
+        jLblTitulo.setBounds(0, -2, 300, 50);
 
-        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar.png"))); // NOI18N
+        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Save.png"))); // NOI18N
         jBttnGuardar.setBorder(null);
         jBttnGuardar.setContentAreaFilled(false);
         jBttnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,10 +119,11 @@ public class AsignarEjercicio extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jBttnGuardar);
-        jBttnGuardar.setBounds(170, 210, 25, 25);
+        jBttnGuardar.setBounds(140, 210, 24, 24);
 
         jCmbBxEntrenamientos.setBackground(new java.awt.Color(255, 255, 255));
         jCmbBxEntrenamientos.setEditable(true);
+        jCmbBxEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jCmbBxEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
         jCmbBxEntrenamientos.setToolTipText("Entrenamiento");
         jCmbBxEntrenamientos.addActionListener(new java.awt.event.ActionListener() {
@@ -146,21 +132,22 @@ public class AsignarEjercicio extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jCmbBxEntrenamientos);
-        jCmbBxEntrenamientos.setBounds(80, 70, 220, 30);
+        jCmbBxEntrenamientos.setBounds(30, 70, 240, 30);
 
         jScrollPane1.setToolTipText("Ejercicios");
 
         jLstEjercicios.setBackground(new java.awt.Color(255, 255, 255));
+        jLstEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLstEjercicios.setForeground(new java.awt.Color(0, 0, 0));
         jLstEjercicios.setToolTipText("Ejercicios");
-        jLstEjercicios.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        jLstEjercicios.setSelectionBackground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(jLstEjercicios);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(80, 110, 220, 90);
+        jScrollPane1.setBounds(30, 110, 240, 90);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 400, 300);
+        jPanel1.setBounds(0, 0, 300, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,20 +156,21 @@ public class AsignarEjercicio extends javax.swing.JDialog {
 
         try {
 
-            if (selectedWorkoutId <= 0 || selectedExerciseId <= 0) {
-                JOptionPane.showMessageDialog(this, "Por favor, selecciona un Workout y un Ejercicio.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (selectedWorkoutId <= 0) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un entrenamiento", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (selectedExerciseId <= 0) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un ejercicio.", "Error", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
-            saveExerciseInWorkout(selectedWorkoutId, selectedExerciseId);
-            JOptionPane.showMessageDialog(this, "Ejercicio añadido al workout correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            AccionesBD.asignarEjercicioAWorkout(selectedWorkoutId, selectedExerciseId);
+            JOptionPane.showMessageDialog(this, "Ejercicio asignado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            dispose();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al añadir el ejercicio al workout: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al asignar el ejercicio al workout: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jBttnGuardarActionPerformed

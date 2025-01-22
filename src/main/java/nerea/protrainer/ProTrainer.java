@@ -36,6 +36,7 @@ public class ProTrainer extends javax.swing.JFrame {
         return loggedInstructor;
     }
 
+    //----------Método que hace visible el panel----------
     public void showPanel() {
 
         PanelMenu pnlMenu = new PanelMenu(this);
@@ -45,6 +46,7 @@ public class ProTrainer extends javax.swing.JFrame {
         this.repaint();
     }
 
+    //----------Método que hace visible el calendar----------
     public void showCalendarMenu() {
         jMnuCalendar.setVisible(true);
     }
@@ -59,6 +61,7 @@ public class ProTrainer extends javax.swing.JFrame {
         jLblWeb = new javax.swing.JLabel();
         jBttnAccess = new javax.swing.JButton();
         jLblIcon = new javax.swing.JLabel();
+        jLblInfoLogOut = new javax.swing.JLabel();
         jMnuBar = new javax.swing.JMenuBar();
         jMnuMenu = new javax.swing.JMenu();
         jMenuItemLogout = new javax.swing.JMenuItem();
@@ -76,14 +79,14 @@ public class ProTrainer extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPnlMain.setBackground(new java.awt.Color(255, 255, 255));
+        jPnlMain.setBackground(new java.awt.Color(0, 0, 0));
         jPnlMain.setMinimumSize(new java.awt.Dimension(950, 620));
         jPnlMain.setLayout(null);
 
         jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
         jLblWeb.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLblWeb.setForeground(new java.awt.Color(0, 0, 0));
-        jLblWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exterior.png"))); // NOI18N
+        jLblWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Web.png"))); // NOI18N
         jLblWeb.setToolTipText("Web");
         jLblWeb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,10 +94,10 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jLblWeb);
-        jLblWeb.setBounds(882, 490, 40, 30);
+        jLblWeb.setBounds(882, 490, 32, 30);
 
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
-        jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loginUsuario.png"))); // NOI18N
+        jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Login.png"))); // NOI18N
         jBttnAccess.setToolTipText("Login");
         jBttnAccess.setBorder(null);
         jBttnAccess.setBorderPainted(false);
@@ -105,14 +108,21 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jBttnAccess);
-        jBttnAccess.setBounds(400, 450, 140, 90);
+        jBttnAccess.setBounds(400, 430, 140, 60);
 
-        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png"))); // NOI18N
         jPnlMain.add(jLblIcon);
-        jLblIcon.setBounds(210, 80, 510, 210);
+        jLblIcon.setBounds(150, 80, 630, 210);
+
+        jLblInfoLogOut.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLblInfoLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        jLblInfoLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblInfoLogOut.setToolTipText("");
+        jPnlMain.add(jLblInfoLogOut);
+        jLblInfoLogOut.setBounds(260, 280, 360, 30);
 
         getContentPane().add(jPnlMain);
-        jPnlMain.setBounds(0, 0, 950, 590);
+        jPnlMain.setBounds(0, 0, 950, 580);
 
         jMnuBar.setBackground(new java.awt.Color(0, 0, 0));
         jMnuBar.setBorder(null);
@@ -122,7 +132,7 @@ public class ProTrainer extends javax.swing.JFrame {
         jMnuBar.setEnabled(false);
         jMnuBar.setOpaque(true);
 
-        jMnuMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/list.png"))); // NOI18N
+        jMnuMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Menu.png"))); // NOI18N
         jMnuMenu.setToolTipText("Salir");
         jMnuMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMnuMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -151,7 +161,7 @@ public class ProTrainer extends javax.swing.JFrame {
 
         jMnuBar.add(jMnuMenu);
 
-        jMnuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png"))); // NOI18N
+        jMnuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Info.png"))); // NOI18N
         jMnuAbout.setToolTipText("Informacion");
         jMnuAbout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMnuAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -164,7 +174,7 @@ public class ProTrainer extends javax.swing.JFrame {
         });
         jMnuBar.add(jMnuAbout);
 
-        jMnuCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bttnPlaner.png"))); // NOI18N
+        jMnuCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Calendar.png"))); // NOI18N
         jMnuCalendar.setToolTipText("Calendario");
         jMnuCalendar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMnuCalendar.setMinimumSize(new java.awt.Dimension(38, 38));
@@ -186,6 +196,7 @@ public class ProTrainer extends javax.swing.JFrame {
         this.getContentPane().add(jPnlMain);
 
         jPnlMain.setVisible(true);
+         jLblInfoLogOut.setText("Se ha cerrado sesión.");
 
         this.revalidate();
         this.repaint();
@@ -259,6 +270,7 @@ public class ProTrainer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBttnAccess;
     private javax.swing.JLabel jLblIcon;
+    private javax.swing.JLabel jLblInfoLogOut;
     private javax.swing.JLabel jLblWeb;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

@@ -7,40 +7,43 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import nerea.protrainer.dataAccess.AccionesBD;
+import nerea.protrainer.dataAccess.ConsultasBD;
 import nerea.protrainer.dto.Usuari;
-import nerea.protrainer.dto.Workouts;
 
 /**
  *
  * @author Nerea
  */
 public class AñadirEntrenamiento extends javax.swing.JDialog {
-    
-    private List<Usuari> userList = new ArrayList<>(); 
+
+    private List<Usuari> userList = new ArrayList<>();
     private int selectedUserId;
 
     public AñadirEntrenamiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setSize(400, 300);
+        setSize(300, 300);
         setLocationRelativeTo(this);
-        
+
         usuariosInstructor();
         iniciarComboBox();
     }
     
+    //----------Método que carga los usuarios en el comboBox----------
     private void usuariosInstructor() {
 
-        userList = Usuari.usuariosAsignadosInstructor(); 
+        userList = ConsultasBD.usuariosAsignadosInstructor();
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
 
         for (Usuari u : userList) {
-            dcbm.addElement(u.getNom()); 
+            dcbm.addElement(u.getNom());
         }
 
-        jCmbBxUsuario.setModel(dcbm);   
+        jCmbBxUsuario.setModel(dcbm);
     }
     
+    //----------Método que inicia el comboBox----------
     private void iniciarComboBox() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
@@ -69,14 +72,17 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPnlNuevoEntrenamiento.setBackground(new java.awt.Color(0, 204, 204));
+        jPnlNuevoEntrenamiento.setBackground(new java.awt.Color(0, 0, 0));
+        jPnlNuevoEntrenamiento.setMinimumSize(new java.awt.Dimension(300, 300));
         jPnlNuevoEntrenamiento.setLayout(null);
 
-        jLblTitulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(0, 0, 0));
-        jLblTitulo.setText("Nuevo Entrenamiento");
+        jLblTitulo.setBackground(new java.awt.Color(0, 0, 0));
+        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
+        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblTitulo.setText("NUEVO ENTRENAMIENTO");
         jPnlNuevoEntrenamiento.add(jLblTitulo);
-        jLblTitulo.setBounds(10, 10, 270, 28);
+        jLblTitulo.setBounds(0, -2, 300, 50);
 
         jCmbBxUsuario.setBackground(new java.awt.Color(255, 255, 255));
         jCmbBxUsuario.setEditable(true);
@@ -91,16 +97,16 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
             }
         });
         jPnlNuevoEntrenamiento.add(jCmbBxUsuario);
-        jCmbBxUsuario.setBounds(90, 60, 210, 30);
+        jCmbBxUsuario.setBounds(40, 60, 220, 30);
 
         jSpnnrFecha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jSpnnrFecha.setModel(new javax.swing.SpinnerDateModel());
         jSpnnrFecha.setToolTipText("Fecha");
         jSpnnrFecha.setBorder(null);
         jPnlNuevoEntrenamiento.add(jSpnnrFecha);
-        jSpnnrFecha.setBounds(90, 115, 210, 30);
+        jSpnnrFecha.setBounds(40, 110, 220, 30);
 
-        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar.png"))); // NOI18N
+        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Save.png"))); // NOI18N
         jBttnGuardar.setBorder(null);
         jBttnGuardar.setContentAreaFilled(false);
         jBttnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +115,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
             }
         });
         jPnlNuevoEntrenamiento.add(jBttnGuardar);
-        jBttnGuardar.setBounds(170, 210, 25, 25);
+        jBttnGuardar.setBounds(130, 210, 24, 24);
 
         jTxtFldComentario.setBackground(new java.awt.Color(255, 255, 255));
         jTxtFldComentario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -125,44 +131,52 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
             }
         });
         jPnlNuevoEntrenamiento.add(jTxtFldComentario);
-        jTxtFldComentario.setBounds(90, 170, 210, 30);
+        jTxtFldComentario.setBounds(40, 160, 220, 30);
 
         getContentPane().add(jPnlNuevoEntrenamiento);
-        jPnlNuevoEntrenamiento.setBounds(0, 0, 400, 300);
+        jPnlNuevoEntrenamiento.setBounds(0, 0, 300, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCmbBxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbBxUsuarioActionPerformed
-      
-        int selectedIndex = jCmbBxUsuario.getSelectedIndex();
-        
-        if (selectedIndex >0 ) {
 
-            Usuari selectedUser = userList.get(selectedIndex -1);  
-            selectedUserId = selectedUser.getId();   
+        int selectedIndex = jCmbBxUsuario.getSelectedIndex();
+
+        if (selectedIndex > 0) {
+
+            Usuari selectedUser = userList.get(selectedIndex - 1);
+            selectedUserId = selectedUser.getId();
         }
     }//GEN-LAST:event_jCmbBxUsuarioActionPerformed
 
     private void jBttnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnGuardarActionPerformed
+        int seleccionarUsario = jCmbBxUsuario.getSelectedIndex();
+
+        if (seleccionarUsario <= 0) {
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario.", "Usuario no seleccionado", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Usuari usuario = userList.get(seleccionarUsario - 1);
+        usuario.getId();
+
         String comment = jTxtFldComentario.getText().trim();
 
-        if (comment.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un comentario.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (comment.isEmpty() || comment.equals("Añade un comentario...")) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un comentario.", "Error", JOptionPane.INFORMATION_MESSAGE);
         } else {
             try {
-               
+
                 Date dateWork = (Date) jSpnnrFecha.getValue();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String fechaFormateada = dateFormat.format(dateWork);
 
-                Workouts.guardarWorkout(selectedUserId, comment, fechaFormateada);  
-                JOptionPane.showMessageDialog(this, "Workout guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "ID de usuario inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+                AccionesBD.insertarWorkoutBD(selectedUserId, comment, fechaFormateada);
+                JOptionPane.showMessageDialog(this, "Nuevo entrenamiento añadido.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error al guardar el workout en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al guardar el entrenamiento en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBttnGuardarActionPerformed

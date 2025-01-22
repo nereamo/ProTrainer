@@ -9,7 +9,7 @@ import nerea.componentcalendar.WorkoutCalendarEvent;
  * @author Nerea
  */
 public class DialogCalendar extends javax.swing.JDialog {
-    
+
     public DialogCalendar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -23,7 +23,7 @@ public class DialogCalendar extends javax.swing.JDialog {
             }
         });
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,6 +43,7 @@ public class DialogCalendar extends javax.swing.JDialog {
         jPanel1.setPreferredSize(new java.awt.Dimension(580, 320));
         jPanel1.setLayout(null);
 
+        calendarPanel1.setActiveButtonColor(new java.awt.Color(255, 255, 0));
         calendarPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.add(calendarPanel1);
         calendarPanel1.setBounds(0, 0, 580, 280);
