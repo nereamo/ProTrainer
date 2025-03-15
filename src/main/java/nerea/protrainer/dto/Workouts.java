@@ -1,6 +1,8 @@
 package nerea.protrainer.dto;
 
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Nerea
@@ -11,7 +13,6 @@ public class Workouts {
     private String ForDate;
     private String Comments;
     private int userId;
-    private List<Exercicis> exercises;
 
     public int getId() {
         return id;
@@ -20,9 +21,17 @@ public class Workouts {
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getForDate() {
-        return ForDate;
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
+        try {
+            Date date = inputDateFormat.parse(ForDate);
+            return outputDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return ForDate; 
+        }
     }
 
     public void setForDate(String ForDate) {

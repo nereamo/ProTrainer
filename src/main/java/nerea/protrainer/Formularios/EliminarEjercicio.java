@@ -56,7 +56,7 @@ public class EliminarEjercicio extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(300, 300));
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setMinimumSize(new java.awt.Dimension(300, 300));
         jPanel1.setLayout(null);
 

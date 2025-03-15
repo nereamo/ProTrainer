@@ -31,7 +31,7 @@ public class PanelMenu extends javax.swing.JPanel {
 
     public PanelMenu(ProTrainer frameMain) {
         initComponents();
-        setSize(950, 620);
+        setSize(1000, 700);
 
         this.frameMain = frameMain;
 
@@ -147,13 +147,13 @@ public class PanelMenu extends javax.swing.JPanel {
         jBttnEliminaerEjercicio = new javax.swing.JButton();
         jBttnAñadirEjercicio = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 0));
-        setMaximumSize(new java.awt.Dimension(950, 620));
-        setMinimumSize(new java.awt.Dimension(950, 620));
+        setBackground(new java.awt.Color(204, 204, 204));
+        setMaximumSize(new java.awt.Dimension(1000, 700));
+        setMinimumSize(new java.awt.Dimension(1000, 700));
         setPreferredSize(new java.awt.Dimension(950, 620));
         setLayout(null);
 
-        jPanelBlue.setBackground(new java.awt.Color(0, 0, 0));
+        jPanelBlue.setBackground(new java.awt.Color(51, 51, 51));
         jPanelBlue.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Usuario.png"))); // NOI18N
@@ -247,7 +247,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jScrllPnEntrenamientos.setBounds(470, 70, 420, 190);
 
         jLabel2.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Entrenamientos");
         add(jLabel2);
         jLabel2.setBounds(470, 40, 220, 40);
@@ -281,7 +281,7 @@ public class PanelMenu extends javax.swing.JPanel {
         jBttnEliminarEntrenamiento.setBounds(860, 40, 30, 30);
 
         jLabel3.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Ejercicios");
         add(jLabel3);
         jLabel3.setBounds(470, 280, 170, 40);

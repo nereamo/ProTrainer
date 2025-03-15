@@ -72,7 +72,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPnlNuevoEntrenamiento.setBackground(new java.awt.Color(0, 0, 0));
+        jPnlNuevoEntrenamiento.setBackground(new java.awt.Color(51, 51, 51));
         jPnlNuevoEntrenamiento.setMinimumSize(new java.awt.Dimension(300, 300));
         jPnlNuevoEntrenamiento.setLayout(null);
 

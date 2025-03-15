@@ -54,7 +54,7 @@ public class DialogAbout extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(450, 150));
         getContentPane().setLayout(null);
 
-        jPnlAbout.setBackground(new java.awt.Color(0, 0, 0));
+        jPnlAbout.setBackground(new java.awt.Color(51, 51, 51));
         jPnlAbout.setMaximumSize(new java.awt.Dimension(450, 220));
         jPnlAbout.setMinimumSize(new java.awt.Dimension(450, 220));
         jPnlAbout.setPreferredSize(new java.awt.Dimension(450, 220));

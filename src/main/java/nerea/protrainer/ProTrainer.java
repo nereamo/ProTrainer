@@ -1,5 +1,8 @@
 package nerea.protrainer;
 
+import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import nerea.protrainer.Views.DialogAbout;
 import nerea.protrainer.Views.DialogCalendar;
@@ -18,14 +21,22 @@ public class ProTrainer extends javax.swing.JFrame {
 
     public ProTrainer() {
         initComponents();
-        setSize(950, 620);
+        setSize(1000, 700);
         setLocationRelativeTo(this);
+        setResizable(true);
 
         panelMenu = new PanelMenu(this);
-        getContentPane().add(panelMenu);
+        getContentPane().setLayout(new BorderLayout()); 
+        getContentPane().add(panelMenu, BorderLayout.CENTER);//Redimensionar jPanelMenu
         panelMenu.setVisible(false);
+        
+        this.getContentPane().add(jPnlMain, BorderLayout.CENTER);//Redimensionar jPanelMain
 
         jMnuCalendar.setVisible(false);
+        
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
+        setIconImage(icon);
+
     }
 
     public void setLoggedInstructor(Usuari instructor) {
@@ -41,7 +52,8 @@ public class ProTrainer extends javax.swing.JFrame {
 
         PanelMenu pnlMenu = new PanelMenu(this);
         this.getContentPane().removeAll();
-        this.getContentPane().add(pnlMenu);
+        //this.getContentPane().add(pnlMenu);
+        this.getContentPane().add(pnlMenu, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
     }
@@ -76,11 +88,10 @@ public class ProTrainer extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        getContentPane().setLayout(null);
+        setTitle("PROTrainer");
 
         jPnlMain.setBackground(new java.awt.Color(0, 0, 0));
-        jPnlMain.setMinimumSize(new java.awt.Dimension(950, 620));
+        jPnlMain.setMinimumSize(new java.awt.Dimension(1000, 700));
         jPnlMain.setLayout(null);
 
         jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
@@ -94,7 +105,7 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jLblWeb);
-        jLblWeb.setBounds(882, 490, 32, 30);
+        jLblWeb.setBounds(920, 570, 35, 30);
 
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
         jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Login.png"))); // NOI18N
@@ -108,11 +119,11 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jBttnAccess);
-        jBttnAccess.setBounds(400, 430, 140, 60);
+        jBttnAccess.setBounds(430, 520, 140, 60);
 
         jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png"))); // NOI18N
         jPnlMain.add(jLblIcon);
-        jLblIcon.setBounds(150, 80, 630, 210);
+        jLblIcon.setBounds(140, 80, 689, 210);
 
         jLblInfoLogOut.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLblInfoLogOut.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,9 +131,6 @@ public class ProTrainer extends javax.swing.JFrame {
         jLblInfoLogOut.setToolTipText("");
         jPnlMain.add(jLblInfoLogOut);
         jLblInfoLogOut.setBounds(260, 280, 360, 30);
-
-        getContentPane().add(jPnlMain);
-        jPnlMain.setBounds(0, 0, 950, 580);
 
         jMnuBar.setBackground(new java.awt.Color(0, 0, 0));
         jMnuBar.setBorder(null);
@@ -188,15 +196,27 @@ public class ProTrainer extends javax.swing.JFrame {
 
         setJMenuBar(jMnuBar);
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogoutActionPerformed
         this.getContentPane().removeAll();
         this.getContentPane().add(jPnlMain);
-
+        
+        jMnuCalendar.setVisible(false);
         jPnlMain.setVisible(true);
-         jLblInfoLogOut.setText("Se ha cerrado sesión.");
+        jLblInfoLogOut.setText("Se ha cerrado sesión.");
 
         this.revalidate();
         this.repaint();

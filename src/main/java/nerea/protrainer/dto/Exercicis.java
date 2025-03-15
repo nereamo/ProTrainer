@@ -20,10 +20,6 @@ public class Exercicis {
         this.descripcio = Descripcio;
     }
 
-    public String toString() {
-        return this.nomExercici;
-    }
-
     public int getId() {
         return id;
     }
@@ -54,5 +50,10 @@ public class Exercicis {
 
     public void setDemoFoto(byte[] DemoFoto) {
         this.demoFoto = DemoFoto;
+    }
+    
+    @Override
+    public String toString() {
+        return this.nomExercici;
     }
 }

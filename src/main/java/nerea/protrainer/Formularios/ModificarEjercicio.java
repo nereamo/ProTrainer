@@ -78,7 +78,7 @@ public class ModificarEjercicio extends javax.swing.JDialog {
         setModal(true);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(null);
 
         jLblTitulo.setBackground(new java.awt.Color(0, 0, 0));
