@@ -35,7 +35,7 @@ En el menú superior encontramos dos opciones:
         </dependency>
         
     Archivo .jar:
-    Descarga: En Github --> Tag --> v.1.0 --> ComponentCalendar-1.0-SNAPSHOT.jar.
+    Descarga: En Github ProTrainer--> Tag --> v.1.0 --> ComponentCalendar-1.0-SNAPSHOT.jar.
     Añadir .jar a proyecto: 1º) Carpeta Dependencies --> Click Derecho (Add Dependency) y rellenar los campos con la información de la dependencia.
                             2º) Buscar en la lista de dependencias el ComponentCalendar --> Click derecho(Manually install artifact) y buscar el componente.
     
