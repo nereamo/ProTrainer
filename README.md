@@ -25,6 +25,15 @@ En el menú superior encontramos dos opciones:
     - Barras de menú: Contiene las opciones de LogOut(cerrar sesión usuario) y Exit(cerrar aplicación).
     - Icono de Información: Contiene el About con información del autor.
     - Icono de calendario: Muestra un calendario con los entrenamiento asignnados según el dia.
+    NOTA: Para que el componente del calenadrio funcione, se debe añadir la dependencia al Pom.xml y el         .jar:
+    Dependencia:
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>ComponentCalendar-1.0-SNAPSHOT</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+    .jar:
+    
 
 Centro de la página:
 
