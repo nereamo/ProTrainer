@@ -9,6 +9,7 @@ import nerea.protrainer.Views.DialogCalendar;
 import nerea.protrainer.Views.DialogLogin;
 import nerea.protrainer.Views.PanelMenu;
 import nerea.protrainer.dto.Usuari;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -21,22 +22,27 @@ public class ProTrainer extends javax.swing.JFrame {
 
     public ProTrainer() {
         initComponents();
-        setSize(1000, 700);
+        setSize(1200, 700);
         setLocationRelativeTo(this);
-        setResizable(true);
 
         panelMenu = new PanelMenu(this);
-        getContentPane().setLayout(new BorderLayout()); 
-        getContentPane().add(panelMenu, BorderLayout.CENTER);//Redimensionar jPanelMenu
-        panelMenu.setVisible(false);
-        
-        this.getContentPane().add(jPnlMain, BorderLayout.CENTER);//Redimensionar jPanelMain
+    
+    // Usar MigLayout en lugar de `null`
+    jPnlMain.setLayout(new MigLayout("fill", "[grow]", "[grow]"));
 
-        jMnuCalendar.setVisible(false);
-        
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
-        setIconImage(icon);
+    // Agregar elementos con MigLayout
+    jPnlMain.add(jLblIcon, "align center, wrap");
+    jPnlMain.add(jLblInfoLogOut, "align center, wrap");
+    jPnlMain.add(jBttnAccess, "align center, wrap");
+    jPnlMain.add(jLblWeb, "dock north, align right");
 
+    this.getContentPane().setLayout(new BorderLayout());
+    this.getContentPane().add(jPnlMain, BorderLayout.CENTER);
+
+    jMnuCalendar.setVisible(false);
+
+    Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
+    setIconImage(icon);
     }
 
     public void setLoggedInstructor(Usuari instructor) {
@@ -52,7 +58,6 @@ public class ProTrainer extends javax.swing.JFrame {
 
         PanelMenu pnlMenu = new PanelMenu(this);
         this.getContentPane().removeAll();
-        //this.getContentPane().add(pnlMenu);
         this.getContentPane().add(pnlMenu, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
@@ -70,10 +75,10 @@ public class ProTrainer extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jPnlMain = new javax.swing.JPanel();
-        jLblWeb = new javax.swing.JLabel();
-        jBttnAccess = new javax.swing.JButton();
-        jLblIcon = new javax.swing.JLabel();
         jLblInfoLogOut = new javax.swing.JLabel();
+        jLblIcon = new javax.swing.JLabel();
+        jBttnAccess = new javax.swing.JButton();
+        jLblWeb = new javax.swing.JLabel();
         jMnuBar = new javax.swing.JMenuBar();
         jMnuMenu = new javax.swing.JMenu();
         jMenuItemLogout = new javax.swing.JMenuItem();
@@ -89,23 +94,22 @@ public class ProTrainer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PROTrainer");
+        getContentPane().setLayout(null);
 
         jPnlMain.setBackground(new java.awt.Color(0, 0, 0));
         jPnlMain.setMinimumSize(new java.awt.Dimension(1000, 700));
         jPnlMain.setLayout(null);
 
-        jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
-        jLblWeb.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
-        jLblWeb.setForeground(new java.awt.Color(0, 0, 0));
-        jLblWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Web.png"))); // NOI18N
-        jLblWeb.setToolTipText("Web");
-        jLblWeb.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLblWebMouseClicked(evt);
-            }
-        });
-        jPnlMain.add(jLblWeb);
-        jLblWeb.setBounds(920, 570, 35, 30);
+        jLblInfoLogOut.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLblInfoLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        jLblInfoLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblInfoLogOut.setToolTipText("");
+        jPnlMain.add(jLblInfoLogOut);
+        jLblInfoLogOut.setBounds(300, 280, 360, 30);
+
+        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png"))); // NOI18N
+        jPnlMain.add(jLblIcon);
+        jLblIcon.setBounds(140, 80, 689, 210);
 
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
         jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Login.png"))); // NOI18N
@@ -119,18 +123,23 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jBttnAccess);
-        jBttnAccess.setBounds(430, 520, 140, 60);
+        jBttnAccess.setBounds(420, 500, 140, 60);
 
-        jLblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png"))); // NOI18N
-        jPnlMain.add(jLblIcon);
-        jLblIcon.setBounds(140, 80, 689, 210);
+        jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
+        jLblWeb.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        jLblWeb.setForeground(new java.awt.Color(0, 0, 0));
+        jLblWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Web.png"))); // NOI18N
+        jLblWeb.setToolTipText("Web");
+        jLblWeb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLblWebMouseClicked(evt);
+            }
+        });
+        jPnlMain.add(jLblWeb);
+        jLblWeb.setBounds(930, 530, 35, 30);
 
-        jLblInfoLogOut.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLblInfoLogOut.setForeground(new java.awt.Color(255, 255, 255));
-        jLblInfoLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblInfoLogOut.setToolTipText("");
-        jPnlMain.add(jLblInfoLogOut);
-        jLblInfoLogOut.setBounds(260, 280, 360, 30);
+        getContentPane().add(jPnlMain);
+        jPnlMain.setBounds(0, 0, 1000, 660);
 
         jMnuBar.setBackground(new java.awt.Color(0, 0, 0));
         jMnuBar.setBorder(null);
@@ -195,17 +204,6 @@ public class ProTrainer extends javax.swing.JFrame {
         jMnuBar.add(jMnuCalendar);
 
         setJMenuBar(jMnuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
