@@ -44,10 +44,16 @@ public class AccionesBD {
             ps.setInt(1, workoutId);
             int rowsAffected = ps.executeUpdate();
 
-            return rowsAffected > 0;
+            if (rowsAffected == 0) {
+                
+                System.out.println("No se pudo eliminar el workout con ID: " + workoutId);
+                
+                return false;
+            }
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+             Logger.getLogger(Workouts.class.getName()).log(Level.SEVERE, "Error al eliminar el workout", e);
             return false;
         }
     }
@@ -125,7 +131,6 @@ public class AccionesBD {
     }
 
      //----------Método para asignar un ejercicio a un entrenamiento----------
-
     public void asignarExerciciWorkout(ExercicisWorkouts workoutExercici) throws SQLException {
 
         String sql = "INSERT INTO ExercicisWorkouts (idWorkout, idExercici) VALUES (?, ?)";

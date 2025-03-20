@@ -14,10 +14,10 @@ public class Exercicis {
     public Exercicis() {
     }
 
-    public Exercicis(int id, String NomExercici, String Descripcio) {
+    public Exercicis(int id, String nomExercici, String descripcio) {
         this.id = id;
-        this.nomExercici = NomExercici;
-        this.descripcio = Descripcio;
+        this.nomExercici = nomExercici;
+        this.descripcio = descripcio;
     }
 
     public int getId() {
@@ -32,28 +32,28 @@ public class Exercicis {
         return nomExercici;
     }
 
-    public void setNomExercici(String NomExercici) {
-        this.nomExercici = NomExercici;
+    public void setNomExercici(String nomExercici) {
+        this.nomExercici = nomExercici;
     }
 
     public String getDescripcio() {
         return descripcio;
     }
 
-    public void setDescripcio(String Descripcio) {
-        this.descripcio = Descripcio;
+    public void setDescripcio(String descripcio) {
+        this.descripcio = descripcio;
     }
 
     public byte[] getDemoFoto() {
         return demoFoto;
     }
 
-    public void setDemoFoto(byte[] DemoFoto) {
-        this.demoFoto = DemoFoto;
+    public void setDemoFoto(byte[] demoFoto) {
+        this.demoFoto = demoFoto;
     }
     
     @Override
     public String toString() {
-        return this.nomExercici;
+        return getNomExercici() + " " + getDescripcio();
     }
 }

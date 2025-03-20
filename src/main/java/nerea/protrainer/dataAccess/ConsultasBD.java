@@ -101,6 +101,11 @@ public class ConsultasBD {
                 workout.setComments(rs.getString("Comments"));
                 allWorkouts.add(workout);
             }
+            
+            if (allWorkouts.isEmpty()) {
+            
+            System.out.println("No se encontraron entrenamientos en la base de datos.");
+        }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,6 +131,12 @@ public class ConsultasBD {
                 workout.setComments(rs.getString("Comments"));
                 workoutsUser.add(workout);
             }
+            
+            if (workoutsUser.isEmpty()) {
+           
+            System.out.println("Este usuario no tiene entrenamientos asignados.");
+           
+        }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +175,7 @@ public class ConsultasBD {
         return exercicis;
     }
 
-    //----------ArrayList que almacena los ejercicios de la base d edatos----------
+    //----------ArrayList que almacena los ejercicios de la base de datos----------
     public static ArrayList<Exercicis> exercicisBD() {
         ArrayList<Exercicis> exercises = new ArrayList<>();
         String sql = "SELECT * FROM Exercicis";
@@ -182,6 +193,12 @@ public class ConsultasBD {
                 );
                 exercises.add(exercise);
             }
+            
+            if (exercises.isEmpty()) {
+            
+            System.out.println("No hay ejercicios disponibles.");
+            
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }

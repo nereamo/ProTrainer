@@ -1,9 +1,16 @@
 package nerea.protrainer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import nerea.protrainer.Views.DialogAbout;
 import nerea.protrainer.Views.DialogCalendar;
 import nerea.protrainer.Views.DialogLogin;
@@ -26,23 +33,79 @@ public class ProTrainer extends javax.swing.JFrame {
         setLocationRelativeTo(this);
 
         panelMenu = new PanelMenu(this);
+
+        jPnlMain.setLayout(new MigLayout("fill", "[grow]", "[grow]"));
+
+        jPnlMain.add(jLblIcon, "align center, wrap");
+        jPnlMain.add(jLblInfoLogOut, "align center, wrap");
+        jPnlMain.add(jBttnAccess, "align center, wrap");
+        jPnlMain.add(jLblWeb, "dock north, align right");
+
+        this.getContentPane().setLayout(new BorderLayout());
+        this.getContentPane().add(jPnlMain, BorderLayout.CENTER);
+
+        jMnuCalendar.setVisible(false);
+
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
+        setIconImage(icon);
+        
+        eventosMouse();
+    }
     
-    // Usar MigLayout en lugar de `null`
-    jPnlMain.setLayout(new MigLayout("fill", "[grow]", "[grow]"));
+    //Fragmento extraído de chatGPT
+    //----------Método resaltar los botones----------
+    private void eventosMouse() {
+        
+        jBttnAccess.addMouseListener(new MouseAdapter() {
+            Color originalColor = jBttnAccess.getBackground();
 
-    // Agregar elementos con MigLayout
-    jPnlMain.add(jLblIcon, "align center, wrap");
-    jPnlMain.add(jLblInfoLogOut, "align center, wrap");
-    jPnlMain.add(jBttnAccess, "align center, wrap");
-    jPnlMain.add(jLblWeb, "dock north, align right");
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jBttnAccess.setBackground(new Color(220, 220, 220)); 
+                jBttnAccess.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                jBttnAccess.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
 
-    this.getContentPane().setLayout(new BorderLayout());
-    this.getContentPane().add(jPnlMain, BorderLayout.CENTER);
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jBttnAccess.setBackground(originalColor);
+                jBttnAccess.setBorder(UIManager.getBorder("Button.border"));
+                jBttnAccess.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
 
-    jMnuCalendar.setVisible(false);
+        jLblWeb.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
 
-    Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
-    setIconImage(icon);
+                jLblWeb.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            }
+        });
+
+        jMnuCalendar.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                jMnuCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            }
+        });
+
+        jMnuMenu.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                jMnuMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            }
+        });
+
+        jMnuAbout.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                jMnuAbout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            }
+        });
+
     }
 
     public void setLoggedInstructor(Usuari instructor) {
@@ -114,8 +177,6 @@ public class ProTrainer extends javax.swing.JFrame {
         jBttnAccess.setForeground(new java.awt.Color(0, 0, 0));
         jBttnAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Login.png"))); // NOI18N
         jBttnAccess.setToolTipText("Login");
-        jBttnAccess.setBorder(null);
-        jBttnAccess.setBorderPainted(false);
         jBttnAccess.setContentAreaFilled(false);
         jBttnAccess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +184,7 @@ public class ProTrainer extends javax.swing.JFrame {
             }
         });
         jPnlMain.add(jBttnAccess);
-        jBttnAccess.setBounds(420, 500, 140, 60);
+        jBttnAccess.setBounds(420, 500, 140, 67);
 
         jLblWeb.setBackground(new java.awt.Color(0, 0, 0));
         jLblWeb.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N

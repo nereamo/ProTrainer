@@ -1,6 +1,12 @@
 package nerea.protrainer.Views;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
 import nerea.protrainer.ProTrainer;
 import nerea.protrainer.dataAccess.ConsultasBD;
 import nerea.protrainer.dto.Usuari;
@@ -19,6 +25,27 @@ public class DialogLogin extends javax.swing.JDialog {
         initComponents();
         setSize(400, 300);
         setLocationRelativeTo(this);
+        eventosMouse();
+    }
+    
+    //Fragmento extraído de chatGPT
+    //----------Método resaltar los botones----------
+    private void eventosMouse() {
+        jBttnLogIn.addMouseListener(new MouseAdapter() {
+            @Override
+                public void mouseEntered(MouseEvent e) {
+                jBttnLogIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                jBttnLogIn.setBorder(BorderFactory.createEtchedBorder(4, Color.lightGray, Color.BLACK)); 
+                
+            }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    jBttnLogIn.setBackground(UIManager.getColor("Button.background"));
+                    jBttnLogIn.setBorder(UIManager.getBorder("Button.border")); 
+                    jBttnLogIn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -74,7 +101,6 @@ public class DialogLogin extends javax.swing.JDialog {
         jBttnLogIn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jBttnLogIn.setForeground(new java.awt.Color(0, 0, 0));
         jBttnLogIn.setText("INICIAR SESION");
-        jBttnLogIn.setBorder(null);
         jBttnLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBttnLogInActionPerformed(evt);

@@ -6,11 +6,11 @@ package nerea.protrainer.dto;
 public class Usuari {
 
     private int Id;
-    private String Nom;
-    private String Email;
-    private String PasswordHash;
-    private byte[] Foto;
-    private boolean Instructor;
+    private String nom;
+    private String email;
+    private String passwordHash;
+    private byte[] foto;
+    private boolean instructor;
 
     public int getId() {
         return Id;
@@ -21,43 +21,48 @@ public class Usuari {
     }
 
     public String getNom() {
-        return Nom;
+        return nom;
     }
 
-    public void setNom(String Nom) {
-        this.Nom = Nom;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPasswordHash() {
-        return PasswordHash;
+        return passwordHash;
     }
 
-    public void setPasswordHash(String PasswordHash) {
-        this.PasswordHash = PasswordHash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public byte[] getFoto() {
-        return Foto;
+        return foto;
     }
 
     public void setFoto(byte[] Foto) {
-        this.Foto = Foto;
+        this.foto = Foto;
     }
 
     public boolean isInstructor() {
-        return Instructor;
+        return instructor;
     }
 
-    public void setInstructor(boolean Instructor) {
-        this.Instructor = Instructor;
+    public void setInstructor(boolean instructor) {
+        this.instructor = instructor;
+    }
+    
+    @Override
+    public String toString() {
+        return this.nom;
     }
 
 }
