@@ -1,21 +1,15 @@
 package nerea.protrainer;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import nerea.protrainer.Views.DialogAbout;
-import nerea.protrainer.Views.DialogCalendar;
-import nerea.protrainer.Views.DialogLogin;
-import nerea.protrainer.Views.PanelMenu;
+import nerea.protrainer.views.DialogAbout;
+import nerea.protrainer.views.DialogCalendar;
+import nerea.protrainer.views.DialogLogin;
+import nerea.protrainer.views.PanelMenu;
 import nerea.protrainer.dto.Usuari;
+import nerea.protrainer.eventosVisuales.EventosMouse;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -24,7 +18,7 @@ import net.miginfocom.swing.MigLayout;
  */
 public class ProTrainer extends javax.swing.JFrame {
 
-    private PanelMenu panelMenu;
+    private final PanelMenu panelMenu;
     private static Usuari loggedInstructor;
 
     public ProTrainer() {
@@ -49,63 +43,7 @@ public class ProTrainer extends javax.swing.JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
         setIconImage(icon);
         
-        eventosMouse();
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void eventosMouse() {
-        
-        jBttnAccess.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnAccess.getBackground();
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnAccess.setBackground(new Color(220, 220, 220)); 
-                jBttnAccess.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-                jBttnAccess.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnAccess.setBackground(originalColor);
-                jBttnAccess.setBorder(UIManager.getBorder("Button.border"));
-                jBttnAccess.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-
-        jLblWeb.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-                jLblWeb.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            }
-        });
-
-        jMnuCalendar.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-                jMnuCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            }
-        });
-
-        jMnuMenu.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-                jMnuMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            }
-        });
-
-        jMnuAbout.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-                jMnuAbout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            }
-        });
-
+        EventosMouse.configurarEventos(this, jBttnAccess, jLblWeb, jMnuCalendar, jMnuMenu, jMnuAbout);
     }
 
     public void setLoggedInstructor(Usuari instructor) {

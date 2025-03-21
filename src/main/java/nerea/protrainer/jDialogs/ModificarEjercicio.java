@@ -1,20 +1,13 @@
-package nerea.protrainer.Formularios;
+package nerea.protrainer.jDialogs;
 
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import nerea.protrainer.dataAccess.AccionesBD;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.ExercicisDAO;
 import nerea.protrainer.dto.Exercicis;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -35,27 +28,8 @@ public class ModificarEjercicio extends javax.swing.JDialog {
 
         comboBoxEjercicios();
         iniciarComboBox();
-        resaltarBotones();
-    }
-    
-    private void resaltarBotones() {
-        jBttnGuardar.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnGuardar.getBackground();
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnGuardar.setBackground(new Color(220, 220, 220)); // Un gris claro
-                jBttnGuardar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-                jBttnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnGuardar.setBackground(originalColor);
-                jBttnGuardar.setBorder(UIManager.getBorder("Button.border"));
-                jBttnGuardar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
+        resaltarBotones(jBttnGuardar);
+        
     }
 
     //----------Método que carga el combobox al iniciar----------
@@ -63,7 +37,7 @@ public class ModificarEjercicio extends javax.swing.JDialog {
         DefaultComboBoxModel<Exercicis> model = new DefaultComboBoxModel<>();
         
         Exercicis placeholder = new Exercicis();
-        placeholder.setNomExercici("Seleccione un ejercicio");
+        placeholder.setNomExercici("Selecciona un Ejercicio...");
         placeholder.setDescripcio("");
         model.addElement(placeholder);
 
@@ -91,7 +65,7 @@ public class ModificarEjercicio extends javax.swing.JDialog {
     //----------Metodo que muestra los ejercicios en el combobox----------
     private void comboBoxEjercicios() {
 
-        ejerciciosList = ConsultasBD.exercicisBD();
+        ejerciciosList = ExercicisDAO.exercicisBD();
     }
 
     @SuppressWarnings("unchecked")
@@ -246,7 +220,7 @@ public class ModificarEjercicio extends javax.swing.JDialog {
             exercise.setNomExercici(nuevoNombre);
             exercise.setDescripcio(nuevaDescripcion);
 
-            if (AccionesBD.actualizarEjerciciosBD(exercise)) {
+            if (ExercicisDAO.actualizarEjerciciosBD(exercise)) {
                 JOptionPane.showMessageDialog(this, "Ejercicio modificado correctamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {

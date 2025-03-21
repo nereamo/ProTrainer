@@ -1,21 +1,16 @@
-package nerea.protrainer.Formularios;
+package nerea.protrainer.jDialogs;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import nerea.protrainer.dataAccess.AccionesBD;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.UsuarisDAO;
+import nerea.protrainer.dao.WorkoutsDAO;
 import nerea.protrainer.dto.Usuari;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -34,36 +29,14 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
 
         usuariosInstructor();
         iniciarComboBox();
-        resaltarBotones();
+        
+        resaltarBotones(jBttnGuardar);
     }
     
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void resaltarBotones() {
-        jBttnGuardar.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnGuardar.getBackground();
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnGuardar.setBackground(new Color(220, 220, 220)); // Un gris claro
-                jBttnGuardar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-                jBttnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnGuardar.setBackground(originalColor);
-                jBttnGuardar.setBorder(UIManager.getBorder("Button.border"));
-                jBttnGuardar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-    }
-    
-   
     //----------Método que carga los usuarios en el comboBox----------
     private void usuariosInstructor() {
 
-        userList = ConsultasBD.usuariosAsignadosInstructor();
+        userList = UsuarisDAO.usuariosAsignadosInstructor();
         DefaultComboBoxModel<Usuari> dcbm = new DefaultComboBoxModel<>();
 
         for (Usuari u : userList) {
@@ -78,7 +51,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         DefaultComboBoxModel<Usuari> model = new DefaultComboBoxModel<>();
 
         Usuari placeholder = new Usuari();
-        placeholder.setNom("---Usuario---");
+        placeholder.setNom("Selecciona un Usuario...");
 
         model.addElement(placeholder);
 
@@ -212,7 +185,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String fechaFormateada = dateFormat.format(dateWork);
 
-                AccionesBD.insertarWorkoutBD(selectedUserId, comment, fechaFormateada);
+                WorkoutsDAO.insertarWorkoutBD(selectedUserId, comment, fechaFormateada);
                 JOptionPane.showMessageDialog(this, "Nuevo entrenamiento añadido.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException ex) {

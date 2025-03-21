@@ -1,15 +1,10 @@
-package nerea.protrainer.Views;
+package nerea.protrainer.views;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.UIManager;
 import nerea.protrainer.ProTrainer;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.UsuarisDAO;
 import nerea.protrainer.dto.Usuari;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -25,27 +20,7 @@ public class DialogLogin extends javax.swing.JDialog {
         initComponents();
         setSize(400, 300);
         setLocationRelativeTo(this);
-        eventosMouse();
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void eventosMouse() {
-        jBttnLogIn.addMouseListener(new MouseAdapter() {
-            @Override
-                public void mouseEntered(MouseEvent e) {
-                jBttnLogIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                jBttnLogIn.setBorder(BorderFactory.createEtchedBorder(4, Color.lightGray, Color.BLACK)); 
-                
-            }
-                
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    jBttnLogIn.setBackground(UIManager.getColor("Button.background"));
-                    jBttnLogIn.setBorder(UIManager.getBorder("Button.border")); 
-                    jBttnLogIn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                }
-        });
+        resaltarBotones(jBttnLogIn);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,7 +39,6 @@ public class DialogLogin extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 270));
-        setPreferredSize(new java.awt.Dimension(400, 270));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -136,7 +110,7 @@ public class DialogLogin extends javax.swing.JDialog {
     private void jBttnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnLogInActionPerformed
 
         String loggedInEmail = jTxtFldEmail.getText();
-        Usuari usuari = ConsultasBD.inicioSesionUsuario(loggedInEmail);
+        Usuari usuari = UsuarisDAO.inicioSesionUsuario(loggedInEmail);
 
         if (usuari.isInstructor()) {
 

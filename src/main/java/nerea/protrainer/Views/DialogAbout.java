@@ -1,4 +1,4 @@
-package nerea.protrainer.Views;
+package nerea.protrainer.views;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -51,7 +51,6 @@ public class DialogAbout extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(450, 150));
-        setPreferredSize(new java.awt.Dimension(450, 150));
         getContentPane().setLayout(null);
 
         jPnlAbout.setBackground(new java.awt.Color(51, 51, 51));

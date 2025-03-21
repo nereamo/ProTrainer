@@ -1,23 +1,13 @@
-package nerea.protrainer.Formularios;
+package nerea.protrainer.jDialogs;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import nerea.protrainer.dataAccess.AccionesBD;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.ExercicisDAO;
 import nerea.protrainer.dto.Exercicis;
+import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnJList;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -34,70 +24,14 @@ public class EliminarEjercicio extends javax.swing.JDialog {
         setLocationRelativeTo(this);
         
         listaEjercicios();
-        resaltarBotones();
-        eventosMouse();
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void resaltarBotones() {
-        jBttnEliminar.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnEliminar.getBackground();
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnEliminar.setBackground(new Color(220, 220, 220)); // Un gris claro
-                jBttnEliminar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-                jBttnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnEliminar.setBackground(originalColor);
-                jBttnEliminar.setBorder(UIManager.getBorder("Button.border"));
-                jBttnEliminar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método muestra la fila por donde pasa el cursor----------
-    private void eventosMouse() {
         
-        jLstEjercicios.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                jLstEjercicios.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                jLstEjercicios.repaint();
-            }
-        });
-
-        jLstEjercicios.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                Point mousePos = list.getMousePosition();
-                int hoverIndex = (mousePos != null) ? list.locationToIndex(mousePos) : -1;
-
-                if (index == hoverIndex) {
-                    c.setBackground(Color.LIGHT_GRAY);
-                } else if (isSelected) {
-                    c.setBackground(Color.DARK_GRAY);
-                    c.setForeground(Color.WHITE);
-                } else {
-                    c.setBackground(list.getBackground());
-                    c.setForeground(list.getForeground());
-                }
-
-                return c;
-            }
-        });
+        resaltarBotones(jBttnEliminar);
+        cambiarCursorEnJList(jLstEjercicios);
     }
 
     //----------Método para mostrar una lista de ejercicios de la base de datos----------
     private void listaEjercicios() {
-        ArrayList<Exercicis> ejercicios = ConsultasBD.exercicisBD();
+        ArrayList<Exercicis> ejercicios = ExercicisDAO.exercicisBD();
 
         this.ejerciciosList = ejercicios;
 
@@ -124,7 +58,6 @@ public class EliminarEjercicio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 300));
-        setPreferredSize(new java.awt.Dimension(300, 300));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -200,7 +133,7 @@ public class EliminarEjercicio extends javax.swing.JDialog {
 
             if (confirm == JOptionPane.YES_OPTION) {
 
-                boolean success = AccionesBD.eliminaExercicis(ejercicios.getId());
+                boolean success = ExercicisDAO.eliminaExercicis(ejercicios.getId());
 
                     if (success) {
 

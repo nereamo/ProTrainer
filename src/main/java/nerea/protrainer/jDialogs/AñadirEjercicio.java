@@ -1,12 +1,7 @@
-package nerea.protrainer.Formularios;
+package nerea.protrainer.jDialogs;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.UIManager;
-import nerea.protrainer.dataAccess.AccionesBD;
+import nerea.protrainer.dao.ExercicisDAO;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -19,29 +14,8 @@ public class AñadirEjercicio extends javax.swing.JDialog {
         initComponents();
         setSize(400,400);
         setLocationRelativeTo(this);
-        resaltarBotones();
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void resaltarBotones() {
-        jBttnGuardar.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnGuardar.getBackground();
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnGuardar.setBackground(new Color(220, 220, 220)); // Un gris claro
-                jBttnGuardar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-                jBttnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnGuardar.setBackground(originalColor);
-                jBttnGuardar.setBorder(UIManager.getBorder("Button.border"));
-                jBttnGuardar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
+        
+        resaltarBotones(jBttnGuardar);
     }
 
     public String getExerciseDescription() {
@@ -63,7 +37,6 @@ public class AñadirEjercicio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 300));
-        setPreferredSize(new java.awt.Dimension(300, 300));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -153,7 +126,7 @@ public class AñadirEjercicio extends javax.swing.JDialog {
         if (nombre.isEmpty() || nombre.equals("Nombre ejercicio...") || descripcion.isEmpty() || descripcion.equals("Añade una descripcion...")) {
             jLblMsg.setText("Debe ingresar un nombre y una descripción.");
         } else {
-            AccionesBD.insertarEjerciciosBD(nombre, descripcion);
+            ExercicisDAO.insertarEjerciciosBD(nombre, descripcion);
             dispose();
         }
     }//GEN-LAST:event_jBttnGuardarActionPerformed

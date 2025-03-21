@@ -1,4 +1,4 @@
-package nerea.protrainer.Views;
+package nerea.protrainer.views;
 
 import javax.swing.JOptionPane;
 import nerea.componentcalendar.CalendarEventListener;
@@ -34,7 +34,6 @@ public class DialogCalendar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 269));
-        setPreferredSize(new java.awt.Dimension(600, 269));
         setResizable(false);
         getContentPane().setLayout(null);
 

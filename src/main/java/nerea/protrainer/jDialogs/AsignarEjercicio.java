@@ -1,27 +1,20 @@
-package nerea.protrainer.Formularios;
+package nerea.protrainer.jDialogs;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import nerea.protrainer.dataAccess.AccionesBD;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.ExerciciesWorkoutsDAO;
+import nerea.protrainer.dao.ExercicisDAO;
+import nerea.protrainer.dao.UsuarisDAO;
+import nerea.protrainer.dao.WorkoutsDAO;
 import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.Usuari;
 import nerea.protrainer.dto.Workouts;
+import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnJList;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
  *
@@ -45,71 +38,15 @@ public class AsignarEjercicio extends javax.swing.JDialog {
 
         iniciarComboBoxUsuarios();
         listaEjercicios();
-        eventosMouse();
-        resaltarBotones();
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void resaltarBotones() {
-        jBttnGuardar.addMouseListener(new MouseAdapter() {
-            Color originalColor = jBttnGuardar.getBackground();
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jBttnGuardar.setBackground(new Color(220, 220, 220)); 
-                jBttnGuardar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-                jBttnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jBttnGuardar.setBackground(originalColor);
-                jBttnGuardar.setBorder(UIManager.getBorder("Button.border"));
-                jBttnGuardar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método muestra la fila por donde pasa el cursor----------
-    private void eventosMouse() {
-
-        jLstEjercicios.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                jLstEjercicios.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                jLstEjercicios.repaint();
-            }
-        });
-
-        jLstEjercicios.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                Point mousePos = list.getMousePosition();
-                int hoverIndex = (mousePos != null) ? list.locationToIndex(mousePos) : -1;
-
-                if (index == hoverIndex) {
-                    c.setBackground(Color.LIGHT_GRAY);
-                } else if (isSelected) {
-                    c.setBackground(Color.DARK_GRAY);
-                    c.setForeground(Color.WHITE);
-                } else {
-                    c.setBackground(list.getBackground());
-                    c.setForeground(list.getForeground());
-                }
-
-                return c;
-            }
-        });
+        resaltarBotones(jBttnGuardar);
+        cambiarCursorEnJList(jLstEjercicios);
     }
 
     //----------Método que inicia el comboBox de usuarios----------
     private void iniciarComboBoxUsuarios() {
 
-        usuariosList = ConsultasBD.usuariosAsignadosInstructor();
+        usuariosList = UsuarisDAO.usuariosAsignadosInstructor();
         
         DefaultComboBoxModel<Usuari> model = new DefaultComboBoxModel<>();
         
@@ -129,7 +66,7 @@ public class AsignarEjercicio extends javax.swing.JDialog {
     //----------Método que inicia el comboBox de Workouts----------
     private void iniciarComboBoxWokouts(int userId) {
 
-        ArrayList<Workouts> workouts = ConsultasBD.workoutUsuari(userId);
+        ArrayList<Workouts> workouts = WorkoutsDAO.workoutUsuari(userId);
 
         workoutList.clear();
         workoutList.addAll(workouts);
@@ -153,7 +90,7 @@ public class AsignarEjercicio extends javax.swing.JDialog {
     //----------Método que muestra una lista de los ejercicios de la base de datos----------
     private void listaEjercicios() {
 
-        ArrayList<Exercicis> ejercicios = ConsultasBD.exercicisBD();
+        ArrayList<Exercicis> ejercicios = ExercicisDAO.exercicisBD();
 
         ejerciciosList.clear();
 
@@ -289,7 +226,7 @@ public class AsignarEjercicio extends javax.swing.JDialog {
                 return;
             }
 
-            AccionesBD.asignarEjercicioAWorkout(selectedWorkoutId, selectedExerciseId);
+            ExerciciesWorkoutsDAO.asignarEjercicioAWorkout(selectedWorkoutId, selectedExerciseId);
             JOptionPane.showMessageDialog(this, "Ejercicio asignado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             dispose();
             

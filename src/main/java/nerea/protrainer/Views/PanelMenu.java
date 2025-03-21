@@ -1,32 +1,29 @@
-package nerea.protrainer.Views;
+package nerea.protrainer.views;
 
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import nerea.protrainer.Formularios.AsignarEjercicio;
-import nerea.protrainer.Formularios.AñadirEjercicio;
-import nerea.protrainer.Formularios.AñadirEntrenamiento;
-import nerea.protrainer.Formularios.EliminarEjercicio;
-import nerea.protrainer.Formularios.EliminarEntrenamiento;
-import nerea.protrainer.Formularios.ModificarEjercicio;
+import nerea.protrainer.jDialogs.AsignarEjercicio;
+import nerea.protrainer.jDialogs.AñadirEjercicio;
+import nerea.protrainer.jDialogs.AñadirEntrenamiento;
+import nerea.protrainer.jDialogs.EliminarEjercicio;
+import nerea.protrainer.jDialogs.EliminarEntrenamiento;
+import nerea.protrainer.jDialogs.ModificarEjercicio;
 import nerea.protrainer.ProTrainer;
-import nerea.protrainer.dataAccess.ConsultasBD;
+import nerea.protrainer.dao.ExerciciesWorkoutsDAO;
+import nerea.protrainer.dao.UsuarisDAO;
+import nerea.protrainer.dao.WorkoutsDAO;
 import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.ExercicisTableModel;
 import nerea.protrainer.dto.Usuari;
 import nerea.protrainer.dto.Workouts;
 import nerea.protrainer.dto.WorkoutsTableModel;
+import nerea.protrainer.eventosVisuales.EventosMouse;
+import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnJList;
 import net.miginfocom.swing.MigLayout;
+import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnTablas;
 
 /**
  *
@@ -69,82 +66,15 @@ public class PanelMenu extends javax.swing.JPanel {
         add(jBttnEditarEjercicio,"cell 7 2, wrap");
         add(jBttnAsignarEjercicio, "cell 8 2, wrap");
         
-        
-        eventosMouse();
-        resaltarBotones(jBttnAñadirEntrenamiento, jBttnEliminarEntrenamiento, jBttnAñadirEjercicio, jBttnEliminarEjercicio, jBttnEditarEjercicio, jBttnAsignarEjercicio);
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método resaltar los botones----------
-    private void resaltarBotones(JButton... botones) {
-        for (JButton boton : botones) {
-            boton.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    boton.setBorder(BorderFactory.createEtchedBorder(4, Color.lightGray, Color.BLACK));
-                    boton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cursor de mano
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    boton.setBackground(UIManager.getColor("Button.background")); 
-                    boton.setBorder(UIManager.getBorder("Button.border")); 
-                    boton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); 
-                }
-            });
-        }
-    }
-    
-    //Fragmento extraído de chatGPT
-    //----------Método cambia el cursor al pasar por las tablas----------
-    private void eventosMouse() {
-        jTblEntrenamientos.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                int row = jTblEntrenamientos.rowAtPoint(e.getPoint());
-                int col = jTblEntrenamientos.columnAtPoint(e.getPoint());
-                if (row > -1 && col > -1) {
-                    // Cambiar el cursor a una mano
-                    jTblEntrenamientos.setRowSelectionInterval(row, row); // Resaltar la fila
-                    jTblEntrenamientos.setColumnSelectionInterval(col, col);
-                    jTblEntrenamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                }
-            }
-        });
-
-        jTblEjercicios.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                int row = jTblEjercicios.rowAtPoint(e.getPoint());
-                int col = jTblEjercicios.columnAtPoint(e.getPoint());
-                if (row > -1 && col > -1) {
-                    // Cambiar el cursor a una mano
-                    jTblEjercicios.setRowSelectionInterval(row, row); // Resaltar la fila
-                    jTblEjercicios.setColumnSelectionInterval(col, col);
-                    jTblEjercicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                }
-            }
-        });
-
-        jLstUsuario.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                int index = jLstUsuario.locationToIndex(e.getPoint()); // Obtener índice del elemento debajo del cursor
-                if (index > -1) {
-                    jLstUsuario.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cambiar el cursor a mano
-
-                    // Actualizar el índice del elemento resaltado y forzar la actualización del JList
-                    jLstUsuario.setSelectedIndex(index);
-                    jLstUsuario.ensureIndexIsVisible(index);
-                }
-            }
-        });
+        cambiarCursorEnTablas(jTblEntrenamientos,jTblEjercicios);
+        cambiarCursorEnJList(jLstUsuario);
+        EventosMouse.resaltarBotones(jBttnAñadirEntrenamiento, jBttnEliminarEntrenamiento, jBttnAñadirEjercicio, jBttnEliminarEjercicio, jBttnEditarEjercicio, jBttnAsignarEjercicio);
     }
 
     //----------Método que muestra los usuarios asignados al instructor en una lista----------
     private void listaUsuarios() {
 
-        userList = ConsultasBD.usuariosAsignadosInstructor();
+        userList = UsuarisDAO.usuariosAsignadosInstructor();
 
         DefaultListModel<Usuari> listModel = new DefaultListModel<>();
 
@@ -162,7 +92,7 @@ public class PanelMenu extends javax.swing.JPanel {
     private void tblEntrenamientosUsuario(int userId) {
 
         try {
-            ArrayList<Workouts> workouts = ConsultasBD.workoutUsuari(userId);
+            ArrayList<Workouts> workouts = WorkoutsDAO.workoutUsuari(userId);
 
             workoutList.clear();
             for (Workouts w : workouts) {
@@ -192,7 +122,7 @@ public class PanelMenu extends javax.swing.JPanel {
     private void tblEjerciciosUsuario(int workoutId) {
 
         try {
-            ArrayList<Exercicis> exercicis = ConsultasBD.exercicisDelWorkout(workoutId);
+            ArrayList<Exercicis> exercicis = ExerciciesWorkoutsDAO.exercicisDelWorkout(workoutId);
             
             ExercicisTableModel tblModel = new ExercicisTableModel(exercicis);
             
