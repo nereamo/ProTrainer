@@ -1,33 +1,48 @@
 # ProTrainer
 
-Diseño de la aplicación:
+## Diseño:
 
-ProTrainer (jFrame - Main):
+### ProTrainer (jFrame - Main):
 
-Menú superior:
+![Captura de pantalla 2025-03-24 141606](https://github.com/user-attachments/assets/9b20ba74-69fe-42bd-8f97-c74ff1fececd)
 
-    - Barras de menú: Contiene las opciones de LogOut(cerrar sesión usuario) y Exit(cerrar aplicación).
-    - Icono de Información: contiene el About con información del autor.
+> jMnuBar
 
-Centro de la página:
+- mnuOpciones: Opciones de Logout(cerrar sesión usuario) y Exit(cerrar aplicación).
+- mnuAbout: contiene el About con la información del autor.
 
-    - Icono del nombre de la WEB.
-    - Icono usuario: Al pulsar abre un formulario para ingresar el email y la contraseña y un botón para iniciar sesión.
-    - Icono búsqueda: Al pulsarlo, no reenvia a la página web.
+> pnlMain
 
-![Pagina Inicial](https://github.com/user-attachments/assets/d69040d7-8ee8-4602-aca4-1e3ef41627e1)
+- lblLogo: Logo de al aplicación.
+- btnAcceso: Al pulsar se abrirá 'DialogLogin' para ingresar el email y la contraseña e iniciar sesión.
+- lblUrl: Icono que nos reenvia a la página web.
 
-Panel Menú (jPanel):
 
-Menú superior encontramos dos opciones:
 
-    - Barras de menú: Contiene las opciones de LogOut(cerrar sesión usuario) y Exit(cerrar aplicación).
-    - Icono de Información: Contiene el About con información del autor.
-    - Icono de calendario: Muestra un calendario con los entrenamiento asignnados según el dia.
+### DialogLogin:
+
+![Captura de pantalla 2025-03-24 141601](https://github.com/user-attachments/assets/c72671bc-86bd-49fe-b5b4-f580f6ed72e0)
+
+- txtFieldEmail: Permite escribir el email.
+- fldPassword: Permite escribir la contraseña.
+- jChkMostrarContraseña: Permite ver la contraseña.
+- lblMsg: Muestra mensaje si no se ha escrito bien el email o la contraseña.
+- btnLogin: Evento que se accionará al ser pulsado.
+
+
+### Panel Menú (jPanel):
+
+![Captura de pantalla 2025-03-24 142151](https://github.com/user-attachments/assets/370c6b26-c494-48d5-b3bf-d320dfbb48c7)
+
+> jMnuBar
+
+- mnuOpciones: Opciones de Logout(cerrar sesión usuario) y Exit(cerrar aplicación).
+- mnuAbout: contiene el About con la información del autor.
+- mnuCalendario: Muestra un calendario con los entrenamientos asignado a una fecha y usuario.
     
-NOTA: Para que el componente del calenadrio funcione, se debe añadir la dependencia al Pom.xml y el .jar:
+> :warning: **Nota**: Para que el componente del calendario funcione, se debe añadir la dependencia al Pom.xml y el .jar.
     
-Dependencia:
+> Dependencia
     
         <dependency>
             <groupId>unknown.binary</groupId>
@@ -35,56 +50,110 @@ Dependencia:
             <version>SNAPSHOT</version>
         </dependency>
         
-Archivo .jar:
+> Archivo .jar
 
-    Descarga .jar: 
-        https://github.com/nereamo/ProTrainer/tags
+Descargar el .jar: https://github.com/nereamo/ProTrainer/tags
     
-    Añadir .jar a proyecto: 
-        1º) Carpeta Dependencies --> Click Derecho (Add Dependency) y rellenar los campos con la información de la dependencia.
-        2º) Buscar en la lista de dependencias el ComponentCalendar --> Click derecho(Manually install artifact) y buscar el componente.
+Añadir .jar a proyecto: 
+1. Carpeta Dependencies --> Click Derecho (Add Dependency) y rellenar los campos con la información de la dependencia.
+2. Buscar en la lista de dependencias el ComponentCalendar --> Click derecho(Manually install artifact) y buscar el componente.
 
-Centro de la página:
+> pnlDarkGrey
 
-    - Lista de usuarios: Al iniciar sesión en instructor, mostrará los usuarios asignados en la lista.
-    
-    - Tabla entrenamientos: Al pulsar sobre un usuario de la lista, mostrará sus entrenamientos.
-    *La tabla entrenamiento tiene dos botones: añadir un entrenamiento y eliminar un entrenamiento, 
-    al pulsar alguna de las opciones se mostrará un formulario.
+- lstUsuarios: Lista de los usuarios asignados al instructor, al pulsar sobre un usuario, mostrará los entrenamientos asociados.
+- lblUsuarioIcon: Icono de usuario.
 
-    - Tabla ejercicios: Al pulsar sobre un entrenamiento de la tabla entrenamientos, mostrará los ejercicios asignados.
-    *La tabla ejercicios tiene cuatro botones: añadir un ejercicio, eliminar un ejercicio, editar un ejercicio (permite
-    cambiar el nombre y la descripción) y asignar un ejercicio a un entrenamiento. Al pulsar alguna de las opciones se
-    mostrará un formulario.
-    
-![Pagina del Usuario](https://github.com/user-attachments/assets/4b589dab-c9ff-4ab5-8666-16a10db652c7)
+> pnlLightGrey
 
-Affordance:
+- lblWorkouts: Label con el título de la tabla.
+- tblEntrenamientos: Muestra los entrenamientos que tiene asociados un usuario.
+- btnNuevoWorkout: Permite crear un nuevo entrenamiento asignandolo a un usuario.
+![Captura de pantalla 2025-03-24 143923](https://github.com/user-attachments/assets/1dd2de99-4ae7-482a-8d06-83b92f4745f0)
 
-    jTables:
-            Al pasar el cursor sobre las filas se muestran resaltadas además del cursor en forma de mano.
+      - lblTitulo -> Titulo del formulario.
+      - cmbBoxUsuario -> Permite seleccionar un usuario.
+      - spnrFecha -> Permite seleccionar una fecha.
+      - txtFieldComentario -> Permite añadir un comentario.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnGuardar -> Acciona el evento.
+  
+- btnEliminarWorkout: Permite eliminar un entrenamiento que no tenga ejercicios asignados.
+![Captura de pantalla 2025-03-24 143928](https://github.com/user-attachments/assets/2724ea1d-57fb-4b8a-a314-de34d8c27849)
 
-    jButtons: 
-            Al pasar el cursor sobre el botón se muestra en forma de mano y es resaltado por un borde.
-
-    jList: 
-            Al pasar el cursor sobre las filas se muestran resaltadas además del cursor en forma de mano.
-
-    jDialogLogin:
-            Se ha añadido la opción de poder ver la contraseña.
+      - lblTitulo -> Titulo del formulario.
+      - cmbBoxUsuario -> Permite seleccionar un usuario.
+      - lstWorkouts -> Muestra la lista de entrenamientos asignados al usuario.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnEliminar -> Acciona el evento.
 
 
-Feedback:
+- lblEjercicios: Label con el título de la tabla.
+- tblEjercicios: Muestra los ejercicios que tiene asociados un workout.
+- btnNuevoEjercicio: Permite crear un nuevo ejercicio.
+![Captura de pantalla 2025-03-24 144845](https://github.com/user-attachments/assets/785e6a06-d912-490e-921e-a1971e9a982d)
 
-        Se ha añadido feedback visual a los elementos con los que el usuario debe interactuar para un mayor entendimiento y usabilidad.
+      - lblTitulo -> Titulo del formulario.
+      - txtFieldNombre -> Permite Añadir un nombre al ejercicio.
+      - txtFieldDescripcion -> Permite Añadir una descripción al ejercicio.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnGuardar -> Acciona el evento.
 
-Otros:
+- btnEliminarEjercicio: Permite eliminar un ejercicios que no esté asignando a un entrenamiento.
+![Captura de pantalla 2025-03-24 144851](https://github.com/user-attachments/assets/058abef5-8009-441e-8fe6-d8868084e6da)
 
-        -Se han creado las clases DAO para separar la lógica al interactuar con la base de datos.
-        -Creación de una clase para unir la lógica de los elementos visuales.
-        -Eliminación de JOPtionPane inecesários, ahora los mensages de 'selecciona un usuario' o similares, se muestran en en jLabel, evitando así la carga de ventanas abiertas pero informando en todo momento de los pasos a realizar antes de cualquier cambio.
+      - lblTitulo -> Titulo del formulario.
+      - lstEjercicios -> Lista que permite seleccionar un ejercicio.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnEliminar -> Acciona el evento.
+  
+- btnEditarEjercicio: Permite cambiar el nombre y la descripción de un ejercicio.
+![Captura de pantalla 2025-03-24 144855](https://github.com/user-attachments/assets/23ccaa4c-b980-4ae6-b7c7-f99cb8d52532)
 
-Cambios respect al anterior proyecto TrainMaster:
+      - lblTitulo -> Titulo del formulario.
+      - cmbBoxEjercicios -> Permite seleccionar el ejercicio que se va a modificar.
+      - txtFieldNombre -> Permite escribir un nuevo nombre para el ejercicio.
+      - txtFieldDescripcion -> Permite escribir una nueva descripción para el ejercicio.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnGuardar -> Acciona el evento.
+  
+- btnAsignarEjercicios: Permite asignar ejercicios a un entrenamiento.
+![Captura de pantalla 2025-03-24 144900](https://github.com/user-attachments/assets/537b94b2-3ece-48d1-b6d3-e40d5116350d)
+
+      - lblTitulo -> Titulo del formulario.
+      - cmbBoxUsuarios -> Permite seleccionar un usuario.
+      - cmbBoxWorkouts -> Se mostrarán los entrenamientos que tiene asignado el usuario.
+      - lstEjercicios -> Lista que muestra y permite seleccionar que ejercicio sera asignado.
+      - lblMsg -> Muestra un mensaje de error si alguno de los campos no es correcto.
+      - btnGuardar -> Acciona el evento.
+
+
+
+## Affordance
+- jDialogLogin -> Se ha añadido la opción de poder ver la contraseña.
+  
+- jTables -> Al pasar el cursor sobre las filas se muestran resaltadas además del cursor en forma de mano.
+
+- jButtons -> Al pasar el cursor sobre el botón se muestra en forma de mano y es resaltado por un borde.
+
+- jList -> Al pasar el cursor sobre las filas se muestran resaltadas además del cursor en forma de mano.
+
+
+## Feedback:
+
+Se ha añadido feedback visual a los elementos con los que el usuario debe interactuar para un mayor entendimiento y usabilidad.
+
+Ahora al pasar el ratón sobre un botón éste es destacado, en la listas y tablas las filas son resaltadas y al hacer click sobre un elemento es resaltado con otro color, cada uno de los elementos tiene un 'tooltip' que mustra una breve descripción del elemento sobre el que está el cursor.
+
+En cada formulario hay un lblMsg mostrando información d elos pasos a realizar.
+Al completar el formulario, si la opción es correcta mostrá un mensaje informando que la acción es correcta, de lo contrario mostrá un mensaje de error.
+
+## Otros:
+
+1. Creación de las clases DAO: Se han creado las vclases DAO para separa la lógica dependiendo del objeto.
+2. Creación de la clase 'EventosMouse' para unir la lógica que hace referéncia al aspecto visual y feedback de los botones, listas y tablas.
+3. Eliminación de mensajes JOPtionPane inecesários, ahora los mensages de 'selecciona un usuario' o similares, se muestran en en jLabel, evitando así la carga de ventanas abiertas pero informando en todo momento de los pasos a realizar antes de cualquier cambio.
+
+## Cambios respect al anterior proyecto TrainMaster:
 
         -Elementos como botones, tablas y listas se han resaltado.
         -Cambio en el color de la aplicación.
@@ -93,9 +162,9 @@ Cambios respect al anterior proyecto TrainMaster:
         -Se ha implementado el MigLayout para poder ampliar la aplicación.
 
 
-Imagenes del antes y después:
+## Imágenes del antes y después:
 
-Antes:
+> Antes:
     
 ![Captura de pantalla 2025-03-21 144835](https://github.com/user-attachments/assets/563b9f88-0ccc-4bcc-810e-88012ef5d85a)
 
@@ -104,7 +173,7 @@ Antes:
 ![Captura de pantalla 2025-03-21 144858](https://github.com/user-attachments/assets/058cfa11-f7bb-480a-b76b-54c3fda09d14)
 
 
-Después:
+> Después:
 
 ![Captura de pantalla 2025-03-21 144338](https://github.com/user-attachments/assets/f2a96cfb-3142-41a2-acea-5cc210195c15)
 
