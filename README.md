@@ -90,6 +90,7 @@ Añadir .jar a proyecto:
 - lblEjercicios: Label con el título de la tabla.
 - tblEjercicios: Muestra los ejercicios que tiene asociados un workout.
 - btnNuevoEjercicio: Permite crear un nuevo ejercicio.
+
 ![Captura de pantalla 2025-03-24 144845](https://github.com/user-attachments/assets/785e6a06-d912-490e-921e-a1971e9a982d)
 
       - lblTitulo -> Titulo del formulario.
