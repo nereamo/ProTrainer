@@ -20,7 +20,8 @@ public class DialogLogin extends javax.swing.JDialog {
         initComponents();
         setSize(400, 300);
         setLocationRelativeTo(this);
-        resaltarBotones(jBttnLogIn);
+        
+        resaltarBotones(btnLogin);
     }
 
     @SuppressWarnings("unchecked")
@@ -29,11 +30,11 @@ public class DialogLogin extends javax.swing.JDialog {
 
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jTxtFldEmail = new javax.swing.JTextField();
-        jPsswrd = new javax.swing.JPasswordField();
-        jBttnLogIn = new javax.swing.JButton();
-        jLblError = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        txtFieldEmail = new javax.swing.JTextField();
+        fldPassword = new javax.swing.JPasswordField();
+        btnLogin = new javax.swing.JButton();
+        lblMsg = new javax.swing.JLabel();
+        jChkMostrarContraseña = new javax.swing.JCheckBox();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -50,56 +51,56 @@ public class DialogLogin extends javax.swing.JDialog {
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanel1.setLayout(null);
 
-        jTxtFldEmail.setBackground(new java.awt.Color(51, 51, 51));
-        jTxtFldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTxtFldEmail.setForeground(new java.awt.Color(255, 255, 255));
-        jTxtFldEmail.setText("a@b.c");
-        jTxtFldEmail.setToolTipText("Email");
-        jTxtFldEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jTxtFldEmail.setOpaque(true);
-        jTxtFldEmail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jTxtFldEmail);
-        jTxtFldEmail.setBounds(70, 20, 260, 50);
+        txtFieldEmail.setBackground(new java.awt.Color(51, 51, 51));
+        txtFieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtFieldEmail.setForeground(new java.awt.Color(255, 255, 255));
+        txtFieldEmail.setText("a@b.c");
+        txtFieldEmail.setToolTipText("Email");
+        txtFieldEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        txtFieldEmail.setOpaque(true);
+        txtFieldEmail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jPanel1.add(txtFieldEmail);
+        txtFieldEmail.setBounds(70, 20, 260, 50);
 
-        jPsswrd.setBackground(new java.awt.Color(51, 51, 51));
-        jPsswrd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jPsswrd.setForeground(new java.awt.Color(255, 255, 255));
-        jPsswrd.setText("string");
-        jPsswrd.setToolTipText("Password");
-        jPsswrd.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPsswrd.setSelectionColor(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jPsswrd);
-        jPsswrd.setBounds(70, 80, 260, 50);
+        fldPassword.setBackground(new java.awt.Color(51, 51, 51));
+        fldPassword.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        fldPassword.setForeground(new java.awt.Color(255, 255, 255));
+        fldPassword.setText("string");
+        fldPassword.setToolTipText("Password");
+        fldPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        fldPassword.setSelectionColor(new java.awt.Color(204, 204, 204));
+        jPanel1.add(fldPassword);
+        fldPassword.setBounds(70, 80, 260, 50);
 
-        jBttnLogIn.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnLogIn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBttnLogIn.setForeground(new java.awt.Color(0, 0, 0));
-        jBttnLogIn.setText("INICIAR SESION");
-        jBttnLogIn.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
+        btnLogin.setText("INICIAR SESION");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnLogInActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jBttnLogIn);
-        jBttnLogIn.setBounds(110, 180, 160, 20);
+        jPanel1.add(btnLogin);
+        btnLogin.setBounds(110, 180, 160, 20);
 
-        jLblError.setBackground(new java.awt.Color(255, 255, 255));
-        jLblError.setForeground(new java.awt.Color(255, 255, 255));
-        jLblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLblError);
-        jLblError.setBounds(30, 220, 340, 30);
+        lblMsg.setBackground(new java.awt.Color(255, 255, 255));
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblMsg);
+        lblMsg.setBounds(30, 220, 340, 30);
 
-        jCheckBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Ver password");
-        jCheckBox1.setToolTipText("Ver password");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jChkMostrarContraseña.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jChkMostrarContraseña.setForeground(new java.awt.Color(255, 255, 255));
+        jChkMostrarContraseña.setText("Ver contraseña");
+        jChkMostrarContraseña.setToolTipText("Ver contraseña");
+        jChkMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jChkMostrarContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBox1);
-        jCheckBox1.setBounds(140, 140, 110, 19);
+        jPanel1.add(jChkMostrarContraseña);
+        jChkMostrarContraseña.setBounds(140, 140, 110, 19);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 300);
@@ -107,41 +108,41 @@ public class DialogLogin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBttnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnLogInActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-        String loggedInEmail = jTxtFldEmail.getText();
-        Usuari usuari = UsuarisDAO.inicioSesionUsuario(loggedInEmail);
+        String email = txtFieldEmail.getText();
+        Usuari usuario = UsuarisDAO.inicioSesionUsuario(email);
 
-        if (usuari.isInstructor()) {
+        if (usuario.isInstructor()) {
 
-            if (BCrypt.verifyer().verify(jPsswrd.getPassword(), usuari.getPasswordHash()).verified) {
-                frameMain.setLoggedInstructor(usuari);
+            if (BCrypt.verifyer().verify(fldPassword.getPassword(), usuario.getPasswordHash()).verified) {
+                frameMain.setLoggedInstructor(usuario);
                 frameMain.showPanel();
                 dispose();
             } else {
-                jLblError.setText("La contraseña no es correcta.");
+                lblMsg.setText("La contraseña no es correcta.");
             }
 
         } else {
-            jLblError.setText("No se ha encontrado el usuario");
+            lblMsg.setText("No se ha encontrado el usuario");
         }
-    }//GEN-LAST:event_jBttnLogInActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if (jCheckBox1.isSelected()) {
-        jPsswrd.setEchoChar((char) 0); // Muestra la contraseña
-    } else {
-        jPsswrd.setEchoChar('*'); // Oculta la contraseña
-    }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void jChkMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jChkMostrarContraseñaActionPerformed
+        if (jChkMostrarContraseña.isSelected()) {
+            fldPassword.setEchoChar((char) 0); 
+        } else {
+            fldPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jChkMostrarContraseñaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnLogIn;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLblError;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JPasswordField fldPassword;
+    private javax.swing.JCheckBox jChkMostrarContraseña;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPsswrd;
-    private javax.swing.JTextField jTxtFldEmail;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JTextField txtFieldEmail;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,7 +7,7 @@ public class ExercicisWorkouts {
 
     private int id;
     private int idWorkout;
-    private int idExercici;
+    private int idEjercicio;
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class ExercicisWorkouts {
         this.idWorkout = idWorkout;
     }
 
-    public int getIdExercici() {
-        return idExercici;
+    public int getIdEjercicios() {
+        return idEjercicio;
     }
 
-    public void setIdExercici(int idExercici) {
-        this.idExercici = idExercici;
+    public void setIdExercici(int idEjercicios) {
+        this.idEjercicio = idEjercicios;
     }
 }

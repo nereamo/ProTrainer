@@ -13,20 +13,20 @@ import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.Workouts;
 
 /**
-* @author Nerea
-*/
+ * @author Nerea
+ */
 
-public class ExerciciesWorkoutsDAO {
-    
-    //----------ArrayList que almacena los ejercicios pertenecientes a un entrenamiento----------
-    public static ArrayList<Exercicis> exercicisDelWorkout(int workoutId) {
-        ArrayList<Exercicis> exercicis = new ArrayList<>();
+public class ExercicisWorkoutsDAO {
+
+    public static ArrayList<Exercicis> ejerciciosDelWorkout(int workoutId) {
+        
+        ArrayList<Exercicis> ejerciciosList = new ArrayList<>();
 
         String sql = """
-        SELECT * FROM ExercicisWorkouts ew
-        JOIN Exercicis e ON ew.IdExercici = e.Id
-        WHERE ew.IdWorkout = ?
-        """;
+                    SELECT * FROM ExercicisWorkouts ew
+                    JOIN Exercicis e ON ew.IdExercici = e.Id
+                    WHERE ew.IdWorkout = ?
+                    """;
 
         try (Connection conn = DataAccess.getConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -35,22 +35,21 @@ public class ExerciciesWorkoutsDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Exercicis exercise = new Exercicis(
-                        rs.getInt("Id"),
-                        rs.getString("NomExercici"),
-                        rs.getString("Descripcio")
-                );
-                exercicis.add(exercise);
+                Exercicis exercise = new Exercicis();
+                        exercise.setId(rs.getInt("Id"));
+                        exercise.setNomExercici(rs.getString("NomExercici"));
+                        exercise.setDescripcion(rs.getString("Descripcio"));
+                ejerciciosList.add(exercise);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return exercicis;
+        return ejerciciosList;
     }
-    
-    //----------Método para asignar un ejercicio a un entrenaminto----------
+
     public static void asignarEjercicioAWorkout(int workoutId, int exerciseId) throws SQLException {
+        
         String sql = "INSERT INTO ExercicisWorkouts (IdWorkout, IdExercici) VALUES (?, ?)";
 
         try (Connection conn = DataAccess.getConnection(); 

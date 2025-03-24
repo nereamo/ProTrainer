@@ -6,13 +6,13 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import nerea.protrainer.jDialogs.AsignarEjercicio;
-import nerea.protrainer.jDialogs.AñadirEjercicio;
+import nerea.protrainer.jDialogs.AñadirNuevoEjercicio;
 import nerea.protrainer.jDialogs.AñadirEntrenamiento;
 import nerea.protrainer.jDialogs.EliminarEjercicio;
 import nerea.protrainer.jDialogs.EliminarEntrenamiento;
 import nerea.protrainer.jDialogs.ModificarEjercicio;
 import nerea.protrainer.ProTrainer;
-import nerea.protrainer.dao.ExerciciesWorkoutsDAO;
+import nerea.protrainer.dao.ExercicisWorkoutsDAO;
 import nerea.protrainer.dao.UsuarisDAO;
 import nerea.protrainer.dao.WorkoutsDAO;
 import nerea.protrainer.dto.Exercicis;
@@ -32,9 +32,9 @@ import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnTabla
 public class PanelMenu extends javax.swing.JPanel {
 
     private ProTrainer frameMain;
-    private List<Usuari> userList = new ArrayList<>();
+    private List<Usuari> usuariosList = new ArrayList<>();
     private List<Integer> workoutList = new ArrayList<>();
-    private List<Integer> exercises = new ArrayList<>();
+    private List<Integer> ejerciciosList = new ArrayList<>();
 
     public PanelMenu(ProTrainer frameMain) {
         
@@ -48,48 +48,48 @@ public class PanelMenu extends javax.swing.JPanel {
         
         setLayout(new MigLayout("fill, insets 10", "[grow 30][grow 20][grow 10][grow 10][grow 10][grow 5][grow 5][grow 5][grow 5]", "[][][][]")); // 6 columnas
         
-        //JPanel DarkGrey con JLblUsr y JScrollUsr
-        jPanelDarkGrey.setLayout(new MigLayout("fill, insets 10", "[grow]", "[grow]"));
-        jPanelDarkGrey.add(jLblUsr, "align center, wrap");
-        jPanelDarkGrey.add(jScrollUsr, "grow, align center");
+        //Panel DarkGrey con lista de usuarios y el jscroll de la lista de usuarios.
+        pnlDarkGrey.setLayout(new MigLayout("fill, insets 10", "[grow]", "[grow]"));
+        pnlDarkGrey.add(lblUsuarioIcon, "align center, wrap");
+        pnlDarkGrey.add(scrlLstUsuarios, "grow, align center");
 
-        add(jPanelDarkGrey, "grow, cell 0 0 3 5"); 
-        add(jLblEntrenamientos, "cell 3 0, wrap"); 
-        add(jScrllPnEntrenamientos, "grow, cell 3 1 8 1, wrap"); 
-        add(jBttnAñadirEntrenamiento, "cell 7 0,wrap"); 
-        add(jBttnEliminarEntrenamiento, "cell 8 0, wrap");
+        add(pnlDarkGrey, "grow, cell 0 0 3 5"); 
+        add(lblWorkouts, "cell 3 0, wrap"); 
+        add(scrlTblWorkouts, "grow, cell 3 1 8 1"); 
+        add(btnNuevoWorkout, "cell 7 0"); 
+        add(btnEliminarWorkout, "cell 8 0");
         
-        add(jLblEjercicios, "cell 3 2, wrap"); 
-        add(jScrollEjercicios, "grow, cell 3 3 8 3, wrap"); 
-        add(jBttnAñadirEjercicio,"cell 5 2, wrap");
-        add(jBttnEliminarEjercicio,"cell 6 2, wrap");
-        add(jBttnEditarEjercicio,"cell 7 2, wrap");
-        add(jBttnAsignarEjercicio, "cell 8 2, wrap");
+        add(lblEjercicios, "cell 3 2, wrap"); 
+        add(scrlTblEjercicios, "grow, cell 3 3 8 3"); 
+        add(btnNuevoEjercicio,"cell 5 2");
+        add(btnEliminarEjercicio,"cell 6 2");
+        add(btnEditarEjercicio,"cell 7 2");
+        add(btnAsignarEjercicios, "cell 8 2");
         
-        cambiarCursorEnTablas(jTblEntrenamientos,jTblEjercicios);
-        cambiarCursorEnJList(jLstUsuario);
-        EventosMouse.resaltarBotones(jBttnAñadirEntrenamiento, jBttnEliminarEntrenamiento, jBttnAñadirEjercicio, jBttnEliminarEjercicio, jBttnEditarEjercicio, jBttnAsignarEjercicio);
+        cambiarCursorEnTablas(tblEntrenamientos,tblEjercicios);
+        cambiarCursorEnJList(lstUsuarios);
+        EventosMouse.resaltarBotones(btnNuevoWorkout, btnEliminarWorkout, btnNuevoEjercicio, btnEliminarEjercicio, btnEditarEjercicio, btnAsignarEjercicios);
     }
 
     //----------Método que muestra los usuarios asignados al instructor en una lista----------
     private void listaUsuarios() {
 
-        userList = UsuarisDAO.usuariosAsignadosInstructor();
+        usuariosList = UsuarisDAO.usuariosAsignadosInstructor();
 
         DefaultListModel<Usuari> listModel = new DefaultListModel<>();
 
-        for (Usuari user : userList) {
+        for (Usuari user : usuariosList) {
             listModel.addElement(user);
         }
 
-        jLstUsuario.setModel(listModel);
+        lstUsuarios.setModel(listModel);
 
-        jLstUsuario.revalidate();
-        jLstUsuario.repaint();
+        lstUsuarios.revalidate();
+        lstUsuarios.repaint();
     }
 
     //----------Método que muestra los entrenamientos asignados a un usuario----------
-    private void tblEntrenamientosUsuario(int userId) {
+    private void tblWorkoutsUsuario(int userId) {
 
         try {
             ArrayList<Workouts> workouts = WorkoutsDAO.workoutUsuari(userId);
@@ -99,18 +99,18 @@ public class PanelMenu extends javax.swing.JPanel {
                 workoutList.add(w.getId());
             }
 
-            WorkoutsTableModel tblModel = new WorkoutsTableModel(workouts);
-            jTblEntrenamientos.setModel(tblModel);
-            jTblEntrenamientos.setRowHeight(25);
+            WorkoutsTableModel wtm = new WorkoutsTableModel(workouts);
+            tblEntrenamientos.setModel(wtm);
+            tblEntrenamientos.setRowHeight(25);
 
-            JScrollPane scrollPane = (JScrollPane) jTblEntrenamientos.getParent().getParent();
-            scrollPane.setPreferredSize(new Dimension(225, 160));
+            JScrollPane jsp = (JScrollPane) tblEntrenamientos.getParent().getParent();
+            jsp.setPreferredSize(new Dimension(225, 160));
 
             int filasMinimas = 8;
-            while (tblModel.getRowCount() < filasMinimas) {
+            while (wtm.getRowCount() < filasMinimas) {
 
                 workouts.add(new Workouts());
-                tblModel.setWorkouts(workouts);
+                wtm.setWorkouts(workouts);
             }
 
         } catch (Exception e) {
@@ -122,23 +122,23 @@ public class PanelMenu extends javax.swing.JPanel {
     private void tblEjerciciosUsuario(int workoutId) {
 
         try {
-            ArrayList<Exercicis> exercicis = ExerciciesWorkoutsDAO.exercicisDelWorkout(workoutId);
+            ArrayList<Exercicis> ejercicios = ExercicisWorkoutsDAO.ejerciciosDelWorkout(workoutId);
             
-            ExercicisTableModel tblModel = new ExercicisTableModel(exercicis);
+            ExercicisTableModel etm = new ExercicisTableModel(ejercicios);
             
-            jTblEjercicios.setModel(tblModel);
+            tblEjercicios.setModel(etm);
             
-            jTblEjercicios.setRowHeight(25);
+            tblEjercicios.setRowHeight(25);
             
-            JScrollPane scrollPane = (JScrollPane) jTblEjercicios.getParent().getParent();
-            scrollPane.setPreferredSize(new Dimension(225, 160));
+            JScrollPane jsp = (JScrollPane) tblEjercicios.getParent().getParent();
+            jsp.setPreferredSize(new Dimension(225, 160));
 
             
 
             int filasMinimas = 8;
-            while (tblModel.getRowCount() < filasMinimas) {
-                exercicis.add(new Exercicis());
-                tblModel.setExercicis(exercicis);
+            while (etm.getRowCount() < filasMinimas) {
+                ejercicios.add(new Exercicis());
+                etm.setEjercicios(ejercicios);
             }
 
         } catch (Exception e) {
@@ -148,7 +148,7 @@ public class PanelMenu extends javax.swing.JPanel {
 
     //----------Método que actualiza las tablas----------
     public void actualizarTablas(int userId, int workoutId) {
-        tblEntrenamientosUsuario(userId);
+        tblWorkoutsUsuario(userId);
         tblEjerciciosUsuario(workoutId);
     }
 
@@ -156,93 +156,36 @@ public class PanelMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLblEntrenamientos = new javax.swing.JLabel();
-        jBttnAñadirEntrenamiento = new javax.swing.JButton();
-        jBttnEliminarEntrenamiento = new javax.swing.JButton();
-        jBttnAsignarEjercicio = new javax.swing.JButton();
-        jBttnEliminarEjercicio = new javax.swing.JButton();
-        jBttnEditarEjercicio = new javax.swing.JButton();
-        jScrllPnEntrenamientos = new javax.swing.JScrollPane();
-        jTblEntrenamientos = new javax.swing.JTable();
-        jLblEjercicios = new javax.swing.JLabel();
-        jPanelDarkGrey = new javax.swing.JPanel();
-        jBttnAñadirEjercicio = new javax.swing.JButton();
-        jScrollUsr = new javax.swing.JScrollPane();
-        jLstUsuario = new javax.swing.JList<>();
-        jLblUsr = new javax.swing.JLabel();
-        jScrollEjercicios = new javax.swing.JScrollPane();
-        jTblEjercicios = new javax.swing.JTable();
+        lblWorkouts = new javax.swing.JLabel();
+        scrlTblWorkouts = new javax.swing.JScrollPane();
+        tblEntrenamientos = new javax.swing.JTable();
+        btnNuevoWorkout = new javax.swing.JButton();
+        btnEliminarWorkout = new javax.swing.JButton();
+        btnAsignarEjercicios = new javax.swing.JButton();
+        btnEliminarEjercicio = new javax.swing.JButton();
+        btnEditarEjercicio = new javax.swing.JButton();
+        lblEjercicios = new javax.swing.JLabel();
+        pnlDarkGrey = new javax.swing.JPanel();
+        btnNuevoEjercicio = new javax.swing.JButton();
+        scrlLstUsuarios = new javax.swing.JScrollPane();
+        lstUsuarios = new javax.swing.JList<>();
+        lblUsuarioIcon = new javax.swing.JLabel();
+        scrlTblEjercicios = new javax.swing.JScrollPane();
+        tblEjercicios = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(1200, 700));
         setLayout(null);
 
-        jLblEntrenamientos.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
-        jLblEntrenamientos.setText("Entrenamientos");
-        add(jLblEntrenamientos);
-        jLblEntrenamientos.setBounds(500, 40, 220, 40);
+        lblWorkouts.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblWorkouts.setForeground(new java.awt.Color(0, 0, 0));
+        lblWorkouts.setText("Entrenamientos");
+        add(lblWorkouts);
+        lblWorkouts.setBounds(500, 40, 220, 40);
 
-        jBttnAñadirEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Añadir.png"))); // NOI18N
-        jBttnAñadirEntrenamiento.setToolTipText("Nuevo entrenamiento");
-        jBttnAñadirEntrenamiento.setContentAreaFilled(false);
-        jBttnAñadirEntrenamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnAñadirEntrenamientoActionPerformed(evt);
-            }
-        });
-        add(jBttnAñadirEntrenamiento);
-        jBttnAñadirEntrenamiento.setBounds(850, 40, 40, 40);
-
-        jBttnEliminarEntrenamiento.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnEliminarEntrenamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Borrar.png"))); // NOI18N
-        jBttnEliminarEntrenamiento.setToolTipText("Eliminar entrenamiento");
-        jBttnEliminarEntrenamiento.setContentAreaFilled(false);
-        jBttnEliminarEntrenamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnEliminarEntrenamientoActionPerformed(evt);
-            }
-        });
-        add(jBttnEliminarEntrenamiento);
-        jBttnEliminarEntrenamiento.setBounds(890, 40, 40, 40);
-
-        jBttnAsignarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Asignar.png"))); // NOI18N
-        jBttnAsignarEjercicio.setToolTipText("Asignar ejercicio");
-        jBttnAsignarEjercicio.setContentAreaFilled(false);
-        jBttnAsignarEjercicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnAsignarEjercicioActionPerformed(evt);
-            }
-        });
-        add(jBttnAsignarEjercicio);
-        jBttnAsignarEjercicio.setBounds(890, 330, 40, 40);
-
-        jBttnEliminarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Borrar.png"))); // NOI18N
-        jBttnEliminarEjercicio.setToolTipText("Eliminar ejercicio");
-        jBttnEliminarEjercicio.setContentAreaFilled(false);
-        jBttnEliminarEjercicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnEliminarEjercicioActionPerformed(evt);
-            }
-        });
-        add(jBttnEliminarEjercicio);
-        jBttnEliminarEjercicio.setBounds(810, 330, 40, 40);
-
-        jBttnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Editar.png"))); // NOI18N
-        jBttnEditarEjercicio.setToolTipText("Editar ejercicio");
-        jBttnEditarEjercicio.setContentAreaFilled(false);
-        jBttnEditarEjercicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnEditarEjercicioActionPerformed(evt);
-            }
-        });
-        add(jBttnEditarEjercicio);
-        jBttnEditarEjercicio.setBounds(850, 330, 40, 40);
-
-        jTblEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTblEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
-        jTblEntrenamientos.setModel(new javax.swing.table.DefaultTableModel(
+        tblEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
+        tblEntrenamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -261,76 +204,133 @@ public class PanelMenu extends javax.swing.JPanel {
                 "Fecha", "Comentario"
             }
         ));
-        jTblEntrenamientos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        jTblEntrenamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTblEntrenamientos.setDropMode(javax.swing.DropMode.ON);
-        jTblEntrenamientos.setMinimumSize(new java.awt.Dimension(150, 300));
-        jTblEntrenamientos.setRowHeight(25);
-        jTblEntrenamientos.setSelectionBackground(new java.awt.Color(102, 102, 102));
-        jTblEntrenamientos.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jTblEntrenamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblEntrenamientos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        tblEntrenamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblEntrenamientos.setDropMode(javax.swing.DropMode.ON);
+        tblEntrenamientos.setMinimumSize(new java.awt.Dimension(150, 300));
+        tblEntrenamientos.setRowHeight(25);
+        tblEntrenamientos.setSelectionBackground(new java.awt.Color(102, 102, 102));
+        tblEntrenamientos.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tblEntrenamientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTblEntrenamientosMouseClicked(evt);
+                tblEntrenamientosMouseClicked(evt);
             }
         });
-        jScrllPnEntrenamientos.setViewportView(jTblEntrenamientos);
+        scrlTblWorkouts.setViewportView(tblEntrenamientos);
 
-        add(jScrllPnEntrenamientos);
-        jScrllPnEntrenamientos.setBounds(500, 80, 420, 190);
+        add(scrlTblWorkouts);
+        scrlTblWorkouts.setBounds(500, 80, 420, 190);
 
-        jLblEjercicios.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
-        jLblEjercicios.setText("Ejercicios");
-        add(jLblEjercicios);
-        jLblEjercicios.setBounds(500, 320, 170, 40);
-
-        jPanelDarkGrey.setBackground(new java.awt.Color(51, 51, 51));
-        jPanelDarkGrey.setLayout(null);
-        add(jPanelDarkGrey);
-        jPanelDarkGrey.setBounds(0, 0, 410, 700);
-
-        jBttnAñadirEjercicio.setBackground(new java.awt.Color(255, 255, 255));
-        jBttnAñadirEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Añadir.png"))); // NOI18N
-        jBttnAñadirEjercicio.setToolTipText("Nuevo ejercicio");
-        jBttnAñadirEjercicio.setContentAreaFilled(false);
-        jBttnAñadirEjercicio.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoWorkout.setBackground(new java.awt.Color(255, 255, 255));
+        btnNuevoWorkout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Añadir.png"))); // NOI18N
+        btnNuevoWorkout.setToolTipText("Nuevo entrenamiento");
+        btnNuevoWorkout.setContentAreaFilled(false);
+        btnNuevoWorkout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnAñadirEjercicioActionPerformed(evt);
+                btnNuevoWorkoutActionPerformed(evt);
             }
         });
-        add(jBttnAñadirEjercicio);
-        jBttnAñadirEjercicio.setBounds(780, 330, 30, 40);
+        add(btnNuevoWorkout);
+        btnNuevoWorkout.setBounds(850, 40, 40, 40);
 
-        jScrollUsr.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollUsr.setForeground(new java.awt.Color(0, 0, 0));
-        jScrollUsr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btnEliminarWorkout.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminarWorkout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Borrar.png"))); // NOI18N
+        btnEliminarWorkout.setToolTipText("Eliminar entrenamiento");
+        btnEliminarWorkout.setContentAreaFilled(false);
+        btnEliminarWorkout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarWorkoutActionPerformed(evt);
+            }
+        });
+        add(btnEliminarWorkout);
+        btnEliminarWorkout.setBounds(890, 40, 40, 40);
+
+        btnAsignarEjercicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Asignar.png"))); // NOI18N
+        btnAsignarEjercicios.setToolTipText("Asignar ejercicio");
+        btnAsignarEjercicios.setContentAreaFilled(false);
+        btnAsignarEjercicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarEjerciciosActionPerformed(evt);
+            }
+        });
+        add(btnAsignarEjercicios);
+        btnAsignarEjercicios.setBounds(890, 330, 40, 40);
+
+        btnEliminarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Borrar.png"))); // NOI18N
+        btnEliminarEjercicio.setToolTipText("Eliminar ejercicio");
+        btnEliminarEjercicio.setContentAreaFilled(false);
+        btnEliminarEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEjercicioActionPerformed(evt);
+            }
+        });
+        add(btnEliminarEjercicio);
+        btnEliminarEjercicio.setBounds(810, 330, 40, 40);
+
+        btnEditarEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Editar.png"))); // NOI18N
+        btnEditarEjercicio.setToolTipText("Editar ejercicio");
+        btnEditarEjercicio.setContentAreaFilled(false);
+        btnEditarEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarEjercicioActionPerformed(evt);
+            }
+        });
+        add(btnEditarEjercicio);
+        btnEditarEjercicio.setBounds(850, 330, 40, 40);
+
+        lblEjercicios.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
+        lblEjercicios.setText("Ejercicios");
+        add(lblEjercicios);
+        lblEjercicios.setBounds(500, 320, 170, 40);
+
+        pnlDarkGrey.setBackground(new java.awt.Color(51, 51, 51));
+        pnlDarkGrey.setLayout(null);
+        add(pnlDarkGrey);
+        pnlDarkGrey.setBounds(0, 0, 410, 700);
+
+        btnNuevoEjercicio.setBackground(new java.awt.Color(255, 255, 255));
+        btnNuevoEjercicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Añadir.png"))); // NOI18N
+        btnNuevoEjercicio.setToolTipText("Nuevo ejercicio");
+        btnNuevoEjercicio.setContentAreaFilled(false);
+        btnNuevoEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEjercicioActionPerformed(evt);
+            }
+        });
+        add(btnNuevoEjercicio);
+        btnNuevoEjercicio.setBounds(780, 330, 30, 40);
+
+        scrlLstUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        scrlLstUsuarios.setForeground(new java.awt.Color(0, 0, 0));
+        scrlLstUsuarios.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jScrollUsrMouseMoved(evt);
+                scrlLstUsuariosMouseMoved(evt);
             }
         });
 
-        jLstUsuario.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
-        jLstUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        jLstUsuario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jLstUsuario.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        jLstUsuario.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jLstUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        lstUsuarios.setFont(new java.awt.Font("Anton", 0, 18)); // NOI18N
+        lstUsuarios.setForeground(new java.awt.Color(0, 0, 0));
+        lstUsuarios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstUsuarios.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        lstUsuarios.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        lstUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLstUsuarioMouseClicked(evt);
+                lstUsuariosMouseClicked(evt);
             }
         });
-        jScrollUsr.setViewportView(jLstUsuario);
+        scrlLstUsuarios.setViewportView(lstUsuarios);
 
-        add(jScrollUsr);
-        jScrollUsr.setBounds(110, 260, 190, 260);
+        add(scrlLstUsuarios);
+        scrlLstUsuarios.setBounds(110, 260, 190, 260);
 
-        jLblUsr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Usuario.png"))); // NOI18N
-        add(jLblUsr);
-        jLblUsr.setBounds(150, 80, 110, 100);
+        lblUsuarioIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Usuario.png"))); // NOI18N
+        add(lblUsuarioIcon);
+        lblUsuarioIcon.setBounds(150, 80, 110, 100);
 
-        jTblEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
-        jTblEjercicios.setModel(new javax.swing.table.DefaultTableModel(
+        tblEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblEjercicios.setForeground(new java.awt.Color(0, 0, 0));
+        tblEjercicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -345,165 +345,165 @@ public class PanelMenu extends javax.swing.JPanel {
                 "Nombre", "Descripción", "Imagen"
             }
         ));
-        jTblEjercicios.setGridColor(new java.awt.Color(0, 102, 153));
-        jTblEjercicios.setMinimumSize(new java.awt.Dimension(150, 300));
-        jTblEjercicios.setPreferredSize(new java.awt.Dimension(150, 300));
-        jTblEjercicios.setRowHeight(25);
-        jTblEjercicios.setSelectionBackground(new java.awt.Color(102, 102, 102));
-        jTblEjercicios.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jTblEjercicios.getTableHeader().setResizingAllowed(false);
-        jTblEjercicios.getTableHeader().setReorderingAllowed(false);
-        jScrollEjercicios.setViewportView(jTblEjercicios);
+        tblEjercicios.setGridColor(new java.awt.Color(0, 102, 153));
+        tblEjercicios.setMinimumSize(new java.awt.Dimension(150, 300));
+        tblEjercicios.setPreferredSize(new java.awt.Dimension(150, 300));
+        tblEjercicios.setRowHeight(25);
+        tblEjercicios.setSelectionBackground(new java.awt.Color(102, 102, 102));
+        tblEjercicios.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tblEjercicios.getTableHeader().setResizingAllowed(false);
+        tblEjercicios.getTableHeader().setReorderingAllowed(false);
+        scrlTblEjercicios.setViewportView(tblEjercicios);
 
-        add(jScrollEjercicios);
-        jScrollEjercicios.setBounds(500, 370, 420, 200);
+        add(scrlTblEjercicios);
+        scrlTblEjercicios.setBounds(500, 370, 420, 200);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLstUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLstUsuarioMouseClicked
-        int selectedIndex = jLstUsuario.getSelectedIndex();
+    private void lstUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstUsuariosMouseClicked
+        int selectIndex = lstUsuarios.getSelectedIndex();
 
-        if (selectedIndex >= 0 && selectedIndex < userList.size()) {
-            Usuari selectedUser = userList.get(selectedIndex);
+        if (selectIndex >= 0 && selectIndex < usuariosList.size()) {
+            Usuari selectUsuario = usuariosList.get(selectIndex);
 
-            tblEntrenamientosUsuario(selectedUser.getId());
+            tblWorkoutsUsuario(selectUsuario.getId());
 
         }
-    }//GEN-LAST:event_jLstUsuarioMouseClicked
+    }//GEN-LAST:event_lstUsuariosMouseClicked
 
-    private void jTblEntrenamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblEntrenamientosMouseClicked
-        int selectedRow = jTblEntrenamientos.getSelectedRow();
-
-        if (selectedRow >= 0 && selectedRow < workoutList.size()) {
-
-            int workoutId = workoutList.get(selectedRow);
-
-            tblEjerciciosUsuario(workoutId);
-        }
-    }//GEN-LAST:event_jTblEntrenamientosMouseClicked
-
-    private void jBttnAñadirEntrenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAñadirEntrenamientoActionPerformed
+    private void btnNuevoWorkoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoWorkoutActionPerformed
         try {
             AñadirEntrenamiento añadirEntrenamiento = new AñadirEntrenamiento(frameMain, true);
             añadirEntrenamiento.setVisible(true); // Muestra el JDialog
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnAñadirEntrenamientoActionPerformed
+    }//GEN-LAST:event_btnNuevoWorkoutActionPerformed
 
-    private void jBttnEliminarEntrenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarEntrenamientoActionPerformed
+    private void btnEliminarWorkoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarWorkoutActionPerformed
         try {
             EliminarEntrenamiento eliminarEntrenamiento = new EliminarEntrenamiento(frameMain, true);
             eliminarEntrenamiento.setVisible(true);
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnEliminarEntrenamientoActionPerformed
+    }//GEN-LAST:event_btnEliminarWorkoutActionPerformed
 
-    private void jBttnAñadirEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAñadirEjercicioActionPerformed
+    private void btnNuevoEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEjercicioActionPerformed
         try {
-            AñadirEjercicio añadirEjercicio = new AñadirEjercicio(frameMain, true);
+            AñadirNuevoEjercicio añadirEjercicio = new AñadirNuevoEjercicio(frameMain, true);
             añadirEjercicio.setVisible(true);
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnAñadirEjercicioActionPerformed
+    }//GEN-LAST:event_btnNuevoEjercicioActionPerformed
 
-    private void jBttnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarEjercicioActionPerformed
+    private void btnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjercicioActionPerformed
         try {
             EliminarEjercicio eliminarEjercicio = new EliminarEjercicio(frameMain, true);
             eliminarEjercicio.setVisible(true);
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnEliminarEjercicioActionPerformed
+    }//GEN-LAST:event_btnEliminarEjercicioActionPerformed
 
-    private void jBttnEditarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEditarEjercicioActionPerformed
+    private void btnEditarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEjercicioActionPerformed
         try {
             ModificarEjercicio modificarEjercicio = new ModificarEjercicio(frameMain, true);
             modificarEjercicio.setVisible(true);
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnEditarEjercicioActionPerformed
+    }//GEN-LAST:event_btnEditarEjercicioActionPerformed
 
-    private void jBttnAsignarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAsignarEjercicioActionPerformed
+    private void btnAsignarEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEjerciciosActionPerformed
         try {
             AsignarEjercicio asignarEjercicio = new AsignarEjercicio(frameMain, true);
             asignarEjercicio.setVisible(true);
 
-            int selectedIndex = jLstUsuario.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                int userId = userList.get(selectedIndex).getId();
+            int selectIndex = lstUsuarios.getSelectedIndex();
+            if (selectIndex >= 0) {
+                int usuarioId = usuariosList.get(selectIndex).getId();
 
-                actualizarTablas(userId, -1);
+                actualizarTablas(usuarioId, -1);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnAsignarEjercicioActionPerformed
+    }//GEN-LAST:event_btnAsignarEjerciciosActionPerformed
 
-    private void jScrollUsrMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollUsrMouseMoved
-        jLstUsuario.setBackground(new java.awt.Color(240, 240, 240));
-    }//GEN-LAST:event_jScrollUsrMouseMoved
+    private void scrlLstUsuariosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrlLstUsuariosMouseMoved
+        lstUsuarios.setBackground(new java.awt.Color(240, 240, 240));
+    }//GEN-LAST:event_scrlLstUsuariosMouseMoved
+
+    private void tblEntrenamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEntrenamientosMouseClicked
+        int selectRow = tblEntrenamientos.getSelectedRow();
+
+        if (selectRow >= 0 && selectRow < workoutList.size()) {
+
+            int workoutId = workoutList.get(selectRow);
+
+            tblEjerciciosUsuario(workoutId);
+        }
+    }//GEN-LAST:event_tblEntrenamientosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnAsignarEjercicio;
-    private javax.swing.JButton jBttnAñadirEjercicio;
-    private javax.swing.JButton jBttnAñadirEntrenamiento;
-    private javax.swing.JButton jBttnEditarEjercicio;
-    private javax.swing.JButton jBttnEliminarEjercicio;
-    private javax.swing.JButton jBttnEliminarEntrenamiento;
-    private javax.swing.JLabel jLblEjercicios;
-    private javax.swing.JLabel jLblEntrenamientos;
-    private javax.swing.JLabel jLblUsr;
-    private javax.swing.JList<Usuari> jLstUsuario;
-    private javax.swing.JPanel jPanelDarkGrey;
-    private javax.swing.JScrollPane jScrllPnEntrenamientos;
-    private javax.swing.JScrollPane jScrollEjercicios;
-    private javax.swing.JScrollPane jScrollUsr;
-    private javax.swing.JTable jTblEjercicios;
-    private javax.swing.JTable jTblEntrenamientos;
+    private javax.swing.JButton btnAsignarEjercicios;
+    private javax.swing.JButton btnEditarEjercicio;
+    private javax.swing.JButton btnEliminarEjercicio;
+    private javax.swing.JButton btnEliminarWorkout;
+    private javax.swing.JButton btnNuevoEjercicio;
+    private javax.swing.JButton btnNuevoWorkout;
+    private javax.swing.JLabel lblEjercicios;
+    private javax.swing.JLabel lblUsuarioIcon;
+    private javax.swing.JLabel lblWorkouts;
+    private javax.swing.JList<Usuari> lstUsuarios;
+    private javax.swing.JPanel pnlDarkGrey;
+    private javax.swing.JScrollPane scrlLstUsuarios;
+    private javax.swing.JScrollPane scrlTblEjercicios;
+    private javax.swing.JScrollPane scrlTblWorkouts;
+    private javax.swing.JTable tblEjercicios;
+    private javax.swing.JTable tblEntrenamientos;
     // End of variables declaration//GEN-END:variables
 }

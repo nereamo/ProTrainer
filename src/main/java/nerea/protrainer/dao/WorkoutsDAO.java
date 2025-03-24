@@ -12,14 +12,16 @@ import nerea.protrainer.dataAccess.DataAccess;
 import nerea.protrainer.dto.Workouts;
 
 /**
-* @author Nerea
-*/
+ * @author Nerea
+ */
 
 public class WorkoutsDAO {
     
     //----------ArrayList que almacena los entrenamientos de la base de datos----------
     public static ArrayList<Workouts> workoutsBD() {
-        ArrayList<Workouts> allWorkouts = new ArrayList<>();
+        
+        ArrayList<Workouts> workoutsList = new ArrayList<>();
+        
         String sql = "SELECT * FROM Workouts";
 
         try (Connection conn = DataAccess.getConnection(); 
@@ -33,10 +35,10 @@ public class WorkoutsDAO {
                 workout.setForDate(rs.getString("ForDate"));
                 workout.setUserId(rs.getInt("UserId"));
                 workout.setComments(rs.getString("Comments"));
-                allWorkouts.add(workout);
+                workoutsList.add(workout);
             }
             
-            if (allWorkouts.isEmpty()) {
+            if (workoutsList.isEmpty()) {
             
             System.out.println("No se encontraron entrenamientos en la base de datos.");
         }
@@ -44,12 +46,14 @@ public class WorkoutsDAO {
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return allWorkouts;
+        return workoutsList;
     }
-    
+
     //----------ArrayList que almacena los entrenamientos asignados a un usuario----------
     public static ArrayList<Workouts> workoutUsuari(int userId) {
-        ArrayList<Workouts> workoutsUser = new ArrayList<>();
+        
+        ArrayList<Workouts> workoutsListUser = new ArrayList<>();
+        
         String sql = "SELECT * FROM Workouts WHERE UserId = ?";
 
         try (Connection conn = DataAccess.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -62,11 +66,11 @@ public class WorkoutsDAO {
                     workout.setId(rs.getInt("Id"));
                     workout.setForDate(rs.getString("ForDate"));
                     workout.setComments(rs.getString("Comments"));
-                    workoutsUser.add(workout);
+                    workoutsListUser.add(workout);
                 }
             }
 
-            if (workoutsUser.isEmpty()) {
+            if (workoutsListUser.isEmpty()) {
 
                 System.out.println("El usuario " + userId + " no tiene entrenamientos asignados.");
 
@@ -75,7 +79,7 @@ public class WorkoutsDAO {
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return workoutsUser;
+        return workoutsListUser;
     }
     
     //----------Método para insertar nuevos entrenamientos en la base de datos----------
@@ -101,6 +105,7 @@ public class WorkoutsDAO {
     public static boolean eliminarWorkoutBD(int workoutId) {
 
         String sql = "DELETE FROM Workouts WHERE id = ?";
+        
         try (Connection conn = DataAccess.getConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -120,5 +125,4 @@ public class WorkoutsDAO {
             return false;
         }
     }
-
 }

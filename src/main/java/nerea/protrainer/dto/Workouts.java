@@ -21,7 +21,7 @@ public class Workouts {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getForDate() {
         if (forDate == null || forDate.isEmpty()) {
             return "";
@@ -57,10 +57,9 @@ public class Workouts {
     public int getUserId() {
         return this.userId;
     }
-    
+
     @Override
     public String toString(){
         return getForDate() + " " + getComments();
-    }
-    
+    } 
 }

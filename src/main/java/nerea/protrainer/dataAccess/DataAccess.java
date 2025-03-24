@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Nerea
  */
 public class DataAccess {
-
+    
     //----------Método de conexión con la base de datos----------
     public static Connection getConnection() {
         Connection connection = null;
@@ -27,5 +27,4 @@ public class DataAccess {
         }
         return connection;
     }
-
 }

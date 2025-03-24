@@ -28,15 +28,15 @@ public class DialogAbout extends javax.swing.JDialog {
         jLblAbout.setText(aboutText);
         jLblAbout.setVerticalAlignment(JLabel.TOP);
 
-        JButton closeButton = new JButton("Cerrar");
-        closeButton.addActionListener(new ActionListener() {
+        JButton btnClose = new JButton("Cerrar");
+        btnClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
 
         JPanel panel = new JPanel();
-        panel.add(closeButton);
+        panel.add(btnClose);
         add(panel, BorderLayout.SOUTH);
 
         setResizable(false);

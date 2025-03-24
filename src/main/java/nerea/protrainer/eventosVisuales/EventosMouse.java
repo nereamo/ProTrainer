@@ -3,17 +3,17 @@ package nerea.protrainer.eventosVisuales;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 
@@ -22,7 +22,7 @@ import javax.swing.UIManager;
  */
 public class EventosMouse {
 
-    public static void configurarEventos(JFrame frame, JButton jBttnAccess, JLabel jLblWeb, JMenu jMnuCalendar, JMenu jMnuMenu, JMenu jMnuAbout) {
+    public static void configurarEventos(JButton jBttnAccess, JLabel jLblWeb) {
         //Resalta botón login
         jBttnAccess.addMouseListener(new MouseAdapter() {
             Color originalColor = jBttnAccess.getBackground();
@@ -51,21 +51,25 @@ public class EventosMouse {
         });
     }
 
-    //Método para resaltar botones
     public static void resaltarBotones(JButton... botones) {
         for (JButton boton : botones) {
             boton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    boton.setBorder(BorderFactory.createEtchedBorder(4, Color.lightGray, Color.BLACK));
                     boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    boton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    boton.setFont(boton.getFont().deriveFont(16f));
+                    boton.setPreferredSize(new Dimension(boton.getWidth() + 5, boton.getHeight() + 5));
+                    boton.revalidate();
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    boton.setBackground(UIManager.getColor("Button.background"));
-                    boton.setBorder(UIManager.getBorder("Button.border"));
                     boton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    boton.setBorder(UIManager.getBorder("Button.border"));
+                    boton.setFont(boton.getFont().deriveFont(14f));
+                    boton.setPreferredSize(new Dimension(boton.getWidth() - 5, boton.getHeight() - 5));
+                    boton.revalidate();
                 }
             });
         }
@@ -88,38 +92,42 @@ public class EventosMouse {
         }
     }
 
-    public static void cambiarCursorEnJList(javax.swing.JList<?> list) {
-        // Variable para almacenar la posición del ratón
-        final Point[] mousePos = new Point[1];
+    public static void cambiarCursorEnJList(JList<?> list) {
+        final Point[] mousePos = {null};
 
-        // MouseMotionListener para el movimiento del ratón
-        list.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        list.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                mousePos[0] = e.getPoint();  // Actualizar la posición del ratón
-                list.setCursor(new Cursor(Cursor.HAND_CURSOR));  // Cambiar cursor a mano
-
-                // Realizar el repaint para actualizar el renderizado
+                mousePos[0] = e.getPoint();
+                list.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 list.repaint();
             }
         });
 
-        // Configuración del renderizador de celdas para resaltar el elemento debajo del ratón
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                mousePos[0] = null; 
+                list.repaint();
+            }
+        });
+
         list.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
                 if (mousePos[0] != null) {
-                    int hoverIndex = list.locationToIndex(mousePos[0]); // Obtener el índice del ítem debajo del ratón
-                    if (index == hoverIndex) {
-                        // Cambiar el fondo del ítem cuando el ratón pasa por encima
+                    int hoverIndex = list.locationToIndex(mousePos[0]);
+                    Rectangle rect = list.getCellBounds(hoverIndex, hoverIndex);
+
+                    if (hoverIndex == index && rect != null && rect.contains(mousePos[0])) {
                         c.setBackground(Color.LIGHT_GRAY);
                     } else if (isSelected) {
-                        c.setBackground(Color.DARK_GRAY);  // Mantener el color de fondo para los elementos seleccionados
+                        c.setBackground(Color.DARK_GRAY);
                         c.setForeground(Color.WHITE);
                     } else {
-                        c.setBackground(list.getBackground());  // Mantener el fondo normal si no está seleccionado ni en hover
+                        c.setBackground(list.getBackground());
                         c.setForeground(list.getForeground());
                     }
                 }
@@ -128,17 +136,14 @@ public class EventosMouse {
             }
         });
 
-        // MouseListener para manejar la selección solo al hacer clic
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedIndex = list.locationToIndex(e.getPoint());
                 if (selectedIndex > -1) {
-                    // Aquí puedes manejar la acción de seleccionar un ítem
-                    System.out.println("Ítem seleccionado: " + list.getModel().getElementAt(selectedIndex));
+                    System.out.println("Elemento seleccionado: " + list.getModel().getElementAt(selectedIndex));
                 }
             }
         });
     }
-
 }

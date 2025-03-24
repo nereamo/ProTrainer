@@ -18,9 +18,9 @@ import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
  */
 public class EliminarEntrenamiento extends javax.swing.JDialog {
 
-    private List<Usuari> userList = new ArrayList<>();
+    private List<Usuari> usuariosList = new ArrayList<>();
     private List<Integer> workoutList = new ArrayList<>();
-    private int userId;
+    private int usuarioId;
     private Point mousePos = null;
 
     public EliminarEntrenamiento(java.awt.Frame parent, boolean modal) {
@@ -30,23 +30,23 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
         setLocationRelativeTo(this);
 
         usuariosDeInstructor();
-        iniciarComboBox();
+        comboBoxUsuarios();
         
-        cambiarCursorEnJList(jLstEntrenamientos);
-        resaltarBotones(jBttnEliminar);
+        cambiarCursorEnJList(lstWorkouts);
+        resaltarBotones(btnEliminar);
     }
 
     //----------Método que carga los usuarios en el comboBox----------
     private void usuariosDeInstructor() {
 
-        userList = UsuarisDAO.usuariosAsignadosInstructor();
+        usuariosList = UsuarisDAO.usuariosAsignadosInstructor();
         DefaultComboBoxModel<Usuari> dcbm = new DefaultComboBoxModel<>();
 
-        for (Usuari usuario : userList) {
+        for (Usuari usuario : usuariosList) {
             dcbm.addElement(usuario);
         }
 
-        jCmbBxUsuario.setModel(dcbm);
+        cmbBoxUsuario.setModel(dcbm);
     }
 
     //----------Método que mustre los entrenamientos asignado a un usuario en la lista----------
@@ -56,31 +56,31 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
 
         workoutList.clear();
 
-        DefaultListModel<Workouts> listModel = new DefaultListModel<>();
+        DefaultListModel<Workouts> dlm = new DefaultListModel<>();
 
         for (Workouts workout : workouts) {
             workoutList.add(workout.getId());
-            listModel.addElement(workout);
+            dlm.addElement(workout);
         }
 
-        jLstEntrenamientos.setModel(listModel);
+        lstWorkouts.setModel(dlm);
 
     }
 
     //----------Método que inicia el comboBox----------
-    private void iniciarComboBox() {
-        DefaultComboBoxModel<Usuari> model = new DefaultComboBoxModel<>();
+    private void comboBoxUsuarios() {
+        DefaultComboBoxModel<Usuari> dcm = new DefaultComboBoxModel<>();
         
         Usuari placeholder = new Usuari();
         placeholder.setNom("Selecciona un Usuario...");
-        model.addElement(placeholder);
+        dcm.addElement(placeholder);
 
-        for (Usuari usuario : userList) {
-            model.addElement(usuario);
+        for (Usuari usuario : usuariosList) {
+            dcm.addElement(usuario);
         }
 
-        jCmbBxUsuario.setModel(model);
-        jCmbBxUsuario.setSelectedIndex(0);
+        cmbBoxUsuario.setModel(dcm);
+        cmbBoxUsuario.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,12 +88,12 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLblTitulo = new javax.swing.JLabel();
-        jCmbBxUsuario = new javax.swing.JComboBox<>();
-        jBttnEliminar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        cmbBoxUsuario = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jLstEntrenamientos = new javax.swing.JList<>();
-        jLblMsg = new javax.swing.JLabel();
+        lstWorkouts = new javax.swing.JList<>();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 300));
@@ -104,54 +104,54 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
         jPanel1.setLayout(null);
 
-        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblTitulo.setText("ELIMINAR ENTRENAMIENTO");
-        jPanel1.add(jLblTitulo);
-        jLblTitulo.setBounds(0, 10, 400, 50);
+        lblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("ELIMINAR ENTRENAMIENTO");
+        jPanel1.add(lblTitulo);
+        lblTitulo.setBounds(0, 10, 400, 50);
 
-        jCmbBxUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        jCmbBxUsuario.setEditable(true);
-        jCmbBxUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jCmbBxUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        jCmbBxUsuario.setToolTipText("Usuario");
-        jCmbBxUsuario.setBorder(null);
-        jCmbBxUsuario.setName(""); // NOI18N
-        jCmbBxUsuario.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        cmbBoxUsuario.setEditable(true);
+        cmbBoxUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbBoxUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        cmbBoxUsuario.setToolTipText("Usuario");
+        cmbBoxUsuario.setBorder(null);
+        cmbBoxUsuario.setName(""); // NOI18N
+        cmbBoxUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCmbBxUsuarioActionPerformed(evt);
+                cmbBoxUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(jCmbBxUsuario);
-        jCmbBxUsuario.setBounds(90, 70, 210, 30);
+        jPanel1.add(cmbBoxUsuario);
+        cmbBoxUsuario.setBounds(30, 70, 330, 30);
 
-        jBttnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Delete.png"))); // NOI18N
-        jBttnEliminar.setBorder(null);
-        jBttnEliminar.setContentAreaFilled(false);
-        jBttnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Delete.png"))); // NOI18N
+        btnEliminar.setBorder(null);
+        btnEliminar.setContentAreaFilled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnEliminarActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBttnEliminar);
-        jBttnEliminar.setBounds(164, 310, 40, 40);
+        jPanel1.add(btnEliminar);
+        btnEliminar.setBounds(164, 310, 40, 40);
 
-        jLstEntrenamientos.setBackground(new java.awt.Color(255, 255, 255));
-        jLstEntrenamientos.setBorder(null);
-        jLstEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLstEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
-        jLstEntrenamientos.setToolTipText("Entrenamiento");
-        jLstEntrenamientos.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jLstEntrenamientos);
+        lstWorkouts.setBackground(new java.awt.Color(255, 255, 255));
+        lstWorkouts.setBorder(null);
+        lstWorkouts.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lstWorkouts.setForeground(new java.awt.Color(0, 0, 0));
+        lstWorkouts.setToolTipText("Entrenamiento");
+        lstWorkouts.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(lstWorkouts);
 
         jPanel1.add(jScrollPane2);
         jScrollPane2.setBounds(30, 130, 330, 120);
 
-        jLblMsg.setForeground(new java.awt.Color(255, 255, 255));
-        jLblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLblMsg);
-        jLblMsg.setBounds(40, 270, 320, 40);
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblMsg);
+        lblMsg.setBounds(40, 270, 320, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 400);
@@ -159,63 +159,60 @@ public class EliminarEntrenamiento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCmbBxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbBxUsuarioActionPerformed
+    private void cmbBoxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxUsuarioActionPerformed
 
-        int selectedIndex = jCmbBxUsuario.getSelectedIndex();
+        int selectIndex = cmbBoxUsuario.getSelectedIndex();
 
-        if (selectedIndex > 0) {
+        if (selectIndex > 0 && selectIndex - 1 < usuariosList.size()) {
 
-            Usuari selectedUser = userList.get(selectedIndex - 1);  // Ajustar el índice si "Usuario" está en la primera posición
-            userId = selectedUser.getId();
-            listaEntrenamientos(userId);
+            Usuari selectUsuario = usuariosList.get(selectIndex - 1);
+            usuarioId = selectUsuario.getId();
+            listaEntrenamientos(usuarioId);
         }
-    }//GEN-LAST:event_jCmbBxUsuarioActionPerformed
+    }//GEN-LAST:event_cmbBoxUsuarioActionPerformed
 
-    private void jBttnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
-        int seleccionarUsario = jCmbBxUsuario.getSelectedIndex();
+        int selectUsuario = cmbBoxUsuario.getSelectedIndex();
 
-        if (seleccionarUsario <= 0) {
-
-           jLblMsg.setText("Por favor, selecciona un usuario.");
-            return;
+        if (selectUsuario <= 0) {
+           lblMsg.setText("Por favor, selecciona un usuario.");
+           return;
         }
-        
-        userList.get(seleccionarUsario - 1);
 
-        int selectedWorkoutIndex = jLstEntrenamientos.getSelectedIndex();
+        int selectWorkout = lstWorkouts.getSelectedIndex();
 
-        if (selectedWorkoutIndex == -1) {
-            jLblMsg.setText("Por favor, selecciona un entrenamiento." );
+        if (selectWorkout == -1) {
+            lblMsg.setText("Por favor, selecciona un entrenamiento." );
             return;
         }
 
-        int woorkoutId = workoutList.get(selectedWorkoutIndex);
+        int workoutId = workoutList.get(selectWorkout);
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Estas seguro de eliminar el Workout?", "Confirm Deletion", javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
 
-            boolean success = WorkoutsDAO.eliminarWorkoutBD(woorkoutId);
+            boolean completado = WorkoutsDAO.eliminarWorkoutBD(workoutId);
 
-            if (success) {
+            if (completado) {
 
-                workoutList.remove(selectedWorkoutIndex);
+                workoutList.remove(selectWorkout);
                 javax.swing.JOptionPane.showMessageDialog(this, "Entrenamiento eliminado correctamente!");
                 dispose();
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar el entrenamiento.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, "No puede eliminarse un entrenamiento que tiene ejercicios asignados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jBttnEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnEliminar;
-    private javax.swing.JComboBox<Usuari> jCmbBxUsuario;
-    private javax.swing.JLabel jLblMsg;
-    private javax.swing.JLabel jLblTitulo;
-    private javax.swing.JList<Workouts> jLstEntrenamientos;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JComboBox<Usuari> cmbBoxUsuario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JList<Workouts> lstWorkouts;
     // End of variables declaration//GEN-END:variables
 }

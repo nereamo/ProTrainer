@@ -59,7 +59,7 @@ public class Usuari {
     public void setInstructor(boolean instructor) {
         this.instructor = instructor;
     }
-    
+
     @Override
     public String toString() {
         return this.nom;

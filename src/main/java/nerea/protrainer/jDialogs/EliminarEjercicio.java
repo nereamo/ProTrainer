@@ -25,8 +25,8 @@ public class EliminarEjercicio extends javax.swing.JDialog {
         
         listaEjercicios();
         
-        resaltarBotones(jBttnEliminar);
-        cambiarCursorEnJList(jLstEjercicios);
+        resaltarBotones(btnEliminar);
+        cambiarCursorEnJList(lstEjercicios);
     }
 
     //----------Método para mostrar una lista de ejercicios de la base de datos----------
@@ -35,13 +35,13 @@ public class EliminarEjercicio extends javax.swing.JDialog {
 
         this.ejerciciosList = ejercicios;
 
-        DefaultListModel<Exercicis> listModel = new DefaultListModel<>();
+        DefaultListModel<Exercicis> dlm = new DefaultListModel<>();
 
         for (Exercicis ejercicio : ejercicios) {
-            listModel.addElement(ejercicio);
+            dlm.addElement(ejercicio);
         }
 
-        jLstEjercicios.setModel(listModel);
+        lstEjercicios.setModel(dlm);
 
     }
 
@@ -50,11 +50,11 @@ public class EliminarEjercicio extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLblTitulo = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jLstEjercicios = new javax.swing.JList<>();
-        jBttnEliminar = new javax.swing.JButton();
-        jLblMsg = new javax.swing.JLabel();
+        lstEjercicios = new javax.swing.JList<>();
+        btnEliminar = new javax.swing.JButton();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 300));
@@ -64,40 +64,40 @@ public class EliminarEjercicio extends javax.swing.JDialog {
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 400));
         jPanel1.setLayout(null);
 
-        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblTitulo.setText("ELIMINAR EJERCICIO");
-        jPanel1.add(jLblTitulo);
-        jLblTitulo.setBounds(0, 10, 400, 50);
+        lblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("ELIMINAR EJERCICIO");
+        jPanel1.add(lblTitulo);
+        lblTitulo.setBounds(0, 10, 400, 50);
 
-        jLstEjercicios.setBackground(new java.awt.Color(255, 255, 255));
-        jLstEjercicios.setBorder(null);
-        jLstEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLstEjercicios.setForeground(new java.awt.Color(0, 0, 0));
-        jLstEjercicios.setToolTipText("Entrenamiento");
-        jLstEjercicios.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jLstEjercicios);
+        lstEjercicios.setBackground(new java.awt.Color(255, 255, 255));
+        lstEjercicios.setBorder(null);
+        lstEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lstEjercicios.setForeground(new java.awt.Color(0, 0, 0));
+        lstEjercicios.setToolTipText("Entrenamiento");
+        lstEjercicios.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(lstEjercicios);
 
         jPanel1.add(jScrollPane2);
         jScrollPane2.setBounds(80, 80, 240, 150);
 
-        jBttnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Delete.png"))); // NOI18N
-        jBttnEliminar.setBorder(null);
-        jBttnEliminar.setContentAreaFilled(false);
-        jBttnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Delete.png"))); // NOI18N
+        btnEliminar.setBorder(null);
+        btnEliminar.setContentAreaFilled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnEliminarActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBttnEliminar);
-        jBttnEliminar.setBounds(180, 310, 30, 40);
+        jPanel1.add(btnEliminar);
+        btnEliminar.setBounds(180, 300, 30, 40);
 
-        jLblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLblMsg.setForeground(new java.awt.Color(255, 255, 255));
-        jLblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLblMsg);
-        jLblMsg.setBounds(30, 280, 330, 30);
+        lblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblMsg);
+        lblMsg.setBounds(30, 250, 330, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 400);
@@ -105,26 +105,26 @@ public class EliminarEjercicio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBttnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
-        int seleccionarEjercicio = jLstEjercicios.getSelectedIndex();
+        int selectEjercicio = lstEjercicios.getSelectedIndex();
 
 
-        if (seleccionarEjercicio != -1) {
+        if (selectEjercicio != -1) {
 
-            Exercicis ejercicios = ejerciciosList.get(seleccionarEjercicio);
+            Exercicis ejercicios = ejerciciosList.get(selectEjercicio);
             ejercicios.getId();  
             
-            int ejercicioIndex = jLstEjercicios.getSelectedIndex();
+            int selectIndex = lstEjercicios.getSelectedIndex();
 
 
-            if (ejercicioIndex <= 0) {
-                jLblMsg.setText("Por favor, selecciona un entrenamiento");
+            if (selectIndex <= 0) {
+                lblMsg.setText("Por favor, selecciona un entrenamiento");
                 return;
             }
             
-            if (ejercicioIndex <= 0) {
-                jLblMsg.setText("Por favor, selecciona un ejercicio.");
+            if (selectIndex <= 0) {
+                lblMsg.setText("Por favor, selecciona un ejercicio.");
                 return;
             }
 
@@ -133,11 +133,11 @@ public class EliminarEjercicio extends javax.swing.JDialog {
 
             if (confirm == JOptionPane.YES_OPTION) {
 
-                boolean success = ExercicisDAO.eliminaExercicis(ejercicios.getId());
+                boolean completado = ExercicisDAO.eliminaExercicis(ejercicios.getId());
 
-                    if (success) {
+                    if (completado) {
 
-                        ejerciciosList.remove(seleccionarEjercicio);
+                        ejerciciosList.remove(selectEjercicio);
                         javax.swing.JOptionPane.showMessageDialog(this, "Ejercicio eliminado correctamente!");
                         dispose();
                     } else {
@@ -146,20 +146,18 @@ public class EliminarEjercicio extends javax.swing.JDialog {
                     }
                 }
             
-
         } else {
            
-            jLblMsg.setText("Por favor, selecciona un ejercicio de la lista.");
+            lblMsg.setText("Por favor, selecciona un ejercicio de la lista.");
         }
-
-    }//GEN-LAST:event_jBttnEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnEliminar;
-    private javax.swing.JLabel jLblMsg;
-    private javax.swing.JLabel jLblTitulo;
-    private javax.swing.JList<Exercicis> jLstEjercicios;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JList<Exercicis> lstEjercicios;
     // End of variables declaration//GEN-END:variables
 }

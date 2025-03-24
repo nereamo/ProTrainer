@@ -14,14 +14,16 @@ import nerea.protrainer.dataAccess.DataAccess;
 import nerea.protrainer.dto.Usuari;
 
 /**
-* @author Nerea
-*/
+ * @author Nerea
+ */
 
 public class UsuarisDAO {
     
     //----------Método para verificar el usuario que inicia sesión----------
     public static Usuari inicioSesionUsuario(String emailInstructor) {
-        Usuari user = new Usuari();
+        
+        Usuari usuario = new Usuari();
+        
         String sql = "SELECT * FROM Usuaris WHERE Email=?";
 
         try (Connection conn = DataAccess.getConnection(); 
@@ -32,35 +34,35 @@ public class UsuarisDAO {
 
                 while (rs.next()) {
 
-                    user.setId(rs.getInt("Id"));
-                    user.setNom(rs.getString("Nom"));
-                    user.setEmail(rs.getString("Email"));
-                    user.setPasswordHash(rs.getString("PasswordHash"));
-                    user.setInstructor(rs.getBoolean("Instructor"));
-
+                    usuario.setId(rs.getInt("Id"));
+                    usuario.setNom(rs.getString("Nom"));
+                    usuario.setEmail(rs.getString("Email"));
+                    usuario.setPasswordHash(rs.getString("PasswordHash"));
+                    usuario.setInstructor(rs.getBoolean("Instructor"));
                 }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return user;
+        return usuario;
     }
     
     //----------Lista que almacena los usuarios asignados a un instructor----------
     public static List<Usuari> usuariosAsignadosInstructor() {
-        List<Usuari> usuaris = new ArrayList<>();
+        List<Usuari> usuariosList = new ArrayList<>();
+        
         Usuari instructor = ProTrainer.getLoggedInstructor();
 
         if (instructor == null) {
-            return usuaris;
+            return usuariosList;
         }
 
         int instructorId = instructor.getId();
 
         String sql = "SELECT * FROM Usuaris WHERE AssignedInstructor = ? AND Instructor != 1";
 
-        try (Connection conn = DataAccess.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {  // Cierre del paréntesis corregido
+        try (Connection conn = DataAccess.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, instructorId);
 
@@ -74,14 +76,13 @@ public class UsuarisDAO {
                     user.setPasswordHash(rs.getString("PasswordHash"));
                     user.setFoto(rs.getBytes("Foto"));
                     user.setInstructor(rs.getBoolean("Instructor"));
-                    usuaris.add(user);
+                    usuariosList.add(user);
                 }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usuaris;
+        return usuariosList;
     }
-
 }

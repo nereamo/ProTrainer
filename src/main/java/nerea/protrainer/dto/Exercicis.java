@@ -1,24 +1,14 @@
 package nerea.protrainer.dto;
 
-
 /**
  * @author Nerea
  */
 public class Exercicis {
 
     private int id;
-    private String nomExercici;
-    private String descripcio;
+    private String nomEjercicio;
+    private String descripcion;
     private byte[] demoFoto;
-
-    public Exercicis() {
-    }
-
-    public Exercicis(int id, String nomExercici, String descripcio) {
-        this.id = id;
-        this.nomExercici = nomExercici;
-        this.descripcio = descripcio;
-    }
 
     public int getId() {
         return id;
@@ -28,20 +18,20 @@ public class Exercicis {
         this.id = id;
     }
 
-    public String getNomExercici() {
-        return nomExercici;
+    public String getNomEjercicio() {
+        return nomEjercicio;
     }
 
-    public void setNomExercici(String nomExercici) {
-        this.nomExercici = nomExercici;
+    public void setNomExercici(String nomEjercicio) {
+        this.nomEjercicio = nomEjercicio;
     }
 
-    public String getDescripcio() {
-        return descripcio;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcio(String descripcio) {
-        this.descripcio = descripcio;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public byte[] getDemoFoto() {
@@ -51,9 +41,9 @@ public class Exercicis {
     public void setDemoFoto(byte[] demoFoto) {
         this.demoFoto = demoFoto;
     }
-    
+
     @Override
     public String toString() {
-        return getNomExercici() + " " + getDescripcio();
+        return getNomEjercicio() + " " + getDescripcion();
     }
 }

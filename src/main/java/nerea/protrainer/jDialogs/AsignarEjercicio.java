@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import nerea.protrainer.dao.ExerciciesWorkoutsDAO;
+import nerea.protrainer.dao.ExercicisWorkoutsDAO;
 import nerea.protrainer.dao.ExercicisDAO;
 import nerea.protrainer.dao.UsuarisDAO;
 import nerea.protrainer.dao.WorkoutsDAO;
@@ -17,7 +17,6 @@ import static nerea.protrainer.eventosVisuales.EventosMouse.cambiarCursorEnJList
 import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
 
 /**
- *
  * @author Nerea
  */
 public class AsignarEjercicio extends javax.swing.JDialog {
@@ -25,68 +24,66 @@ public class AsignarEjercicio extends javax.swing.JDialog {
     private List<Exercicis> ejerciciosList = new ArrayList<>();
     private List<Workouts> workoutList = new ArrayList<>();
     private List<Usuari> usuariosList = new ArrayList<>();
-    private int selectedWorkoutId;
-    private int selectedExerciseId;
-    private int selectedUser;
+    private int seleccionarWorkoutId;
+    private int seleccionarEjercicioId;
+    private int seleccionarUsuarioId;
     
-
     public AsignarEjercicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setSize(400,400);
         setLocationRelativeTo(this);
 
-        iniciarComboBoxUsuarios();
+        comboBoxUsuarios();
         listaEjercicios();
 
-        resaltarBotones(jBttnGuardar);
-        cambiarCursorEnJList(jLstEjercicios);
+        resaltarBotones(btnGuardar);
+        cambiarCursorEnJList(lstEjercicios);
     }
 
     //----------Método que inicia el comboBox de usuarios----------
-    private void iniciarComboBoxUsuarios() {
+    private void comboBoxUsuarios() {
 
         usuariosList = UsuarisDAO.usuariosAsignadosInstructor();
         
-        DefaultComboBoxModel<Usuari> model = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Usuari> dcm = new DefaultComboBoxModel<>();
         
         Usuari placeholder = new Usuari();
         placeholder.setNom("Selecciona un usuario...");
 
-        model.addElement(placeholder);
+        dcm.addElement(placeholder);
 
         for (Usuari usuari : usuariosList) {
-            model.addElement(usuari);
+            dcm.addElement(usuari);
         }
 
-        jCmbBxUser.setModel(model);
-        jCmbBxUser.setSelectedIndex(0);
+        cmbBoxUsuarios.setModel(dcm);
+        cmbBoxUsuarios.setSelectedIndex(0);
     }
 
     //----------Método que inicia el comboBox de Workouts----------
-    private void iniciarComboBoxWokouts(int userId) {
+    private void comboBoxWokouts(int userId) {
 
-        ArrayList<Workouts> workouts = WorkoutsDAO.workoutUsuari(userId);
+        ArrayList<Workouts> workoutsList = WorkoutsDAO.workoutUsuari(userId);
 
         workoutList.clear();
-        workoutList.addAll(workouts);
+        workoutList.addAll(workoutsList);
 
-        DefaultComboBoxModel<Workouts> model = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Workouts> dcm = new DefaultComboBoxModel<>();
 
         Workouts placeholder = new Workouts();
         placeholder.setComments("Selecciona un workout...");
 
-        model.addElement(placeholder);
+        dcm.addElement(placeholder);
 
         for (Workouts workout : workoutList) {
-            model.addElement(workout);
+            dcm.addElement(workout);
         }
 
-        jCmbBxEntrenamientos.setModel(model);
-        jCmbBxEntrenamientos.setSelectedIndex(0);
+        cmbBoxWorkouts.setModel(dcm);
+        cmbBoxWorkouts.setSelectedIndex(0);
     }
     
-
     //----------Método que muestra una lista de los ejercicios de la base de datos----------
     private void listaEjercicios() {
 
@@ -94,25 +91,25 @@ public class AsignarEjercicio extends javax.swing.JDialog {
 
         ejerciciosList.clear();
 
-        DefaultListModel<Exercicis> listModel = new DefaultListModel<>();
+        DefaultListModel<Exercicis> dlm = new DefaultListModel<>();
 
         for (Exercicis ejercicio : ejercicios) {
             ejerciciosList.add(ejercicio);
-            listModel.addElement(ejercicio);
+            dlm.addElement(ejercicio);
         }
 
-        jLstEjercicios.setModel(listModel);
+        lstEjercicios.setModel(dlm);
 
         //Fragmento extraído de chatGPT
-        jLstEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        lstEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int selectedIndex = jLstEjercicios.getSelectedIndex();
+                    int selectedIndex = lstEjercicios.getSelectedIndex();
                     if (selectedIndex != -1) {
                         Exercicis selectedExercise = ejerciciosList.get(selectedIndex);
-                        selectedExerciseId = selectedExercise.getId();
+                        seleccionarEjercicioId = selectedExercise.getId();
                     } else {
-                        selectedExerciseId = -1;
+                        seleccionarEjercicioId = -1;
                     }
                 }
             }
@@ -124,13 +121,13 @@ public class AsignarEjercicio extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLblTitulo = new javax.swing.JLabel();
-        jBttnGuardar = new javax.swing.JButton();
-        jCmbBxEntrenamientos = new javax.swing.JComboBox<>();
+        lblTitulo = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        cmbBoxWorkouts = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLstEjercicios = new javax.swing.JList<>();
-        jLblMsg = new javax.swing.JLabel();
-        jCmbBxUser = new javax.swing.JComboBox<>();
+        lstEjercicios = new javax.swing.JList<>();
+        lblMsg = new javax.swing.JLabel();
+        cmbBoxUsuarios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -139,67 +136,67 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 400));
         jPanel1.setLayout(null);
 
-        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblTitulo.setText("ASIGNAR EJERCICIO");
-        jPanel1.add(jLblTitulo);
-        jLblTitulo.setBounds(0, 10, 400, 50);
+        lblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("ASIGNAR EJERCICIO");
+        jPanel1.add(lblTitulo);
+        lblTitulo.setBounds(0, 10, 400, 50);
 
-        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
-        jBttnGuardar.setBorder(null);
-        jBttnGuardar.setContentAreaFilled(false);
-        jBttnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
+        btnGuardar.setBorder(null);
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnGuardarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBttnGuardar);
-        jBttnGuardar.setBounds(170, 310, 40, 40);
+        jPanel1.add(btnGuardar);
+        btnGuardar.setBounds(170, 310, 40, 40);
 
-        jCmbBxEntrenamientos.setBackground(new java.awt.Color(255, 255, 255));
-        jCmbBxEntrenamientos.setEditable(true);
-        jCmbBxEntrenamientos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jCmbBxEntrenamientos.setForeground(new java.awt.Color(0, 0, 0));
-        jCmbBxEntrenamientos.setToolTipText("Entrenamiento");
-        jCmbBxEntrenamientos.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxWorkouts.setBackground(new java.awt.Color(255, 255, 255));
+        cmbBoxWorkouts.setEditable(true);
+        cmbBoxWorkouts.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbBoxWorkouts.setForeground(new java.awt.Color(0, 0, 0));
+        cmbBoxWorkouts.setToolTipText("Entrenamiento");
+        cmbBoxWorkouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCmbBxEntrenamientosActionPerformed(evt);
+                cmbBoxWorkoutsActionPerformed(evt);
             }
         });
-        jPanel1.add(jCmbBxEntrenamientos);
-        jCmbBxEntrenamientos.setBounds(70, 110, 260, 30);
+        jPanel1.add(cmbBoxWorkouts);
+        cmbBoxWorkouts.setBounds(70, 110, 260, 30);
 
         jScrollPane1.setToolTipText("Ejercicios");
 
-        jLstEjercicios.setBackground(new java.awt.Color(255, 255, 255));
-        jLstEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLstEjercicios.setForeground(new java.awt.Color(0, 0, 0));
-        jLstEjercicios.setToolTipText("Ejercicios");
-        jLstEjercicios.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        jScrollPane1.setViewportView(jLstEjercicios);
+        lstEjercicios.setBackground(new java.awt.Color(255, 255, 255));
+        lstEjercicios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lstEjercicios.setForeground(new java.awt.Color(0, 0, 0));
+        lstEjercicios.setToolTipText("Ejercicios");
+        lstEjercicios.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        jScrollPane1.setViewportView(lstEjercicios);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(70, 160, 260, 90);
 
-        jLblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLblMsg.setForeground(new java.awt.Color(255, 255, 255));
-        jLblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLblMsg);
-        jLblMsg.setBounds(40, 260, 310, 40);
+        lblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblMsg);
+        lblMsg.setBounds(40, 260, 310, 40);
 
-        jCmbBxUser.setBackground(new java.awt.Color(255, 255, 255));
-        jCmbBxUser.setEditable(true);
-        jCmbBxUser.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jCmbBxUser.setForeground(new java.awt.Color(0, 0, 0));
-        jCmbBxUser.setToolTipText("Usuario");
-        jCmbBxUser.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        cmbBoxUsuarios.setEditable(true);
+        cmbBoxUsuarios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbBoxUsuarios.setForeground(new java.awt.Color(0, 0, 0));
+        cmbBoxUsuarios.setToolTipText("Usuario");
+        cmbBoxUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCmbBxUserActionPerformed(evt);
+                cmbBoxUsuariosActionPerformed(evt);
             }
         });
-        jPanel1.add(jCmbBxUser);
-        jCmbBxUser.setBounds(70, 60, 260, 30);
+        jPanel1.add(cmbBoxUsuarios);
+        cmbBoxUsuarios.setBounds(70, 60, 260, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 400);
@@ -207,26 +204,26 @@ public class AsignarEjercicio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBttnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         try {
             
-            if (selectedUser <= 0) {
-                jLblMsg.setText("Por favor, selecciona un usuario");
+            if (seleccionarUsuarioId <= 0) {
+                lblMsg.setText("Por favor, selecciona un usuario");
                 return;
             }
 
-            if (selectedWorkoutId <= 0) {
-                jLblMsg.setText("Por favor, selecciona un entrenamiento");
+            if (seleccionarWorkoutId <= 0) {
+                lblMsg.setText("Por favor, selecciona un entrenamiento");
                 return;
             }
             
-            if (selectedExerciseId <= 0) {
-                jLblMsg.setText("Por favor, selecciona un ejercicio.");
+            if (seleccionarEjercicioId <= 0) {
+                lblMsg.setText("Por favor, selecciona un ejercicio.");
                 return;
             }
 
-            ExerciciesWorkoutsDAO.asignarEjercicioAWorkout(selectedWorkoutId, selectedExerciseId);
+            ExercicisWorkoutsDAO.asignarEjercicioAWorkout(seleccionarWorkoutId, seleccionarEjercicioId);
             JOptionPane.showMessageDialog(this, "Ejercicio asignado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             dispose();
             
@@ -234,41 +231,41 @@ public class AsignarEjercicio extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Error al asignar el ejercicio al workout: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jBttnGuardarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jCmbBxEntrenamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbBxEntrenamientosActionPerformed
+    private void cmbBoxWorkoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxWorkoutsActionPerformed
 
-        int selectedIndex = jCmbBxEntrenamientos.getSelectedIndex();
+        int selectIndex = cmbBoxWorkouts.getSelectedIndex();
 
-        if (selectedIndex > 0) { // Evita seleccionar el placeholder
-            Workouts selectedWorkout = (Workouts) jCmbBxEntrenamientos.getSelectedItem();
-            selectedWorkoutId = selectedWorkout.getId();
+        if (selectIndex > 0) {
+            Workouts selectWorkout = (Workouts) cmbBoxWorkouts.getSelectedItem();
+            seleccionarWorkoutId = selectWorkout.getId();
         } else {
-            selectedWorkoutId = -1; // Valor inválido si no se seleccionó uno real
+            seleccionarWorkoutId = -1;
         }
-    }//GEN-LAST:event_jCmbBxEntrenamientosActionPerformed
+    }//GEN-LAST:event_cmbBoxWorkoutsActionPerformed
 
-    private void jCmbBxUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbBxUserActionPerformed
-        int selectedIndex = jCmbBxUser.getSelectedIndex();
+    private void cmbBoxUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxUsuariosActionPerformed
+        int selectIndex = cmbBoxUsuarios.getSelectedIndex();
 
-        if (selectedIndex > 0) {
+        if (selectIndex > 0) {
 
-            Usuari selectedUserId = usuariosList.get(selectedIndex - 1);
-            selectedUser = selectedUserId.getId();
+            Usuari selectUsuario = usuariosList.get(selectIndex - 1);
+            seleccionarUsuarioId = selectUsuario.getId();
 
-            iniciarComboBoxWokouts(selectedUser);
+            comboBoxWokouts(seleccionarUsuarioId);
 
         }
-    }//GEN-LAST:event_jCmbBxUserActionPerformed
+    }//GEN-LAST:event_cmbBoxUsuariosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnGuardar;
-    private javax.swing.JComboBox<Workouts> jCmbBxEntrenamientos;
-    private javax.swing.JComboBox<Usuari> jCmbBxUser;
-    private javax.swing.JLabel jLblMsg;
-    private javax.swing.JLabel jLblTitulo;
-    private javax.swing.JList<Exercicis> jLstEjercicios;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<Usuari> cmbBoxUsuarios;
+    private javax.swing.JComboBox<Workouts> cmbBoxWorkouts;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JList<Exercicis> lstEjercicios;
     // End of variables declaration//GEN-END:variables
 }

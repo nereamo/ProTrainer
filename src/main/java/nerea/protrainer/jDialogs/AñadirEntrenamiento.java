@@ -18,8 +18,8 @@ import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
  */
 public class AñadirEntrenamiento extends javax.swing.JDialog {
 
-    private List<Usuari> userList = new ArrayList<>();
-    private int selectedUserId;
+    private List<Usuari> usuarioList = new ArrayList<>();
+    private int selectUsuarioId;
 
     public AñadirEntrenamiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -27,40 +27,40 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         setSize(400, 400);
         setLocationRelativeTo(this);
 
-        usuariosInstructor();
-        iniciarComboBox();
+        usuariosDelInstructor();
+        comboBoxUsuarios();
         
-        resaltarBotones(jBttnGuardar);
+        resaltarBotones(btnGuardar);
     }
     
     //----------Método que carga los usuarios en el comboBox----------
-    private void usuariosInstructor() {
+    private void usuariosDelInstructor() {
 
-        userList = UsuarisDAO.usuariosAsignadosInstructor();
+        usuarioList = UsuarisDAO.usuariosAsignadosInstructor();
         DefaultComboBoxModel<Usuari> dcbm = new DefaultComboBoxModel<>();
 
-        for (Usuari u : userList) {
+        for (Usuari u : usuarioList) {
             dcbm.addElement(u);
         }
 
-        jCmbBxUsuario.setModel(dcbm);
+        cmbBoxUsuario.setModel(dcbm);
     }
     
     //----------Método que inicia el comboBox----------
-    private void iniciarComboBox() {
-        DefaultComboBoxModel<Usuari> model = new DefaultComboBoxModel<>();
+    private void comboBoxUsuarios() {
+        DefaultComboBoxModel<Usuari> dcm = new DefaultComboBoxModel<>();
 
         Usuari placeholder = new Usuari();
         placeholder.setNom("Selecciona un Usuario...");
 
-        model.addElement(placeholder);
+        dcm.addElement(placeholder);
 
-        for (Usuari usuario : userList) {
-            model.addElement(usuario);
+        for (Usuari usuario : usuarioList) {
+            dcm.addElement(usuario);
         }
 
-        jCmbBxUsuario.setModel(model);
-        jCmbBxUsuario.setSelectedIndex(0);
+        cmbBoxUsuario.setModel(dcm);
+        cmbBoxUsuario.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,12 +68,12 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
     private void initComponents() {
 
         jPnlNuevoEntrenamiento = new javax.swing.JPanel();
-        jLblTitulo = new javax.swing.JLabel();
-        jCmbBxUsuario = new javax.swing.JComboBox<>();
-        jSpnnrFecha = new javax.swing.JSpinner();
-        jBttnGuardar = new javax.swing.JButton();
-        jTxtFldComentario = new javax.swing.JTextField();
-        jLblMsg = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        cmbBoxUsuario = new javax.swing.JComboBox<>();
+        spnrFecha = new javax.swing.JSpinner();
+        btnGuardar = new javax.swing.JButton();
+        txtFieldComentario = new javax.swing.JTextField();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -83,67 +83,67 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         jPnlNuevoEntrenamiento.setPreferredSize(new java.awt.Dimension(400, 400));
         jPnlNuevoEntrenamiento.setLayout(null);
 
-        jLblTitulo.setBackground(new java.awt.Color(0, 0, 0));
-        jLblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
-        jLblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblTitulo.setText("NUEVO ENTRENAMIENTO");
-        jPnlNuevoEntrenamiento.add(jLblTitulo);
-        jLblTitulo.setBounds(0, 10, 400, 60);
+        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
+        lblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("NUEVO ENTRENAMIENTO");
+        jPnlNuevoEntrenamiento.add(lblTitulo);
+        lblTitulo.setBounds(0, 10, 400, 60);
 
-        jCmbBxUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        jCmbBxUsuario.setEditable(true);
-        jCmbBxUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jCmbBxUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        jCmbBxUsuario.setToolTipText("Usuario");
-        jCmbBxUsuario.setBorder(null);
-        jCmbBxUsuario.setName("Usuari"); // NOI18N
-        jCmbBxUsuario.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        cmbBoxUsuario.setEditable(true);
+        cmbBoxUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbBoxUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        cmbBoxUsuario.setToolTipText("Usuario");
+        cmbBoxUsuario.setBorder(null);
+        cmbBoxUsuario.setName("Usuari"); // NOI18N
+        cmbBoxUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCmbBxUsuarioActionPerformed(evt);
+                cmbBoxUsuarioActionPerformed(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(jCmbBxUsuario);
-        jCmbBxUsuario.setBounds(90, 80, 220, 30);
+        jPnlNuevoEntrenamiento.add(cmbBoxUsuario);
+        cmbBoxUsuario.setBounds(90, 80, 220, 30);
 
-        jSpnnrFecha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jSpnnrFecha.setModel(new javax.swing.SpinnerDateModel());
-        jSpnnrFecha.setToolTipText("Fecha");
-        jSpnnrFecha.setBorder(null);
-        jPnlNuevoEntrenamiento.add(jSpnnrFecha);
-        jSpnnrFecha.setBounds(90, 140, 220, 30);
+        spnrFecha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        spnrFecha.setModel(new javax.swing.SpinnerDateModel());
+        spnrFecha.setToolTipText("Fecha");
+        spnrFecha.setBorder(null);
+        jPnlNuevoEntrenamiento.add(spnrFecha);
+        spnrFecha.setBounds(90, 140, 220, 30);
 
-        jBttnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
-        jBttnGuardar.setBorder(null);
-        jBttnGuardar.setContentAreaFilled(false);
-        jBttnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
+        btnGuardar.setBorder(null);
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBttnGuardarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(jBttnGuardar);
-        jBttnGuardar.setBounds(170, 300, 40, 40);
+        jPnlNuevoEntrenamiento.add(btnGuardar);
+        btnGuardar.setBounds(170, 300, 40, 40);
 
-        jTxtFldComentario.setBackground(new java.awt.Color(255, 255, 255));
-        jTxtFldComentario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTxtFldComentario.setForeground(new java.awt.Color(102, 102, 102));
-        jTxtFldComentario.setText("Añade un comentario...");
-        jTxtFldComentario.setToolTipText("Comentario");
-        jTxtFldComentario.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFieldComentario.setBackground(new java.awt.Color(255, 255, 255));
+        txtFieldComentario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtFieldComentario.setForeground(new java.awt.Color(102, 102, 102));
+        txtFieldComentario.setText("Añade un comentario...");
+        txtFieldComentario.setToolTipText("Comentario");
+        txtFieldComentario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTxtFldComentarioFocusGained(evt);
+                txtFieldComentarioFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTxtFldComentarioFocusLost(evt);
+                txtFieldComentarioFocusLost(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(jTxtFldComentario);
-        jTxtFldComentario.setBounds(90, 210, 220, 30);
+        jPnlNuevoEntrenamiento.add(txtFieldComentario);
+        txtFieldComentario.setBounds(90, 210, 220, 30);
 
-        jLblMsg.setForeground(new java.awt.Color(255, 255, 255));
-        jLblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPnlNuevoEntrenamiento.add(jLblMsg);
-        jLblMsg.setBounds(50, 260, 290, 30);
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlNuevoEntrenamiento.add(lblMsg);
+        lblMsg.setBounds(50, 260, 290, 30);
 
         getContentPane().add(jPnlNuevoEntrenamiento);
         jPnlNuevoEntrenamiento.setBounds(0, 0, 400, 400);
@@ -151,68 +151,68 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCmbBxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbBxUsuarioActionPerformed
+    private void cmbBoxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxUsuarioActionPerformed
 
-        int selectedIndex = jCmbBxUsuario.getSelectedIndex();
+        int selectIndex = cmbBoxUsuario.getSelectedIndex();
 
-        if (selectedIndex > 0) {
+        if (selectIndex > 0) {
 
-            Usuari selectedUser = userList.get(selectedIndex - 1);
-            selectedUserId = selectedUser.getId();
+            Usuari selectUsuario = usuarioList.get(selectIndex - 1);
+            selectUsuarioId = selectUsuario.getId();
         }
-    }//GEN-LAST:event_jCmbBxUsuarioActionPerformed
+    }//GEN-LAST:event_cmbBoxUsuarioActionPerformed
 
-    private void jBttnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnGuardarActionPerformed
-        int seleccionarUsario = jCmbBxUsuario.getSelectedIndex();
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int selectUsuario = cmbBoxUsuario.getSelectedIndex();
 
-        if (seleccionarUsario <= 0) {
+        if (selectUsuario <= 0) {
 
-            jLblMsg.setText("Por favor, selecciona un usuario.");
+            lblMsg.setText("Por favor, selecciona un usuario.");
             return;
         }
 
-        Usuari usuario = userList.get(seleccionarUsario - 1);
+        Usuari usuario = usuarioList.get(selectUsuario - 1);
         usuario.getId();
 
-        String comment = jTxtFldComentario.getText().trim();
+        String comentario = txtFieldComentario.getText().trim();
 
-        if (comment.isEmpty() || comment.equals("Añade un comentario...")) {
-            jLblMsg.setText("Debe ingresar un comentario.");
+        if (comentario.isEmpty() || comentario.equals("Añade un comentario...")) {
+            lblMsg.setText("Debe ingresar un comentario.");
         } else {
             try {
 
-                Date dateWork = (Date) jSpnnrFecha.getValue();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String fechaFormateada = dateFormat.format(dateWork);
+                Date fechaWorkout = (Date) spnrFecha.getValue();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String fechaFormateada = sdf.format(fechaWorkout);
 
-                WorkoutsDAO.insertarWorkoutBD(selectedUserId, comment, fechaFormateada);
+                WorkoutsDAO.insertarWorkoutBD(selectUsuarioId, comentario, fechaFormateada);
                 JOptionPane.showMessageDialog(this, "Nuevo entrenamiento añadido.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error al guardar el entrenamiento en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jBttnGuardarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jTxtFldComentarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtFldComentarioFocusGained
-        if (jTxtFldComentario.getText().equals("Añade un comentario...")) {
-            jTxtFldComentario.setText("");
+    private void txtFieldComentarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldComentarioFocusGained
+        if (txtFieldComentario.getText().equals("Añade un comentario...")) {
+            txtFieldComentario.setText("");
         }
-    }//GEN-LAST:event_jTxtFldComentarioFocusGained
+    }//GEN-LAST:event_txtFieldComentarioFocusGained
 
-    private void jTxtFldComentarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtFldComentarioFocusLost
-        if (jTxtFldComentario.getText().isEmpty()) {
-            jTxtFldComentario.setText("Añade un comentario...");
+    private void txtFieldComentarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldComentarioFocusLost
+        if (txtFieldComentario.getText().isEmpty()) {
+            txtFieldComentario.setText("Añade un comentario...");
         }
-    }//GEN-LAST:event_jTxtFldComentarioFocusLost
+    }//GEN-LAST:event_txtFieldComentarioFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBttnGuardar;
-    private javax.swing.JComboBox<Usuari> jCmbBxUsuario;
-    private javax.swing.JLabel jLblMsg;
-    private javax.swing.JLabel jLblTitulo;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<Usuari> cmbBoxUsuario;
     private javax.swing.JPanel jPnlNuevoEntrenamiento;
-    private javax.swing.JSpinner jSpnnrFecha;
-    private javax.swing.JTextField jTxtFldComentario;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JSpinner spnrFecha;
+    private javax.swing.JTextField txtFieldComentario;
     // End of variables declaration//GEN-END:variables
 }

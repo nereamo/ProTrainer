@@ -10,16 +10,16 @@ import javax.swing.table.AbstractTableModel;
 
 public class WorkoutsTableModel extends AbstractTableModel{
     
-    private List<Workouts> workouts;
-    private final String[] columnNames = {"Fecha", "Comentarios"};  // Columnas de la tabla
+    private List<Workouts> workoutsList;
+    private final String[] columnNames = {"Fecha", "Comentarios"};
 
-    public WorkoutsTableModel(List<Workouts> workouts) {
-        this.workouts = workouts;
+    public WorkoutsTableModel(List<Workouts> workoutsList) {
+        this.workoutsList = workoutsList;
     }
-
+    
     @Override
     public int getRowCount() {
-        return workouts.size();
+        return workoutsList.size();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class WorkoutsTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Workouts workout = workouts.get(rowIndex);
+        Workouts workout = workoutsList.get(rowIndex);
         switch (columnIndex) {
             case 0: return workout.getForDate();
             case 1: return workout.getComments();
@@ -42,9 +42,8 @@ public class WorkoutsTableModel extends AbstractTableModel{
         }
     }
 
-    public void setWorkouts(List<Workouts> workouts) {
-        this.workouts = workouts;
-        fireTableDataChanged();  // Notifica a la tabla que los datos han cambiado
+    public void setWorkouts(List<Workouts> workoutsList) {
+        this.workoutsList = workoutsList;
+        fireTableDataChanged();
     }
-
 }
