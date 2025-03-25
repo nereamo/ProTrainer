@@ -4,7 +4,7 @@
 
 ### ProTrainer (jFrame - Main):
 
-![Captura de pantalla 2025-03-24 141606](https://github.com/user-attachments/assets/9b20ba74-69fe-42bd-8f97-c74ff1fececd)
+![Captura de pantalla 2025-03-25 182332](https://github.com/user-attachments/assets/d057d0ea-3818-47b0-8b7c-2e4e58aeac31)
 
 > jMnuBar
 
@@ -32,7 +32,7 @@
 
 ### Panel Menú (jPanel):
 
-![Captura de pantalla 2025-03-24 142151](https://github.com/user-attachments/assets/370c6b26-c494-48d5-b3bf-d320dfbb48c7)
+![Captura de pantalla 2025-03-25 182447](https://github.com/user-attachments/assets/a7ffa3b2-ca4b-47fe-b9e4-8a617f6391eb)
 
 > jMnuBar
 
@@ -68,7 +68,9 @@ Añadir .jar a proyecto:
 - lblWorkouts: Label con el título de la tabla.
 - tblEntrenamientos: Muestra los entrenamientos que tiene asociados un usuario.
 - btnNuevoWorkout: Permite crear un nuevo entrenamiento asignandolo a un usuario.
-![Captura de pantalla 2025-03-24 143923](https://github.com/user-attachments/assets/1dd2de99-4ae7-482a-8d06-83b92f4745f0)
+  
+![Captura de pantalla 2025-03-25 182454](https://github.com/user-attachments/assets/c06fbf68-acf2-4ae8-9ad2-c2873431486a)
+
 
       - lblTitulo -> Titulo del formulario.
       - cmbBoxUsuario -> Permite seleccionar un usuario.
@@ -78,7 +80,8 @@ Añadir .jar a proyecto:
       - btnGuardar -> Acciona el evento.
   
 - btnEliminarWorkout: Permite eliminar un entrenamiento que no tenga ejercicios asignados.
-![Captura de pantalla 2025-03-24 143928](https://github.com/user-attachments/assets/2724ea1d-57fb-4b8a-a314-de34d8c27849)
+  
+![Captura de pantalla 2025-03-25 182459](https://github.com/user-attachments/assets/a1784892-dc63-414b-aa20-3c4732da56fa)
 
       - lblTitulo -> Titulo del formulario.
       - cmbBoxUsuario -> Permite seleccionar un usuario.
@@ -91,7 +94,7 @@ Añadir .jar a proyecto:
 - tblEjercicios: Muestra los ejercicios que tiene asociados un workout.
 - btnNuevoEjercicio: Permite crear un nuevo ejercicio.
 
-![Captura de pantalla 2025-03-24 144845](https://github.com/user-attachments/assets/785e6a06-d912-490e-921e-a1971e9a982d)
+![Captura de pantalla 2025-03-25 182504](https://github.com/user-attachments/assets/40a4e488-cdbf-4bde-b813-e212c4b49b44)
 
       - lblTitulo -> Titulo del formulario.
       - txtFieldNombre -> Permite Añadir un nombre al ejercicio.
@@ -100,7 +103,8 @@ Añadir .jar a proyecto:
       - btnGuardar -> Acciona el evento.
 
 - btnEliminarEjercicio: Permite eliminar un ejercicios que no esté asignando a un entrenamiento.
-![Captura de pantalla 2025-03-24 144851](https://github.com/user-attachments/assets/058abef5-8009-441e-8fe6-d8868084e6da)
+  
+![Captura de pantalla 2025-03-25 182508](https://github.com/user-attachments/assets/8137364d-7384-4ccc-9494-5bcc50daf97d)
 
       - lblTitulo -> Titulo del formulario.
       - lstEjercicios -> Lista que permite seleccionar un ejercicio.
@@ -108,7 +112,9 @@ Añadir .jar a proyecto:
       - btnEliminar -> Acciona el evento.
   
 - btnEditarEjercicio: Permite cambiar el nombre y la descripción de un ejercicio.
-![Captura de pantalla 2025-03-24 144855](https://github.com/user-attachments/assets/23ccaa4c-b980-4ae6-b7c7-f99cb8d52532)
+  
+![Captura de pantalla 2025-03-25 182513](https://github.com/user-attachments/assets/22cea573-5868-4779-b3a5-4c91b4499d95)
+
 
       - lblTitulo -> Titulo del formulario.
       - cmbBoxEjercicios -> Permite seleccionar el ejercicio que se va a modificar.
@@ -118,7 +124,8 @@ Añadir .jar a proyecto:
       - btnGuardar -> Acciona el evento.
   
 - btnAsignarEjercicios: Permite asignar ejercicios a un entrenamiento.
-![Captura de pantalla 2025-03-24 144900](https://github.com/user-attachments/assets/537b94b2-3ece-48d1-b6d3-e40d5116350d)
+  
+![Captura de pantalla 2025-03-25 182519](https://github.com/user-attachments/assets/f92cdfa7-bd0f-490c-a5ec-a5ff3b670843)
 
       - lblTitulo -> Titulo del formulario.
       - cmbBoxUsuarios -> Permite seleccionar un usuario.
@@ -176,11 +183,13 @@ Al completar el formulario, si la opción es correcta mostrá un mensaje informa
 
 > Después:
 
-![Captura de pantalla 2025-03-21 144338](https://github.com/user-attachments/assets/f2a96cfb-3142-41a2-acea-5cc210195c15)
+![Captura de pantalla 2025-03-25 182332](https://github.com/user-attachments/assets/cd2e2916-b8ec-4159-99a0-2adf9e64ac32)
 
-![Captura de pantalla 2025-03-21 144342](https://github.com/user-attachments/assets/4fc552fb-8e91-4af6-ac51-990763f59cd2)
+![Captura de pantalla 2025-03-24 141601](https://github.com/user-attachments/assets/2120e0d4-fe59-487d-b5d3-51b1f86d6e6f)
 
-![Captura de pantalla 2025-03-21 144353](https://github.com/user-attachments/assets/5e42c35a-0599-48e5-b71c-a1da34c59eef)
+![Captura de pantalla 2025-03-25 182447](https://github.com/user-attachments/assets/7cc00c5e-9e56-405d-ba6e-36b724a01e9f)
+
+
 
 
 
