@@ -10,52 +10,58 @@ import javax.swing.JOptionPane;
 import nerea.protrainer.dao.UsuarisDAO;
 import nerea.protrainer.dao.WorkoutsDAO;
 import nerea.protrainer.dto.Usuari;
-import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotonesJDialog;
 
 /**
- *
+ * Clase AñadirEntrenamiento maneja las operaciones con la base de datos relacionado con Workouts asociados a un usuario {@code AñadirEntrenamiento}.
+ * La clase extiende {@code javax.swing.JDialog}, permite que esta clase sea un diálogo modal.
+ * 
  * @author Nerea
  */
-public class AñadirEntrenamiento extends javax.swing.JDialog {
+public class AñadirNuevoEntrenamiento extends javax.swing.JDialog {
 
-    private List<Usuari> usuarioList = new ArrayList<>();
-    private int selectUsuarioId;
+    /**
+     * Variables utilizadas en la gestión de crear un nuevo entrenamiento.
+     * <p>
+     * - `usuariosList` almacena la lista de usuarios disponibles. 
+     * - `seleccionarUsuarioId` almacena el ID del usuario seleccionado.
+     */
+    private List<Usuari> usuariosList = new ArrayList<>();
+    private int seleccionarUsuarioId;
 
-    public AñadirEntrenamiento(java.awt.Frame parent, boolean modal) {
+    /**
+     * Constructor que inicializa el JDialog, carga los JComboBox de los usuarios e inicializa el método resaltarBotones para propagar los eventos en los componentes.
+     *
+     * @param parent JFrame principal (ventana padre) del JDiálog.
+     * @param modal Si es {@code true}, el foco se mantiene en el JDiálog hasta que se cierra.
+     */
+    public AñadirNuevoEntrenamiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setSize(400, 400);
         setLocationRelativeTo(this);
 
-        usuariosDelInstructor();
         comboBoxUsuarios();
         
-        resaltarBotones(btnGuardar);
+        resaltarBotonesJDialog(btnGuardar);
     }
     
-    //----------Método que carga los usuarios en el comboBox----------
-    private void usuariosDelInstructor() {
-
-        usuarioList = UsuarisDAO.usuariosAsignadosInstructor();
-        DefaultComboBoxModel<Usuari> dcbm = new DefaultComboBoxModel<>();
-
-        for (Usuari u : usuarioList) {
-            dcbm.addElement(u);
-        }
-
-        cmbBoxUsuario.setModel(dcbm);
-    }
-    
-    //----------Método que inicia el comboBox----------
+    /**
+     * Inicializa el JComboBox de usuarios en el JDialog. 
+     * Recupera la lista de usuarios asignados a un instructor actual y los muestra en el JComboBox. 
+     * Establece un "marcador" que indica que el usuario debe seleccionar un usuario.
+     */
     private void comboBoxUsuarios() {
+        usuariosList = UsuarisDAO.usuariosAsignadosInstructor();
+        
         DefaultComboBoxModel<Usuari> dcm = new DefaultComboBoxModel<>();
 
         Usuari placeholder = new Usuari();
-        placeholder.setNom("Selecciona un Usuario...");
+        placeholder.setNom("Selecciona un usuario...");
 
         dcm.addElement(placeholder);
 
-        for (Usuari usuario : usuarioList) {
+        for (Usuari usuario : usuariosList) {
             dcm.addElement(usuario);
         }
 
@@ -67,7 +73,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPnlNuevoEntrenamiento = new javax.swing.JPanel();
+        pnlNuevoWorkout = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         cmbBoxUsuario = new javax.swing.JComboBox<>();
         spnrFecha = new javax.swing.JSpinner();
@@ -78,17 +84,17 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPnlNuevoEntrenamiento.setBackground(new java.awt.Color(51, 51, 51));
-        jPnlNuevoEntrenamiento.setMinimumSize(new java.awt.Dimension(400, 400));
-        jPnlNuevoEntrenamiento.setPreferredSize(new java.awt.Dimension(400, 400));
-        jPnlNuevoEntrenamiento.setLayout(null);
+        pnlNuevoWorkout.setBackground(new java.awt.Color(51, 51, 51));
+        pnlNuevoWorkout.setMinimumSize(new java.awt.Dimension(400, 400));
+        pnlNuevoWorkout.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlNuevoWorkout.setLayout(null);
 
         lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
         lblTitulo.setFont(new java.awt.Font("Anton", 0, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("NUEVO ENTRENAMIENTO");
-        jPnlNuevoEntrenamiento.add(lblTitulo);
+        pnlNuevoWorkout.add(lblTitulo);
         lblTitulo.setBounds(0, 10, 400, 60);
 
         cmbBoxUsuario.setBackground(new java.awt.Color(255, 255, 255));
@@ -103,26 +109,26 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
                 cmbBoxUsuarioActionPerformed(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(cmbBoxUsuario);
+        pnlNuevoWorkout.add(cmbBoxUsuario);
         cmbBoxUsuario.setBounds(90, 80, 220, 30);
 
         spnrFecha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         spnrFecha.setModel(new javax.swing.SpinnerDateModel());
         spnrFecha.setToolTipText("Fecha");
         spnrFecha.setBorder(null);
-        jPnlNuevoEntrenamiento.add(spnrFecha);
+        pnlNuevoWorkout.add(spnrFecha);
         spnrFecha.setBounds(90, 140, 220, 30);
 
+        btnGuardar.setBackground(new java.awt.Color(51, 51, 51));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
-        btnGuardar.setBorder(null);
-        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.setToolTipText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(btnGuardar);
-        btnGuardar.setBounds(170, 300, 40, 40);
+        pnlNuevoWorkout.add(btnGuardar);
+        btnGuardar.setBounds(160, 280, 50, 50);
 
         txtFieldComentario.setBackground(new java.awt.Color(255, 255, 255));
         txtFieldComentario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -137,31 +143,45 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
                 txtFieldComentarioFocusLost(evt);
             }
         });
-        jPnlNuevoEntrenamiento.add(txtFieldComentario);
-        txtFieldComentario.setBounds(90, 210, 220, 30);
+        pnlNuevoWorkout.add(txtFieldComentario);
+        txtFieldComentario.setBounds(90, 200, 220, 30);
 
+        lblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPnlNuevoEntrenamiento.add(lblMsg);
-        lblMsg.setBounds(50, 260, 290, 30);
+        pnlNuevoWorkout.add(lblMsg);
+        lblMsg.setBounds(50, 250, 290, 30);
 
-        getContentPane().add(jPnlNuevoEntrenamiento);
-        jPnlNuevoEntrenamiento.setBounds(0, 0, 400, 400);
+        getContentPane().add(pnlNuevoWorkout);
+        pnlNuevoWorkout.setBounds(0, 0, 400, 400);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de acción al seleccionar un elemento del JComboBox.
+     * Obtiene el ID del usuario seleccionado para poder añadirle un nuevo workout.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void cmbBoxUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxUsuarioActionPerformed
 
         int selectIndex = cmbBoxUsuario.getSelectedIndex();
 
         if (selectIndex > 0) {
 
-            Usuari selectUsuario = usuarioList.get(selectIndex - 1);
-            selectUsuarioId = selectUsuario.getId();
+            Usuari selectUsuario = usuariosList.get(selectIndex - 1);
+            seleccionarUsuarioId = selectUsuario.getId();
         }
     }//GEN-LAST:event_cmbBoxUsuarioActionPerformed
 
+    /**
+     * Maneja el evento de acción para el botón "Guardar".
+     * Verifica si el usuario ha sido seleccionados y si ha añadido un comentario.
+     * Si hay un error, mostrará un mensaje de error, de lo contrario, muestra mensaje de éxito.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         int selectUsuario = cmbBoxUsuario.getSelectedIndex();
 
@@ -171,7 +191,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
             return;
         }
 
-        Usuari usuario = usuarioList.get(selectUsuario - 1);
+        Usuari usuario = usuariosList.get(selectUsuario - 1);
         usuario.getId();
 
         String comentario = txtFieldComentario.getText().trim();
@@ -185,7 +205,7 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String fechaFormateada = sdf.format(fechaWorkout);
 
-                WorkoutsDAO.insertarWorkoutBD(selectUsuarioId, comentario, fechaFormateada);
+                WorkoutsDAO.insertarWorkoutBD(seleccionarUsuarioId, comentario, fechaFormateada);
                 JOptionPane.showMessageDialog(this, "Nuevo entrenamiento añadido.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException ex) {
@@ -194,12 +214,22 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    /**
+     * Activa el foco en el campo de texto para escribir el comentario.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldComentarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldComentarioFocusGained
         if (txtFieldComentario.getText().equals("Añade un comentario...")) {
             txtFieldComentario.setText("");
         }
     }//GEN-LAST:event_txtFieldComentarioFocusGained
 
+    /**
+     * Desactiva el foco en el campo de texto para escribir el comentario.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldComentarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldComentarioFocusLost
         if (txtFieldComentario.getText().isEmpty()) {
             txtFieldComentario.setText("Añade un comentario...");
@@ -209,9 +239,9 @@ public class AñadirEntrenamiento extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<Usuari> cmbBoxUsuario;
-    private javax.swing.JPanel jPnlNuevoEntrenamiento;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlNuevoWorkout;
     private javax.swing.JSpinner spnrFecha;
     private javax.swing.JTextField txtFieldComentario;
     // End of variables declaration//GEN-END:variables

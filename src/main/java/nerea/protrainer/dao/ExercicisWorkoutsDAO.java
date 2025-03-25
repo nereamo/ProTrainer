@@ -13,11 +13,27 @@ import nerea.protrainer.dto.Exercicis;
 import nerea.protrainer.dto.Workouts;
 
 /**
+ * Clase ExerciciesWorkoutsDAO maneja las operaciones con la base de datos relacionado con los Workouts y sus ejercicios {@code ExerciciesWorkoutsDAO}.
+ * Consultar e insertar datos de la base de datos de ExercicisWorkouts.
+ * 
  * @author Nerea
  */
 
 public class ExercicisWorkoutsDAO {
+    
+    /**
+     * Constructor por defecto.
+     */
+    public ExercicisWorkoutsDAO(){
+        
+    }
 
+    /**
+     * Recupera todos los ejercicios asignados a un workout de la base de datos.
+     * 
+     * @param workoutId Id del workout al que estan asociados los ejercicios.
+     * @return Devuelve una lista con los ejercicios asignados a un workout en concreto.
+     */
     public static ArrayList<Exercicis> ejerciciosDelWorkout(int workoutId) {
         
         ArrayList<Exercicis> ejerciciosList = new ArrayList<>();
@@ -48,6 +64,13 @@ public class ExercicisWorkoutsDAO {
         return ejerciciosList;
     }
 
+    /**
+     * Asigna ejercicios a un workout.
+     * 
+     * @param workoutId Id del workout.
+     * @param exerciseId Id de los ejercicios.
+     * @throws SQLException Si hay un error al asignar los ejercicios en el workout en la base de datos.
+     */
     public static void asignarEjercicioAWorkout(int workoutId, int exerciseId) throws SQLException {
         
         String sql = "INSERT INTO ExercicisWorkouts (IdWorkout, IdExercici) VALUES (?, ?)";

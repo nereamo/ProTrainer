@@ -12,12 +12,26 @@ import nerea.protrainer.dataAccess.DataAccess;
 import nerea.protrainer.dto.Workouts;
 
 /**
+ * Clase WorkoutsDAO maneja las operaciones con la base de datos relacionado con los Workouts {@code WorkoutsDAO}.
+ * Consultar, insertar y eliminar datos de la base de datos de los Workouts. 
+ * 
  * @author Nerea
  */
 
 public class WorkoutsDAO {
     
-    //----------ArrayList que almacena los entrenamientos de la base de datos----------
+    /**
+     * Constructor por defecto.
+     */
+    public WorkoutsDAO(){
+        
+    }
+    
+    /**
+      * Recupera todos los entrenamientos de la base de datos.
+      * 
+      * @return Devuelve una lista con todos los entrenamientos.
+      */
     public static ArrayList<Workouts> workoutsBD() {
         
         ArrayList<Workouts> workoutsList = new ArrayList<>();
@@ -49,7 +63,12 @@ public class WorkoutsDAO {
         return workoutsList;
     }
 
-    //----------ArrayList que almacena los entrenamientos asignados a un usuario----------
+    /**
+     * Recupera todos los entrenamientos asignados a un usuario.
+     * 
+     * @param userId Id del usuario asociado al entrenamiento.
+     * @return Devuelve la lista de los entrenamientos asociados al Id del usuario.
+     */
     public static ArrayList<Workouts> workoutUsuari(int userId) {
         
         ArrayList<Workouts> workoutsListUser = new ArrayList<>();
@@ -82,7 +101,14 @@ public class WorkoutsDAO {
         return workoutsListUser;
     }
     
-    //----------Método para insertar nuevos entrenamientos en la base de datos----------
+    /**
+     * Insertar un nuevo entrenamiento en la base de datos.
+     * 
+     * @param userId Id del usuario asociado al entrenamiento insertado.
+     * @param comments  Comentario asociado al entrenamiento.
+     * @param forDate Fecha del entrenamiento.
+     * @throws SQLException Si hay un error al insertar el entrenamiento en la base de datos. 
+     */
     public static void insertarWorkoutBD(int userId, String comments, String forDate) throws SQLException {
 
         String sql = "INSERT INTO Workouts (ForDate, UserId, Comments) VALUES (?, ?, ?)";
@@ -101,7 +127,12 @@ public class WorkoutsDAO {
         }
     }
     
-    //----------Método para eliminar entrenamientos de la base de datos----------
+    /**
+     * Eliminar un entrenamiento de la base de datos.
+     * 
+     * @param workoutId Id del workout a eliminar.
+     * @return Devuelve {@code true} si se ha eliminado correctamente.
+     */
     public static boolean eliminarWorkoutBD(int workoutId) {
 
         String sql = "DELETE FROM Workouts WHERE id = ?";

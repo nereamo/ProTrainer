@@ -10,12 +10,26 @@ import nerea.protrainer.dataAccess.DataAccess;
 import nerea.protrainer.dto.Exercicis;
 
 /**
+ * Clase ExercicisDAO maneja las operaciones con la base de datos relacionado con los ejercicios {@code ExercicisDAO}.
+ * Recupera, inserta, elimina y actualiza datos de la base de datos de los ejercicios.
+ * 
  * @author Nerea
  */
 
 public class ExercicisDAO {
+    
+    /**
+     * Constructor por defecto.
+     */
+    public ExercicisDAO(){
+        
+    }
 
-    //----------ArrayList que almacena los ejercicios de la base de datos----------
+    /**
+     * Recupera todods los ejercicios de la base de datos.
+     * 
+     * @return Devuelve en una lista todos los ejercicios de la base de datos.
+     */
     public static ArrayList<Exercicis> exercicisBD() {
         
         ArrayList<Exercicis> ejerciciosList = new ArrayList<>();
@@ -44,7 +58,13 @@ public class ExercicisDAO {
         return ejerciciosList;
     }
 
-    //----------Método para insertar nuevos ejercicios en la base de datos----------
+    /**
+     * Inserta nuevos ejercicios en la base de datos.
+     * 
+     * @param nombre Nombre del ejercicio.
+     * @param descripcion Descripción del ejercicio.
+     * @return Devuelve {@code true} si se ha insertado correctamente.
+     */
     public static boolean insertarEjerciciosBD(String nombre, String descripcion) {
         
         String sql = "INSERT INTO Exercicis (NomExercici, Descripcio) VALUES (?, ?)";
@@ -65,7 +85,12 @@ public class ExercicisDAO {
         
     }
 
-    //----------Método para eliminar ejercicios de la base de datos----------
+    /**
+     * Elimina ejercicios de la base de datos.
+     * 
+     * @param exerciseId Id del ejrcicio.
+     * @return Devuelve {@code true} si se ha eliminado correctamente.
+     */
     public static boolean eliminaExercicis(int exerciseId) {
         String sql = "DELETE FROM Exercicis WHERE Id = ?";
 
@@ -83,7 +108,12 @@ public class ExercicisDAO {
         }
     }
 
-    //----------Método para editar un ejercicio de la base de datos----------
+    /**
+     * Edita los ejercicios de la base de datos.
+     * 
+     * @param exercise Objeto Exercicis con nuevos valores.
+     * @return Devuelve {@code true} si se ha editado correctamente.
+     */
     public static boolean editarEjerciciosBD(Exercicis exercise) {
         String sql = "UPDATE Exercicis SET NomExercici = ?, Descripcio = ? WHERE Id = ?";
 

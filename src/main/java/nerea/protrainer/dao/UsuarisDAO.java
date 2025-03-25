@@ -14,12 +14,27 @@ import nerea.protrainer.dataAccess.DataAccess;
 import nerea.protrainer.dto.Usuari;
 
 /**
+ * Clase UsuarisDAO maneja las operaciones con la base de datos relacionado con los usuarios {@code UsuarisDAO}.
+ * Recupera los usuarios que sean instructores.
+ *
  * @author Nerea
  */
 
 public class UsuarisDAO {
     
-    //----------Método para verificar el usuario que inicia sesión----------
+    /**
+     * Constructor por defecto.
+     */
+    public UsuarisDAO(){
+        
+    }
+    
+    /**
+     * Recupera una lista de usuarios por su email.
+     * 
+     * @param emailInstructor Email del usuario.
+     * @return Devuelve el usuario que tiene un email asignado.
+     */
     public static Usuari inicioSesionUsuario(String emailInstructor) {
         
         Usuari usuario = new Usuari();
@@ -48,7 +63,11 @@ public class UsuarisDAO {
         return usuario;
     }
     
-    //----------Lista que almacena los usuarios asignados a un instructor----------
+    /**
+     * Recupera los usuarios asignados a un instructor.
+     * 
+     * @return Devuelve la lista de los usuarios asignados a un instructor.
+     */
     public static List<Usuari> usuariosAsignadosInstructor() {
         List<Usuari> usuariosList = new ArrayList<>();
         

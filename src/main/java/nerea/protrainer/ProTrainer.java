@@ -9,20 +9,31 @@ import nerea.protrainer.views.DialogCalendar;
 import nerea.protrainer.views.DialogLogin;
 import nerea.protrainer.views.PanelMenu;
 import nerea.protrainer.dto.Usuari;
-import nerea.protrainer.eventosVisuales.EventosMouse;
 import net.miginfocom.swing.MigLayout;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotonesMain;
 
 /**
+ * Clase ProTrainer proporciona la funcionalidad para gestionar la interfaz gráfica del programa {@code ProTrainer}.
+ * La clase extiende {@code javax.swing.JFrame}, permite que esta clase sea un diálogo modal.
  *
  * @author Nerea
  */
 public class ProTrainer extends javax.swing.JFrame {
 
+    /**
+     * Variables utilizadas en la gestión del menú principal de la aplicación.
+     * <p>
+     * - `loggedInstructor` almacena la referencia al usuario instructor actualmente autenticado.
+     */
     private static Usuari loggedInstructor;
 
+    /**
+     * Constructor de la clase ProTrainer.
+     * Constructor que inicializa el JPanel inicial, establece el 'MigLayout' para ordenar los componentes e inicializa el método configurarEventos para propagar los eventos en los componentes.
+     */
     public ProTrainer() {
         initComponents();
-        setSize(1200, 700);
+        setSize(1200, 660);
         setLocationRelativeTo(this);
 
         PanelMenu panelMenu = new PanelMenu(this);
@@ -32,7 +43,8 @@ public class ProTrainer extends javax.swing.JFrame {
         pnlMain.add(lblLogo, "align center, wrap");
         pnlMain.add(lblMsg, "align center, wrap");
         pnlMain.add(btnAcceso, "align center, wrap");
-        pnlMain.add(lblUrl, "dock north, align right");
+        pnlMain.add(btnWeb, "align center");
+
 
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(pnlMain, BorderLayout.CENTER);
@@ -42,18 +54,30 @@ public class ProTrainer extends javax.swing.JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/dumbbell Icon.png"));
         setIconImage(icon);
         
-        EventosMouse.configurarEventos(btnAcceso, lblUrl);
+        resaltarBotonesMain(btnAcceso,btnWeb);
     }
 
+    /**
+     * Establece el instructor logueado.
+     * 
+     * @param instructor Instructor logueado.
+     */
     public void setLoggedInstructor(Usuari instructor) {
         this.loggedInstructor = instructor;
     }
 
+    /**
+     * Obtiene el instructor logueado.
+     * 
+     * @return Instructor logueado.
+     */
     public static Usuari getLoggedInstructor() {
         return loggedInstructor;
     }
 
-    //----------Método que hace visible el panel----------
+    /**
+     * Establece como visible el panel.
+     */
     public void showPanel() {
 
         PanelMenu pnlMenu = new PanelMenu(this);
@@ -63,7 +87,9 @@ public class ProTrainer extends javax.swing.JFrame {
         this.repaint();
     }
 
-    //----------Método que hace visible el calendar----------
+    /**
+     * Establece como visible el componente del calendario en el menú.
+     */
     public void showCalendarMenu() {
         mnuCalendario.setVisible(true);
     }
@@ -78,7 +104,7 @@ public class ProTrainer extends javax.swing.JFrame {
         lblMsg = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
         btnAcceso = new javax.swing.JButton();
-        lblUrl = new javax.swing.JLabel();
+        btnWeb = new javax.swing.JButton();
         jMnuBar = new javax.swing.JMenuBar();
         mnuOpciones = new javax.swing.JMenu();
         mnuItmLogout = new javax.swing.JMenuItem();
@@ -98,6 +124,7 @@ public class ProTrainer extends javax.swing.JFrame {
 
         pnlMain.setBackground(new java.awt.Color(0, 0, 0));
         pnlMain.setMinimumSize(new java.awt.Dimension(1200, 700));
+        pnlMain.setPreferredSize(new java.awt.Dimension(1200, 660));
         pnlMain.setLayout(null);
 
         lblMsg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -111,33 +138,35 @@ public class ProTrainer extends javax.swing.JFrame {
         pnlMain.add(lblLogo);
         lblLogo.setBounds(230, 100, 689, 210);
 
+        btnAcceso.setBackground(new java.awt.Color(0, 0, 0));
         btnAcceso.setForeground(new java.awt.Color(0, 0, 0));
         btnAcceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Login.png"))); // NOI18N
         btnAcceso.setToolTipText("Login");
-        btnAcceso.setContentAreaFilled(false);
+        btnAcceso.setOpaque(false);
         btnAcceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAccesoActionPerformed(evt);
             }
         });
         pnlMain.add(btnAcceso);
-        btnAcceso.setBounds(520, 490, 140, 67);
+        btnAcceso.setBounds(520, 477, 66, 67);
 
-        lblUrl.setBackground(new java.awt.Color(0, 0, 0));
-        lblUrl.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
-        lblUrl.setForeground(new java.awt.Color(0, 0, 0));
-        lblUrl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icon Web.png"))); // NOI18N
-        lblUrl.setToolTipText("Web");
-        lblUrl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblUrlMouseClicked(evt);
+        btnWeb.setBackground(new java.awt.Color(0, 0, 0));
+        btnWeb.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnWeb.setForeground(new java.awt.Color(0, 0, 0));
+        btnWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconWeb.png"))); // NOI18N
+        btnWeb.setToolTipText("Web");
+        btnWeb.setOpaque(false);
+        btnWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWebActionPerformed(evt);
             }
         });
-        pnlMain.add(lblUrl);
-        lblUrl.setBounds(1150, 570, 35, 30);
+        pnlMain.add(btnWeb);
+        btnWeb.setBounds(1120, 590, 50, 50);
 
         getContentPane().add(pnlMain);
-        pnlMain.setBounds(0, 0, 1200, 700);
+        pnlMain.setBounds(0, 0, 1200, 660);
 
         jMnuBar.setBackground(new java.awt.Color(0, 0, 0));
         jMnuBar.setBorder(null);
@@ -206,6 +235,11 @@ public class ProTrainer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que muestra el panel principal al cerrar la sesión, oculta el menú del calendario y muestra un mensaje de cierre de sesión.
+     *
+     * @param evt Evento de acción activa la ejecución del método
+     */
     private void mnuItmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmLogoutActionPerformed
         this.getContentPane().removeAll();
         this.getContentPane().add(pnlMain);
@@ -218,21 +252,21 @@ public class ProTrainer extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_mnuItmLogoutActionPerformed
 
+    /**
+     * Método que muestra el JDialog de login para que el usuario pueda iniciar sesión.
+     *
+     * @param evt Evento de acción activa la ejecución del método
+     */
     private void btnAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccesoActionPerformed
         DialogLogin dl = new DialogLogin(this, true);
         dl.setVisible(true);
     }//GEN-LAST:event_btnAccesoActionPerformed
 
-    private void lblUrlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUrlMouseClicked
-        try {
-
-            String url = "http://www.ejemplo.com";
-            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_lblUrlMouseClicked
-
+    /**
+     * Método que muestra un cuadro de confirmación preguntando si el usuario está seguro de cerrar la aplicación. Si el usuario confirma, la aplicación se cierra.
+     *
+     * @param evt Evento de acción activa la ejecución del método
+     */
     private void mnuItmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmSalirActionPerformed
         int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cerrar la aplicación?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
 
@@ -241,16 +275,42 @@ public class ProTrainer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuItmSalirActionPerformed
 
+    /**
+     * Método que abre el JDialog del calendario.
+     *
+     * @param evt Evento de acción activa la ejecución del método
+     */
     private void mnuCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuCalendarioMouseClicked
         DialogCalendar dc = new DialogCalendar(this, true);
         dc.setVisible(true);
+        
     }//GEN-LAST:event_mnuCalendarioMouseClicked
 
+    /**
+     * Método que abre el jDialog con información "Acerca de" de la aplicación.
+     *
+     * @param evt Evento de acción activa la ejecución del método
+     */
     private void mnuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuAboutMouseClicked
         DialogAbout da = new DialogAbout(this, true);
         da.setVisible(true);
     }//GEN-LAST:event_mnuAboutMouseClicked
 
+    private void btnWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWebActionPerformed
+        try {
+
+            String url = "http://www.ejemplo.com";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnWebActionPerformed
+
+    /**
+     * Método principal para iniciar la aplicación.
+     *
+     * @param args Los argumentos de línea de comandos.
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -285,13 +345,13 @@ public class ProTrainer extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceso;
+    private javax.swing.JButton btnWeb;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMnuBar;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMsg;
-    private javax.swing.JLabel lblUrl;
     private javax.swing.JMenu mnuAbout;
     private javax.swing.JMenu mnuCalendario;
     private javax.swing.JMenuItem mnuItmLogout;

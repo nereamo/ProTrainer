@@ -1,20 +1,30 @@
 package nerea.protrainer.jDialogs;
 
+import javax.swing.JOptionPane;
 import nerea.protrainer.dao.ExercicisDAO;
-import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotones;
+import static nerea.protrainer.eventosVisuales.EventosMouse.resaltarBotonesJDialog;
 
 /**
+ * Clase AñadirNuevoEjercicio maneja las operaciones con la base de datos relacionado con Exercicis de la base de datos {@code AñadirNuevoEjercicio}.
+ * La clase extiende {@code javax.swing.JDialog}, permite que esta clase sea un diálogo modal.
+ * 
  * @author Nerea
  */
 public class AñadirNuevoEjercicio extends javax.swing.JDialog {
-
+    
+    /**
+     * Constructor que inicializa el JDialog e inicializa el método resaltarBotones para propagar los eventos en los componentes.
+     * 
+     * @param parent JFrame principal (ventana padre) del JDiálog.
+     * @param modal Si es {@code true}, el foco se mantiene en el JDiálog hasta que se cierra.
+     */
     public AñadirNuevoEjercicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setSize(400,400);
         setLocationRelativeTo(this);
         
-        resaltarBotones(btnGuardar);
+        resaltarBotonesJDialog(btnGuardar);
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +45,7 @@ public class AñadirNuevoEjercicio extends javax.swing.JDialog {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setForeground(new java.awt.Color(51, 51, 51));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 400));
         jPanel1.setLayout(null);
 
@@ -61,16 +72,16 @@ public class AñadirNuevoEjercicio extends javax.swing.JDialog {
         jPanel1.add(txtFieldNombre);
         txtFieldNombre.setBounds(90, 100, 230, 30);
 
+        btnGuardar.setBackground(new java.awt.Color(51, 51, 51));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Guardar.png"))); // NOI18N
-        btnGuardar.setBorder(null);
-        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.setToolTipText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
         jPanel1.add(btnGuardar);
-        btnGuardar.setBounds(180, 310, 40, 40);
+        btnGuardar.setBounds(170, 280, 50, 50);
 
         txtFieldDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         txtFieldDescripcion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -106,7 +117,7 @@ public class AñadirNuevoEjercicio extends javax.swing.JDialog {
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lblMsg);
-        lblMsg.setBounds(40, 250, 320, 40);
+        lblMsg.setBounds(40, 240, 320, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 400);
@@ -114,6 +125,13 @@ public class AñadirNuevoEjercicio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de acción para el botón "Guardar". 
+     * Verifica si se ha añadido un nombre y una descripción antes de guaradr el nuejo ejercicio. 
+     * Si hay un error, mostrará un mensaje de error, de lo contrario, muestra mensaje de éxito.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String nombre = txtFieldNombre.getText().trim();
         String descripcion = txtFieldDescripcion.getText().trim();
@@ -122,28 +140,49 @@ public class AñadirNuevoEjercicio extends javax.swing.JDialog {
             lblMsg.setText("Debe ingresar un nombre y una descripción.");
         } else {
             ExercicisDAO.insertarEjerciciosBD(nombre, descripcion);
+            JOptionPane.showMessageDialog(this, "Ejercicio añadido correctamente!");
             dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    /**
+     * Activa el foco en el campo de texto para escribir el nombre.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNombreFocusGained
         if (txtFieldNombre.getText().equals("Nombre ejercicio...")) {
             txtFieldNombre.setText("");
         }
     }//GEN-LAST:event_txtFieldNombreFocusGained
 
+    /**
+     * Desactiva el foco en el campo de texto para escribir el nombre.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNombreFocusLost
         if (txtFieldNombre.getText().isEmpty()) {
             txtFieldNombre.setText("Nombre ejercicio...");
         }
     }//GEN-LAST:event_txtFieldNombreFocusLost
 
+    /**
+     * Activa el foco en el campo de texto para escribir la descripción.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDescripcionFocusGained
         if (txtFieldDescripcion.getText().equals("Añade una descripcion...")) {
             txtFieldDescripcion.setText("");
         }
     }//GEN-LAST:event_txtFieldDescripcionFocusGained
 
+    /**
+     * Desactiva el foco en el campo de texto para escribir la descripción.
+     * 
+     * @param evt Evento de acción activa la ejecución del método.
+     */
     private void txtFieldDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDescripcionFocusLost
         if (txtFieldDescripcion.getText().isEmpty()) {
             txtFieldDescripcion.setText("Añade una descripcion...");

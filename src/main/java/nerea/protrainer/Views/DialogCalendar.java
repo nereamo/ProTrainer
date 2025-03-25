@@ -5,11 +5,19 @@ import nerea.componentcalendar.CalendarEventListener;
 import nerea.componentcalendar.WorkoutCalendarEvent;
 
 /**
- *
+ * Clase DialogCalendar muestra un calendario con los dias marcados si hay un workout {@code DialogCalendar}.
+ * La clase extiende {@code javax.swing.JDialog}, permite que esta clase sea un diálogo modal.
+ * 
  * @author Nerea
  */
 public class DialogCalendar extends javax.swing.JDialog {
-
+    
+    /**
+     * Constructor que inicializa el componente del calendario.
+     * 
+     * @param parent JFrame principal (ventana padre) del JDiálog.
+     * @param modal Si es {@code true}, el foco se mantiene en el JDiálog hasta que se cierra.
+     */
     public DialogCalendar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
